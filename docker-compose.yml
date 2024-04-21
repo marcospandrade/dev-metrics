@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nats: 
+    image: nats
+    hostname: nats
+    container_name: nats
+    ports:
+      - 4222:4222
+      - 8222:8222
+    volumes:
+      - ./nats.conf:/nats-server.conf
+    networks:
+        - api
+    command: [ "--config", "/nats-server.conf", "-D", "-m", "8222" ]
+
+  postgres:
+    image: postgres
+    restart: always
+    container_name: ${DB_CONTAINER_NAME}
+    hostname: ${DB_CONTAINER_NAME}
+    environment:
+        PGDATABASE: $DB_NAME
+        PGUSER: $DB_USER
+        PGPASSWORD: $DB_PASSWORD
+        PGPORT: $DB_PORT
+        POSTGRES_PASSWORD: $DB_PASSWORD
+        POSTGRES_USER: $DB_USER
+        POSTGRES_DB: $DB_NAME
+    ports:
+        - $DB_PORT:$DB_PORT
+    volumes:
+        - postgres:/var/folders/postgres:/data/postgres
+        - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./server/.env
+    networks:
+      - api
+
+  dev-metrics-server:
+    image: dev-metrics-server
+    container_name: ${APP_NAME}
+    hostname: ${APP_NAME}
+    build: ./server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server/src:/usr/src/app/src
+      - dev-metrics-server-modules:/usr/src/app/node_modules
+    command: npm run start:dev
+    environment:
+      - PORT=${APP_PORT}
+    env_file:
+      - ./server/.env
+    networks:
+      - api
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
+  postgres_data:
+  dev-metrics-server-modules:
+    
+networks:
+  api:
+    name: vendors_api
+    driver: bridge
