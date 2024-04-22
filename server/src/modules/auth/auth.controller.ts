@@ -1,6 +1,6 @@
 import { Controller, Post, Body, UseGuards, Get, Request, HttpCode, HttpStatus } from '@nestjs/common';
 
-import { IAuth } from './dto/login.dto';
+import { LoginDto } from './dto/login.dto';
 import { AuthUseCase } from './use-cases/auth.use-cases';
 import { RequestUser } from '@shared/helpers/generic.helpers';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
@@ -14,7 +14,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    public login(@Body() body: IAuth) {
+    public login(@Body() body: LoginDto) {
         return this.authUseCase.login(body);
     }
 

@@ -48,7 +48,7 @@ export class EventStacksCreateHandler implements ICommandHandler<EventStacksCrea
 
                 this.eventBus.publish(SchemaValidator.toInstance(eventStack, EventStacksCreatedEvent));
             })
-            .catch((e) => {
+            .catch(e => {
                 this.logger.error(`Error updating event stack cache: ${e}`);
             });
 

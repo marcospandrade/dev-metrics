@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { IntersectionType } from '@nestjs/mapped-types';
+
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 import { OrderModule } from './modules/order/order.module';
 import { EventModule } from './modules/event/event.module';
-import { IntersectionType } from '@nestjs/mapped-types';
 import { BaseAppConfig, ConfigModule } from '@core/config/config.module';
 import { LoggerModule } from '@core/logger/logger.module';
 import { CoreModule } from '@core/core.module';
@@ -14,6 +15,7 @@ import { OrmConfig } from '@core/config/sources/database.config';
 import { DatabaseModule } from '@core/database/database.module';
 import { VendorModule } from './modules/vendor/vendor.module';
 import { CqrsErrorHandlerModule } from '@modules/cqrs-error-handler/cqrs-error-handler.module';
+import { AuthModule } from '@modules/auth/auth.module';
 
 dotenv.config({
     debug: true,
@@ -28,6 +30,7 @@ export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) 
         ConfigModule.registerAsync({ AppConfig: ServerAppConfig }),
         LoggerModule.register(),
         CoreModule.register(),
+        AuthModule,
         DatabaseModule,
         CqrsErrorHandlerModule,
         EventStacksModule,

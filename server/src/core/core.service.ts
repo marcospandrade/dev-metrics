@@ -94,7 +94,7 @@ export class CoreService {
             app.setGlobalPrefix(prefix, prefixOptions);
         }
 
-        app.enableVersioning(options.versioningOptions);
+        // app.enableVersioning(options.versioningOptions);
 
         // Apply middlewares
         if (options.middlewares) {

@@ -17,7 +17,7 @@ export class QueuePublishEventHandler implements ICommandHandler<QueuePublishEve
     @ValidateSchema(QueuePublishEventCommand)
     async execute(command: QueuePublishEventCommand) {
         const { eventStacksName, entityId, eventKey } = command;
-        this.logger.info(command, "QUEUE PUBLISH COMMAND")
+        this.logger.info(command, 'QUEUE PUBLISH COMMAND');
 
         this.logger.info(`Publishing message to queue for ${entityId}`);
 

@@ -57,11 +57,11 @@ export class UnhandledExceptionFilter implements ExceptionFilter {
                 }
             }
             if (errorObj.children && errorObj.children.length > 0) {
-                errorObj.children.forEach((child) => traverseError(child, `${path}${errorObj.property}.`));
+                errorObj.children.forEach(child => traverseError(child, `${path}${errorObj.property}.`));
             }
         }
 
-        errors.forEach((error) => traverseError(error));
+        errors.forEach(error => traverseError(error));
         return errorMessage.trim(); // Trim any leading or trailing whitespace
     }
 

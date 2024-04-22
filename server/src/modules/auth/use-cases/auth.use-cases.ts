@@ -1,33 +1,30 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 
-import { z } from 'zod';
-
-import { IAuth, ICreateUserDTO } from '../dto/login.dto';
+import { ICreateUserDTO, LoginDto } from '../dto/login.dto';
 import { AuthFactoryService } from './auth-factory.service';
 import { AtlassianFactoryService } from '@lib/atlassian/services/atlassian-factory.service';
 import { AtlassianHelper } from '@lib/atlassian/helpers/atlassian.helper';
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
 import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
 import { ProjectDto } from '../dto/project.dto';
+import { LoggerService } from '@core/logger/logger.service';
 
 @Injectable()
 export class AuthUseCase {
-    private readonly logger = new Logger(AuthUseCase.name);
     public constructor(
+        private readonly commandBus: CommandBus,
         private readonly authFactoryService: AuthFactoryService,
         private readonly _atlassianUseCases: AtlassianUseCases,
         private readonly atlassianService: AtlassianFactoryService,
+        private readonly logger: LoggerService,
     ) {}
 
-    public async login(registerDto: IAuth) {
-        const bodySchema = z.object({
-            code: z.string(),
-            state: z.string().uuid(),
-        });
-
-        const { code, state } = bodySchema.parse(registerDto);
+    public async login(registerDto: LoginDto) {
+        const { code, state } = registerDto;
 
         const { userInfo, exchangedCode } = await this._atlassianUseCases.exchangeCodeAndUserInformation(code);
+        this.logger.info(userInfo, 'User info exchanged: ');
 
         const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
 
@@ -36,6 +33,8 @@ export class AuthUseCase {
         }
 
         const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
+
+        this.logger.info({ accessibleResources }, 'Got accessible resources');
 
         const accessTokenEstimai = await this.authFactoryService.generateJwtToken(
             state,
@@ -56,6 +55,8 @@ export class AuthUseCase {
             jobTitle: userInfo.extended_profile.job_title,
             project: this.mountProjectDto(accessibleResources),
         };
+
+        this.logger.info({ createUser }, 'Create user');
 
         const userCreated = await this.authFactoryService.createUser(createUser);
 

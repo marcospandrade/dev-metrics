@@ -14,7 +14,7 @@ export class OrderSaga {
         return $.pipe(
             ofType(UpdatedOrderEvent),
             // filter((ev) => !!ev.orderId && ev.eventName === 'order-created'),
-            map((ev) => SchemaValidator.toInstance(ev as any, UpdateOrderCommand)),
+            map(ev => SchemaValidator.toInstance(ev as any, UpdateOrderCommand)),
         );
     }
 
@@ -22,7 +22,7 @@ export class OrderSaga {
     receivedEventsFromQueue($: Observable<any>) {
         return $.pipe(
             ofType(QueueIncomingMessageEvent),
-            map((ev) => SchemaValidator.toInstance(ev, UpdateOrderCommand)),
+            map(ev => SchemaValidator.toInstance(ev, UpdateOrderCommand)),
         );
     }
 }

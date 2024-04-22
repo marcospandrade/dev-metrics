@@ -18,7 +18,7 @@ export class EventStacksSaga {
         return $.pipe(
             ofType(EventStacksCreatedEvent),
             // filter(ev => !!ev.order && ev.eventName === 'order-created'),
-            map((ev) =>
+            map(ev =>
                 SchemaValidator.toInstance(
                     {
                         eventStackId: ev.id,
@@ -37,7 +37,7 @@ export class EventStacksSaga {
     createEventStacks($: Observable<any>) {
         return $.pipe(
             ofType(CreateEventStackEvent),
-            map((ev) => SchemaValidator.toInstance(ev, EventStacksCreateCommand)),
+            map(ev => SchemaValidator.toInstance(ev, EventStacksCreateCommand)),
         );
     }
 
@@ -45,7 +45,7 @@ export class EventStacksSaga {
     updateEventStacks($: Observable<any>) {
         return $.pipe(
             ofType(UpdateEventStackEvent),
-            map((ev) => SchemaValidator.toInstance(ev, EventStacksUpdateCommand)),
+            map(ev => SchemaValidator.toInstance(ev, EventStacksUpdateCommand)),
         );
     }
 }

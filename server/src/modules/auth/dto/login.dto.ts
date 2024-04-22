@@ -1,7 +1,20 @@
+import { IsString } from 'class-validator';
 import { Project } from '../../project/entities/project.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface IAuth {
+export class LoginDto {
+    @ApiProperty({
+        type: String,
+        description: 'code',
+    })
+    @IsString()
     code: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'state',
+    })
+    @IsString()
     state: string;
 }
 

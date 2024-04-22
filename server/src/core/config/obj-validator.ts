@@ -34,7 +34,7 @@ export class ObjValidator {
 
         if (errors.length > 0) {
             throw new Error(
-                'process.env validation failed: ' + '\n' + errors.map((e) => JSON.stringify(e.constraints)).join('\n'),
+                'process.env validation failed: ' + '\n' + errors.map(e => JSON.stringify(e.constraints)).join('\n'),
             );
         }
 

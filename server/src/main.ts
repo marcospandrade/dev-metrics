@@ -1,4 +1,4 @@
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
 
 import { AppModule } from './app.module';
@@ -13,10 +13,11 @@ CoreService.bootstrap({
         },
     },
 
-    versioningOptions: {
-        type: VersioningType.URI,
-        defaultVersion: '0',
-    },
+    //TODO: need some validation about how this versioning options works
+    // versioningOptions: {
+    //     type: VersioningType.URI,
+    //     defaultVersion: '0',
+    // },
 
     appModule: AppModule,
     appOptions: {

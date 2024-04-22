@@ -22,7 +22,7 @@ export class OrderService {
         const skip = (+page - 1) * +pageSize;
         const take = +pageSize;
 
-        if (text) where.name = Raw((alias) => `${alias} ~* :pattern`, { pattern: text });
+        if (text) where.name = Raw(alias => `${alias} ~* :pattern`, { pattern: text });
 
         const query: FindManyOptions<Order> = {
             skip,

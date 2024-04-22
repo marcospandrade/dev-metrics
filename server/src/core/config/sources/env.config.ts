@@ -30,4 +30,8 @@ export class BaseEnvConfig extends IntersectionType(BuildConfig) {
     @IsNotEmpty()
     @IsString()
     JWT_KEY!: string;
+
+    @IsNotEmpty()
+    @IsString()
+    JWT_EXPIRES!: string;
 }

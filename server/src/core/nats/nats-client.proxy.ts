@@ -111,11 +111,11 @@ export class CustomClientNats extends ClientNats {
 
     public createKeyValueStore$(name: string, opts: Partial<KvOptions>) {
         return from(this.jetstream()).pipe(
-            switchMap((js) => js.views.kv(name, opts)),
-            switchMap(async (kvStore) => {
+            switchMap(js => js.views.kv(name, opts)),
+            switchMap(async kvStore => {
                 const watch = await kvStore.watch();
 
-                return new Observable((observer) => {
+                return new Observable(observer => {
                     observer.next({ kvStore, entryUpdate: null });
 
                     (async () => {
@@ -138,9 +138,9 @@ export class CustomClientNats extends ClientNats {
                 });
             }),
 
-            concatMap(($) => $),
+            concatMap($ => $),
 
-            map((kv) => kv as { kvStore: KV; entryUpdate: KvEntry | null }),
+            map(kv => kv as { kvStore: KV; entryUpdate: KvEntry | null }),
         );
     }
 

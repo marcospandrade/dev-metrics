@@ -35,6 +35,6 @@ export class Vendor extends Base {
     @Column({ unique: true })
     key: string;
 
-    @OneToMany(() => Order, (order) => order.vendor)
+    @OneToMany(() => Order, order => order.vendor)
     order: Order;
 }

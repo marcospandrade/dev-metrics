@@ -16,7 +16,7 @@ export class EventService {
     ) {}
 
     listen$(): Observable<MessageEvent> {
-        return fromEvent(this.eventEmitter, 'server.events').pipe(map((values) => values as MessageEvent));
+        return fromEvent(this.eventEmitter, 'server.events').pipe(map(values => values as MessageEvent));
     }
 
     publish(event: ServerEmitterType, message: ServerSentEvent): void {
@@ -25,7 +25,7 @@ export class EventService {
 
     listenInternal$() {
         return merge(this.commandBus, this.eventBus).pipe(
-            map((ev) => {
+            map(ev => {
                 return JSON.stringify(
                     ev && typeof ev === 'object' && { ...ev, internalEventName: ev.constructor.name },
                 );

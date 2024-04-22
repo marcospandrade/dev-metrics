@@ -129,7 +129,7 @@ export class MigrationFactory {
         }
 
         const migrations = await this.loadMigrations();
-        const migrationToRunDown = migrations.filter((migration) => {
+        const migrationToRunDown = migrations.filter(migration => {
             return migration.migrated;
         });
 
@@ -170,7 +170,7 @@ export class MigrationFactory {
      */
     private async findMigrationByTimestamp(timestamp: string) {
         const migrations = await this.loadMigrations();
-        const migration = migrations.find((m) => m.name.includes(timestamp));
+        const migration = migrations.find(m => m.name.includes(timestamp));
 
         if (!migration) {
             throw new UnprocessableEntityException('Migration not found');
@@ -273,12 +273,12 @@ export class MigrationFactory {
             // valid (e.g. implement a DatabaseMigration interface and check if the class implements it)
             const migrationPath = path.resolve(__dirname, '..', 'migrations', `${migrationName}`);
             const DatabaseMigrationConstructable = await import(migrationPath).then(
-                (m) => m.default as MigrationConstructable,
+                m => m.default as MigrationConstructable,
             );
 
             const databaseMigration = new DatabaseMigrationConstructable();
 
-            const ranMigration = ranMigrations.find((ranMigration) => {
+            const ranMigration = ranMigrations.find(ranMigration => {
                 return ranMigration.name === databaseMigration.constructor.name;
             });
 
@@ -307,10 +307,10 @@ export class MigrationFactory {
         const migrations = await readdir(migrationsFolderPath);
 
         return migrations
-            .filter((migrationName) => {
+            .filter(migrationName => {
                 return migrationName.endsWith('.js');
             })
-            .map((migrationName) => {
+            .map(migrationName => {
                 return migrationName.replace('.js', '');
             });
     }
@@ -321,7 +321,7 @@ export class MigrationFactory {
     private async getPedingMigrations() {
         const migrations = await this.loadMigrations();
 
-        return migrations.filter((migration) => {
+        return migrations.filter(migration => {
             return !migration.migrated;
         });
     }

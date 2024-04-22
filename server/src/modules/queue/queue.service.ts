@@ -138,11 +138,11 @@ export class QueueService {
                 consumerName,
             ),
         ).pipe(
-            switchMap(async (consumer) => {
+            switchMap(async consumer => {
                 // consumer is an AsyncIterable, so here we are converting it to an Observable
                 const messages = await consumer.consume();
 
-                return new Observable((observer) => {
+                return new Observable(observer => {
                     (async () => {
                         for await (const m of messages) {
                             this.logger.debug('Received message from Jetstream consumer');
@@ -158,11 +158,11 @@ export class QueueService {
             }),
 
             // subscribe to the observable returned by the previous switchMap
-            concatMap(($) => $),
+            concatMap($ => $),
 
-            map((v) => v as JsMsgImpl),
+            map(v => v as JsMsgImpl),
 
-            switchMap(async (msg) => {
+            switchMap(async msg => {
                 const pattern = msg.subject;
 
                 this.logger.info({
@@ -217,7 +217,7 @@ export class QueueService {
                 return msg;
             }),
 
-            tap((msg) => {
+            tap(msg => {
                 if (msg) {
                     // done processing, ack the message
                     this.logger.info('Message processed!');

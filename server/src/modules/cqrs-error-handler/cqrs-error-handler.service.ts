@@ -23,7 +23,7 @@ export class CqrsErrorHandlerService {
     handle() {
         this.exceptionBus
             .pipe(
-                tap(async (exception) => {
+                tap(async exception => {
                     const error = exception.exception;
 
                     if (error) {
