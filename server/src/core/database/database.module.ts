@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 
-import { OrchestratorAppConfig } from '../../app.module';
+import { ServerAppConfig } from '../../app.module';
 import { MigrationController } from './migration.controller';
 import { MigrationsService } from './use-case/migrations.service';
 import { MigrationFactory } from './use-case/migration.factory';
@@ -12,7 +12,7 @@ import { DataSource } from 'typeorm';
     imports: [
         TypeOrmModule.forRootAsync({
             dataSourceFactory: (dataSource: any) => new DataSource(dataSource).initialize(),
-            useFactory: async (configService: ConfigService<OrchestratorAppConfig>) => {
+            useFactory: async (configService: ConfigService<ServerAppConfig>) => {
                 const host = configService.get('DB_HOST');
                 const port = configService.get('DB_PORT');
                 const username = configService.get('DB_USER');

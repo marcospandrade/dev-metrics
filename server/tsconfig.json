@@ -20,6 +20,8 @@
         "paths": {
             "@core/*": ["./src/core/*"],
             "@modules/*": ["./src/modules/*"],
+            "@lib/*": ["./src/lib/*"],
+            "@shared/*": ["./src/shared/*"]
         },
 
         "esModuleInterop": true,

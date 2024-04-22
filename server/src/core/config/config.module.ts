@@ -13,6 +13,7 @@ import { BaseAwsConfig } from './sources/aws.config';
 import { BaseCustomConfig } from './sources/custom.config';
 import { BaseEnvConfig } from './sources/env.config';
 import { BaseNatsConfig } from './sources/nats.config';
+import { AtlassianConfig } from './sources/atlassian.config';
 
 /**
  * BaseAppConfig covers all the config values for modules which are required for all apps
@@ -32,6 +33,7 @@ export class BaseAppConfig extends IntersectionType(
     BaseLoggerConfig,
     BaseAwsConfig,
     BaseNatsConfig,
+    AtlassianConfig,
 ) {}
 
 interface ConfigOptions {

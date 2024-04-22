@@ -16,9 +16,7 @@ down:
 clean: down prune
 
 prune:
-	docker rmi orchestrator-server -f \
-	docker rmi microservice1-server -f \
-	docker rmi microservice2-server -f \
+	docker rmi dev-metrics-server -f \
 
 local:
 	docker compose --env-file ./server/.env up -d postgres nats --remove-orphans;

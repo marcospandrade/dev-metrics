@@ -11,7 +11,7 @@ import { CustomClientNats, KV, NatsError } from '@core/nats/nats-client.proxy';
 import { QUEUE_REQUEST_TOPIC } from './constants/event-handler-topics';
 import { QueueRequestOptions } from './types/queue-request-options';
 import { ConfigService } from '@nestjs/config';
-import { OrchestratorAppConfig } from 'src/app.module';
+import { ServerAppConfig } from 'src/app.module';
 import { QueueIncomingMessageEvent } from './events/queue-incoming-message.event';
 import { SchemaValidator } from '@core/utils';
 
@@ -28,7 +28,7 @@ export class QueueService {
         private readonly client: CustomClientNats,
         private readonly eventsBus: EventBus,
         private readonly logger: LoggerService,
-        private readonly configService: ConfigService<OrchestratorAppConfig>,
+        private readonly configService: ConfigService<ServerAppConfig>,
     ) {}
 
     async onApplicationBootstrap() {

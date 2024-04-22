@@ -26,4 +26,8 @@ export class BaseEnvConfig extends IntersectionType(BuildConfig) {
     @IsNotEmpty()
     @IsString()
     URL_FRONT!: string;
+
+    @IsNotEmpty()
+    @IsString()
+    JWT_KEY!: string;
 }

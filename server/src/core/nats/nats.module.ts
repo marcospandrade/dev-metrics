@@ -3,7 +3,7 @@ import { NatsOptions } from '@nestjs/microservices';
 
 import { CustomClientNats } from './nats-client.proxy';
 import { ConfigService } from '@nestjs/config';
-import { OrchestratorAppConfig } from 'src/app.module';
+import { ServerAppConfig } from 'src/app.module';
 import { BaseNatsConfig } from '@core/config/sources/nats.config';
 
 type NatsConfig = NatsOptions['options'];
@@ -22,7 +22,7 @@ export class NatsModule {
     private static provideNatsClient(config?: NatsConfig): Provider {
         return {
             provide: CustomClientNats,
-            useFactory: (configSvc: ConfigService<OrchestratorAppConfig>) => {
+            useFactory: (configSvc: ConfigService<ServerAppConfig>) => {
                 return new CustomClientNats(BaseNatsConfig.getNatsClientConfig(config));
             },
             inject: [ConfigService],

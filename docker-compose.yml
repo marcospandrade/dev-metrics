@@ -43,7 +43,7 @@ services:
     hostname: ${APP_NAME}
     build: ./server
     ports:
-      - 3000:3000
+      - 8080:8080
     volumes:
       - ./server/src:/usr/src/app/src
       - dev-metrics-server-modules:/usr/src/app/node_modules

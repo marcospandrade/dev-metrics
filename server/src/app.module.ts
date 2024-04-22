@@ -21,11 +21,11 @@ dotenv.config({
     path: path.resolve(process.cwd(), '.env'),
 });
 
-export class OrchestratorAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) {}
+export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) {}
 
 @Module({
     imports: [
-        ConfigModule.registerAsync({ AppConfig: OrchestratorAppConfig }),
+        ConfigModule.registerAsync({ AppConfig: ServerAppConfig }),
         LoggerModule.register(),
         CoreModule.register(),
         DatabaseModule,

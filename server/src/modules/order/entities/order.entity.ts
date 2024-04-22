@@ -44,7 +44,7 @@ export class Order extends Base {
     @Column()
     vendorId: string;
 
-    @ManyToOne(() => Vendor, (vendor) => vendor.order)
+    @ManyToOne(() => Vendor, vendor => vendor.order)
     @JoinColumn({ name: 'vendorId' })
     vendor: Vendor;
 }
