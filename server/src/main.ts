@@ -12,24 +12,30 @@ CoreService.bootstrap({
             exclude: ['health-check', 'version'],
         },
     },
+
+    versioningOptions: {
+        type: VersioningType.URI,
+        defaultVersion: '0',
+    },
+
     appModule: AppModule,
     appOptions: {
         bufferLogs: true,
     },
     middlewares: [helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' })],
     useNats: true,
-    // globalPipes: [
-    //     new ValidationPipe({
-    //         transform: true,
-    //         transformOptions: {
-    //             enableImplicitConversion: true,
-    //             exposeUnsetFields: false,
-    //         },
-    //         exceptionFactory(errors) {
-    //             return new ValidationFailedException({
-    //                 validationErrors: errors,
-    //             });
-    //         },
-    //     }),
-    // ],
+    globalPipes: [
+        new ValidationPipe({
+            transform: true,
+            transformOptions: {
+                enableImplicitConversion: true,
+                exposeUnsetFields: false,
+            },
+            exceptionFactory(errors) {
+                return new ValidationFailedException({
+                    validationErrors: errors,
+                });
+            },
+        }),
+    ],
 });

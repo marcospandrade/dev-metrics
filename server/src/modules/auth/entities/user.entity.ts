@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
 import { Project } from '@modules/project/entities/project.entity';
+import { Type } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class User extends Base {
@@ -84,10 +85,8 @@ export class User extends Base {
     @Column()
     cloudId: string;
 
-    @ApiProperty({
-        type: String,
-        description: 'projects',
-    })
+    @IsOptional()
+    @Type(() => Project)
     @OneToMany(() => Project, project => project.user)
-    projects: Project;
+    projects?: Project[];
 }

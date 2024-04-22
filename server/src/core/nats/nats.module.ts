@@ -22,7 +22,7 @@ export class NatsModule {
     private static provideNatsClient(config?: NatsConfig): Provider {
         return {
             provide: CustomClientNats,
-            useFactory: (configSvc: ConfigService<ServerAppConfig>) => {
+            useFactory: (_configSvc: ConfigService<ServerAppConfig>) => {
                 return new CustomClientNats(BaseNatsConfig.getNatsClientConfig(config));
             },
             inject: [ConfigService],

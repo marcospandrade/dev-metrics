@@ -16,7 +16,7 @@ const CommandHandlers = [QueuePublishEventHandler];
             removeListener: true,
             wildcard: true,
         }),
-        NatsModule.register({ name: 'Orchestrator', debug: true }),
+        NatsModule.register({ name: 'dev-metrics-server' }),
         CqrsModule,
     ],
     providers: [QueueService, ...CommandHandlers],

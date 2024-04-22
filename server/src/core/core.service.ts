@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GlobalPrefixOptions, INestApplication, NestApplicationOptions } from '@nestjs/common/interfaces';
+import {
+    GlobalPrefixOptions,
+    INestApplication,
+    NestApplicationOptions,
+    VersioningOptions,
+} from '@nestjs/common/interfaces';
 import { NestFactory } from '@nestjs/core';
 // import { Transport } from '@nestjs/microservices';
 import { Logger } from 'nestjs-pino';
@@ -7,6 +12,7 @@ import { Logger } from 'nestjs-pino';
 import { ObjValidator } from './config/obj-validator';
 import { BaseEnvConfig } from './config/sources/env.config';
 import { BaseNatsConfig } from './config/sources/nats.config';
+import { DocumentBuilder } from '@nestjs/swagger';
 
 export interface CoreModuleOptions {
     /**
@@ -47,6 +53,23 @@ export interface CoreModuleOptions {
     middlewares?: any[];
 
     /**
+     * @property configureDocumentBuilder - Function to configure the Swagger document builder.
+     * @example (documentBuilder) => documentBuilder.setTitle('Example').setVersion('1.0')
+     * @property path - Path where Swagger UI will be hosted.
+     * @example 'api/docs'
+     */
+    swaggerOptions?: {
+        configureDocumentBuilder: (documentBuilder: DocumentBuilder) => DocumentBuilder;
+        path: string;
+    };
+
+    /**
+     * @property versioningOptions - Optional versioning options.
+     * @example { type: VersioningType.URI, defaultVersion: '0' }
+     */
+    versioningOptions?: VersioningOptions;
+
+    /**
      * @property useNats - Enable/disable Nats microservice. If you import the NatsModule you need this.
      */
     useNats: boolean;
@@ -70,6 +93,8 @@ export class CoreService {
             const { prefix, prefixOptions } = options.globalPrefix;
             app.setGlobalPrefix(prefix, prefixOptions);
         }
+
+        app.enableVersioning(options.versioningOptions);
 
         // Apply middlewares
         if (options.middlewares) {
