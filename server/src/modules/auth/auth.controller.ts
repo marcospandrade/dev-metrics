@@ -7,6 +7,7 @@ import { CurrentUser } from '@core/decorators/current-user.decorator';
 
 import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
 import { JwtAuthGuard } from './strategies/jwt-bearer/jwt-auth.guard';
+import { ResponseMessage } from '@core/decorators/response-message';
 
 @Controller('auth')
 export class AuthController {
@@ -14,6 +15,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('login')
+    @ResponseMessage('login successfully')
     public login(@Body() body: LoginDto) {
         return this.authUseCase.login(body);
     }

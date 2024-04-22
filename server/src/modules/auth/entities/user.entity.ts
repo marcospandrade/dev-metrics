@@ -68,22 +68,19 @@ export class User extends Base {
         type: String,
         description: 'picture',
     })
+    @IsString()
+    @IsOptional()
     @Column()
-    picture: string;
+    picture?: string;
 
     @ApiProperty({
         type: String,
         description: 'jobTitle',
     })
+    @IsString()
+    @IsOptional()
     @Column()
-    jobTitle: string;
-
-    @ApiProperty({
-        type: String,
-        description: 'cloudId',
-    })
-    @Column()
-    cloudId: string;
+    jobTitle?: string;
 
     @IsOptional()
     @Type(() => Project)

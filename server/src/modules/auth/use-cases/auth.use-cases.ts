@@ -1,14 +1,16 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
-import { ICreateUserDTO, LoginDto } from '../dto/login.dto';
+import { LoginDto } from '../dto/login.dto';
 import { AuthFactoryService } from './auth-factory.service';
 import { AtlassianFactoryService } from '@lib/atlassian/services/atlassian-factory.service';
 import { AtlassianHelper } from '@lib/atlassian/helpers/atlassian.helper';
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
 import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
-import { ProjectDto } from '../dto/project.dto';
 import { LoggerService } from '@core/logger/logger.service';
+import { CreateProjectDto } from '@modules/project/dto/create-project.dto';
+import { SchemaValidator } from '@core/utils';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Injectable()
 export class AuthUseCase {
@@ -43,18 +45,21 @@ export class AuthUseCase {
             accessibleResources.id,
         );
 
-        const createUser: ICreateUserDTO = {
-            accessTokenEstimai,
-            accessTokenAtlassian: exchangedCode.access_token,
-            refreshToken: exchangedCode.refresh_token,
-            expiresAt: AtlassianHelper.calculateExpiresAt(exchangedCode.expires_in),
-            state,
-            name: userInfo.name,
-            email: userInfo.email,
-            picture: userInfo.picture,
-            jobTitle: userInfo.extended_profile.job_title,
-            project: this.mountProjectDto(accessibleResources),
-        };
+        const createUser = SchemaValidator.toInstance(
+            {
+                accessTokenEstimai,
+                accessTokenAtlassian: exchangedCode.access_token,
+                refreshToken: exchangedCode.refresh_token,
+                expiresAt: AtlassianHelper.calculateExpiresAt(exchangedCode.expires_in),
+                state,
+                name: userInfo.name,
+                email: userInfo.email,
+                picture: userInfo.picture,
+                jobTitle: userInfo.extended_profile.job_title,
+                project: this.mountProjectDto(accessibleResources),
+            },
+            CreateUserDto,
+        );
 
         this.logger.info({ createUser }, 'Create user');
 
@@ -75,12 +80,15 @@ export class AuthUseCase {
         return refreshedToken;
     }
 
-    private mountProjectDto(accessibleResources: IAccessibleResources): ProjectDto {
-        return {
-            name: accessibleResources.name,
-            url: accessibleResources.url,
-            jiraId: accessibleResources.id,
-            scopes: JSON.stringify(accessibleResources.scopes),
-        };
+    private mountProjectDto(accessibleResources: IAccessibleResources): CreateProjectDto {
+        return SchemaValidator.toInstance(
+            {
+                name: accessibleResources.name,
+                url: accessibleResources.url,
+                jiraId: accessibleResources.id,
+                scopes: accessibleResources.scopes,
+            },
+            CreateProjectDto,
+        );
     }
 }

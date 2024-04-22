@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-
-import { ICreateUserDTO } from '../dto/login.dto';
-import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
+
 import { Repository } from 'typeorm';
+
+import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
+import { User } from '../entities/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
 @Injectable()
 export class AuthFactoryService {
     private readonly logger = new Logger(AuthFactoryService.name);
@@ -27,8 +27,7 @@ export class AuthFactoryService {
         return user;
     }
 
-    public async createUser(payload: ICreateUserDTO): Promise<User> {
-        // const { project, ...rest } = payload;
+    public async createUser(payload: CreateUserDto): Promise<User> {
         const user = await this.userRepository.insert(payload);
 
         if (!user) {
