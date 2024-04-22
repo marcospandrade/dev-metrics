@@ -1,15 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { TestBed } from '@automock/jest';
+
 import { EventController } from './event.controller';
 
 describe('EventController', () => {
     let controller: EventController;
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            controllers: [EventController],
-        }).compile();
-
-        controller = module.get<EventController>(EventController);
+    beforeAll(() => {
+        controller = TestBed.create(EventController).compile().unit;
     });
 
     it('should be defined', () => {

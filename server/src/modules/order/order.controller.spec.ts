@@ -1,15 +1,19 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { TestBed } from '@automock/jest';
+import { CommandBus } from '@nestjs/cqrs';
+
 import { OrderController } from './order.controller';
+import { OrderService } from './order.service';
 
 describe('OrderController', () => {
     let controller: OrderController;
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            controllers: [OrderController],
-        }).compile();
-
-        controller = module.get<OrderController>(OrderController);
+    beforeAll(async () => {
+        controller = TestBed.create(OrderController)
+            .mock(OrderService)
+            .using({})
+            .mock(CommandBus)
+            .using({})
+            .compile().unit;
     });
 
     it('should be defined', () => {

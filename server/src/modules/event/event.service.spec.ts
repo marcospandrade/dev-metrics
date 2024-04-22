@@ -1,15 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { TestBed } from '@automock/jest';
+
 import { EventService } from './event.service';
 
 describe('EventService', () => {
     let service: EventService;
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            providers: [EventService],
-        }).compile();
-
-        service = module.get<EventService>(EventService);
+    beforeAll(() => {
+        service = TestBed.create(EventService).compile().unit;
     });
 
     it('should be defined', () => {
