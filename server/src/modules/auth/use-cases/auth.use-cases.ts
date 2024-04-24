@@ -38,7 +38,7 @@ export class AuthUseCase {
 
         this.logger.info({ accessibleResources }, 'Got accessible resources');
 
-        const accessTokenEstimai = await this.authFactoryService.generateJwtToken(
+        const accessTokenEstimai = this.authFactoryService.generateJwtToken(
             state,
             userInfo,
             accessibleResources.url,

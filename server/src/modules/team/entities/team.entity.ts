@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
@@ -17,8 +17,16 @@ export class Team extends Base {
     @Column()
     teamName: string;
 
+    @ApiProperty({
+        type: String,
+        description: 'team name',
+    })
+    @Column({ nullable: false })
+    @IsUUID()
+    createdById: string;
+
     @OneToMany(() => Participant, participant => participant.team)
-    participants: Participant[];
+    participants?: Participant[];
 
     @ManyToOne(() => User, user => user.projects)
     createdBy?: User;

@@ -16,6 +16,7 @@ import { DatabaseModule } from '@core/database/database.module';
 import { VendorModule } from './modules/vendor/vendor.module';
 import { CqrsErrorHandlerModule } from '@modules/cqrs-error-handler/cqrs-error-handler.module';
 import { AuthModule } from '@modules/auth/auth.module';
+import { TeamModule } from './modules/team/team.module';
 
 dotenv.config({
     debug: true,
@@ -38,6 +39,7 @@ export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) 
         OrderModule,
         EventModule,
         VendorModule,
+        TeamModule,
     ],
 })
 export class AppModule {}

@@ -37,14 +37,14 @@ export class AuthFactoryService {
         return;
     }
 
-    public async generateJwtToken(
+    public generateJwtToken(
         state: string,
         userInfo: UserAtlassianInfo,
         urlAuthenticated: string,
         cloudId: string,
-    ): Promise<string> {
+    ): string {
         this.logger.log('Generating jwt tokens...');
-        // NOTE: Check later if it's necessary to add more information to the token, like (atlassian access token and refresh_token)
+
         const payload = {
             state: state,
             name: userInfo.name,

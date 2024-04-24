@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
@@ -16,20 +16,22 @@ export class Participant extends Base {
     @Column()
     name: string;
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         type: Number,
         description: 'capacity in story points',
     })
     @IsNumber()
-    @Column()
+    @IsOptional()
+    @Column({ nullable: true })
     capacity?: number;
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         type: String,
         description: 'role',
     })
     @IsString()
-    @Column()
+    @IsOptional()
+    @Column({ nullable: true })
     role?: string;
 
     @ApiProperty({
@@ -37,13 +39,20 @@ export class Participant extends Base {
         description: 'isActive',
     })
     @IsBoolean()
-    @Column()
+    @Column({ default: true })
     isActive: boolean;
 
     @ApiProperty({
         type: String,
         description: 'team id',
     })
+    @Column({ nullable: false })
+    teamId: string;
+
     @ManyToOne(() => Team, team => team.participants)
-    team: Team;
+    team?: Team;
+
+    setTeam(teamId: string) {
+        this.teamId = teamId;
+    }
 }
