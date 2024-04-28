@@ -7,6 +7,7 @@ import { CreateTeamDto } from '../dto/createTeam.dto';
 import { LoggerService } from '@core/logger/logger.service';
 import { AddTeamParticipantCommand } from '../commands/addTeamParticipants/add-team-participant.command';
 import { Participant } from '../entities/participant.entity';
+import { UpdateTeamCommand } from '../commands/updateTeam/update-team-command';
 
 @Injectable()
 export class TeamUseCases {
@@ -51,12 +52,20 @@ export class TeamUseCases {
     public async addParticipantToSpecificTeam(payload: AddTeamParticipantCommand) {
         const { participants, teamId } = payload;
         const insertParticipants = participants.map(participant => {
-            participant.setTeam(teamId);
+            participant.teamId = teamId;
             return this.participantRepository.create(participant);
         });
 
         this.logger.info(insertParticipants, 'Participants to be inserted: ');
 
-        return this.participantRepository.insert(insertParticipants);
+        return this.participantRepository.save(insertParticipants);
+    }
+
+    public async updateTeamById(payload: UpdateTeamCommand): Promise<Team> {
+        const { teamId, ...rest } = payload;
+        await this.teamRepository.update({ id: teamId }, rest);
+        this.logger.info(`Team: ${teamId} updated!`);
+
+        return this.findTeamById(teamId);
     }
 }

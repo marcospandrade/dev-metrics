@@ -11,10 +11,10 @@ export class AddTeamParticipantCommandHandler implements ICommandHandler<AddTeam
     ) {}
 
     public async execute(command: AddTeamParticipantCommand) {
-        const { identifiers } = await this.teamUseCases.addParticipantToSpecificTeam(command);
+        const participants = await this.teamUseCases.addParticipantToSpecificTeam(command);
 
-        this.logger.info({ participantIds: identifiers }, 'Participants added to specific team:');
+        this.logger.info({ participantIds: participants.map(p => p.id) }, 'Participants added to specific team:');
 
-        return identifiers;
+        return participants;
     }
 }

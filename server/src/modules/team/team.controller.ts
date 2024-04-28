@@ -5,6 +5,7 @@ import {
     Get,
     Param,
     Post,
+    Put,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
@@ -17,6 +18,8 @@ import { CommandBus } from '@nestjs/cqrs';
 import { SchemaValidator } from '@core/utils';
 import { CreateTeamCommand } from './commands/createTeam/create-team.command';
 import { Team } from './entities/team.entity';
+import { UpdateTeamDto } from './dto/updateTeam.dto';
+import { UpdateTeamCommand } from './commands/updateTeam/update-team-command';
 
 @Controller('team')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -39,13 +42,19 @@ export class TeamController {
 
     @Post()
     public createTeam(@Body() payload: CreateTeamDto, @CurrentUser() user: User) {
-        console.log('CONTROLLER', { ...payload, participantsTets: payload.participants });
         const commandPayload = {
             ...payload,
             userId: user.id,
         };
         return this.commandBus.execute<CreateTeamCommand, Team>(
             SchemaValidator.toInstance(commandPayload, CreateTeamCommand),
+        );
+    }
+
+    @Put('/:teamId')
+    public updateTeamById(@Body() payload: Omit<UpdateTeamDto, 'teamId'>, @Param('teamId') teamId: string) {
+        return this.commandBus.execute<UpdateTeamCommand, Team>(
+            SchemaValidator.toInstance({ ...payload, teamId }, UpdateTeamCommand),
         );
     }
 }

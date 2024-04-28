@@ -9,10 +9,17 @@ import { Team } from './entities/team.entity';
 import { Participant } from './entities/participant.entity';
 import { TeamSaga } from './saga/team.saga';
 import { AddTeamParticipantCommandHandler } from './commands/addTeamParticipants/add-team-participant.command-handler';
+import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.command-handler';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Team, Participant]), CqrsModule],
     controllers: [TeamController],
-    providers: [TeamUseCases, CreateTeamCommandHandler, AddTeamParticipantCommandHandler, TeamSaga],
+    providers: [
+        TeamUseCases,
+        CreateTeamCommandHandler,
+        AddTeamParticipantCommandHandler,
+        UpdateTeamCommandHandler,
+        TeamSaga,
+    ],
 })
 export class TeamModule {}

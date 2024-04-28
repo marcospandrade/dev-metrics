@@ -51,8 +51,4 @@ export class Participant extends Base {
 
     @ManyToOne(() => Team, team => team.participants)
     team?: Team;
-
-    setTeam(teamId: string) {
-        this.teamId = teamId;
-    }
 }
