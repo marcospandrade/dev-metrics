@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Team } from '../entities/team.entity';
 import { Repository } from 'typeorm';
@@ -37,8 +37,8 @@ export class TeamUseCases {
         return this.findTeamById(identifiers[0].id);
     }
 
-    public async findTeamById(id: string) {
-        return this.teamRepository.findOne({
+    public async findTeamById(id: string): Promise<Team> {
+        const team = await this.teamRepository.findOne({
             where: {
                 id,
             },
@@ -47,6 +47,12 @@ export class TeamUseCases {
                 participants: true,
             },
         });
+
+        if (!team) {
+            throw new NotFoundException('Team not found');
+        }
+
+        return team;
     }
 
     public async addParticipantToSpecificTeam(payload: AddTeamParticipantCommand) {
@@ -67,5 +73,9 @@ export class TeamUseCases {
         this.logger.info(`Team: ${teamId} updated!`);
 
         return this.findTeamById(teamId);
+    }
+
+    public async deleteTeamById(teamId: string) {
+        await this.teamRepository.softDelete({ id: teamId });
     }
 }

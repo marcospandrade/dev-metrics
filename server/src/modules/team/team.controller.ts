@@ -2,6 +2,7 @@ import {
     Body,
     ClassSerializerInterceptor,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -56,5 +57,10 @@ export class TeamController {
         return this.commandBus.execute<UpdateTeamCommand, Team>(
             SchemaValidator.toInstance({ ...payload, teamId }, UpdateTeamCommand),
         );
+    }
+
+    @Delete('/:teamId')
+    public deleteTeamById(@Param('teamId') teamId: string) {
+        return this.teamService.deleteTeamById(teamId);
     }
 }
