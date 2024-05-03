@@ -1,6 +1,6 @@
 import { OmitType } from '@nestjs/mapped-types';
 import { Participant } from '../entities/participant.entity';
-import { IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateParticipantDto extends OmitType(Participant, [
     'id',
@@ -16,8 +16,10 @@ export class CreateParticipantDto extends OmitType(Participant, [
     'reload',
 ]) {
     @IsOptional()
+    @IsNumber()
     capacity?: number;
 
     @IsOptional()
+    @IsString()
     role?: string;
 }

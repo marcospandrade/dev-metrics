@@ -21,6 +21,9 @@ import { CreateTeamCommand } from './commands/createTeam/create-team.command';
 import { Team } from './entities/team.entity';
 import { UpdateTeamDto } from './dto/updateTeam.dto';
 import { UpdateTeamCommand } from './commands/updateTeam/update-team-command';
+import { CreateParticipantDto } from './dto/createParticipant.dto';
+import { AddTeamParticipantCommand } from './commands/addTeamParticipants/add-team-participant.command';
+import { Participant } from './entities/participant.entity';
 
 @Controller('team')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -49,6 +52,13 @@ export class TeamController {
         };
         return this.commandBus.execute<CreateTeamCommand, Team>(
             SchemaValidator.toInstance(commandPayload, CreateTeamCommand),
+        );
+    }
+
+    @Post('/add-participant/:teamId')
+    public addParticipant(@Param('teamId') teamId: string, @Body() payload: CreateParticipantDto) {
+        return this.commandBus.execute<AddTeamParticipantCommand, Participant>(
+            SchemaValidator.toInstance({ teamId, participants: [payload] }, AddTeamParticipantCommand),
         );
     }
 
