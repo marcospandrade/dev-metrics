@@ -60,9 +60,15 @@ export class AuthUseCase {
             },
             CreateUserDto,
         );
-        this.commandBus.execute(SchemaValidator.toInstance(accessibleResources, CreateIntegrationProjectCommand));
 
         const userCreated = await this.authFactoryService.createUser(createUser);
+
+        this.commandBus.execute(
+            SchemaValidator.toInstance(
+                { ...accessibleResources, userId: userCreated.id },
+                CreateIntegrationProjectCommand,
+            ),
+        );
 
         this.logger.info({ userCreated: userCreated.id }, 'Create user');
 

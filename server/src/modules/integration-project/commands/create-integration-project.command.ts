@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsString, IsUUID } from 'class-validator';
 
 export class CreateIntegrationProjectCommand {
     @ApiProperty({
@@ -36,4 +36,12 @@ export class CreateIntegrationProjectCommand {
     })
     @IsString()
     avatarUrl?: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'user id ',
+    })
+    @IsString()
+    @IsUUID()
+    userId: string;
 }

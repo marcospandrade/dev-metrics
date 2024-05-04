@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, OneToMany } from 'typeorm';
@@ -64,7 +64,7 @@ export class User extends Base {
     @Column({ unique: true })
     email: string;
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         type: String,
         description: 'picture',
     })
@@ -73,7 +73,7 @@ export class User extends Base {
     @Column()
     picture?: string;
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         type: String,
         description: 'jobTitle',
     })

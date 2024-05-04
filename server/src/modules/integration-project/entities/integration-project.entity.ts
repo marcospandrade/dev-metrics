@@ -1,6 +1,6 @@
 import { Base } from '@core/database/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { User } from '../../auth/entities/user.entity';
 import { Transform, Type } from 'class-transformer';
@@ -30,6 +30,14 @@ export class IntegrationProject extends Base {
     @IsString()
     @Column()
     url: string;
+
+    @ApiProperty({
+        type: Boolean,
+        description: 'issues synced',
+    })
+    @IsBoolean()
+    @Column({ type: 'boolean', default: false })
+    isSynced: boolean;
 
     @ApiProperty({
         type: String,
