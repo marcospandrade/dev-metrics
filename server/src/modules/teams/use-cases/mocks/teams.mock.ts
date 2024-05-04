@@ -1,4 +1,4 @@
-import { Team } from '@modules/team/entities/team.entity';
+import { Team } from '@modules/teams/entities/team.entity';
 
 export const teamsList: Partial<Team>[] = [
     {

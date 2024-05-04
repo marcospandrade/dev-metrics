@@ -1,4 +1,4 @@
-import { CreateParticipantDto } from '@modules/team/dto/createParticipant.dto';
+import { CreateParticipantDto } from '@modules/teams/dto/createParticipant.dto';
 
 export const participant: CreateParticipantDto = {
     name: 'test',

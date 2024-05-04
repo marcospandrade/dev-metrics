@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AddTeamParticipantCommand } from './add-team-participant.command';
 import { LoggerService } from '@core/logger/logger.service';
-import { TeamUseCases } from '@modules/team/use-cases/team.use-cases';
+import { TeamUseCases } from '@modules/teams/use-cases/teams.use-cases';
 
 @CommandHandler(AddTeamParticipantCommand)
 export class AddTeamParticipantCommandHandler implements ICommandHandler<AddTeamParticipantCommand> {

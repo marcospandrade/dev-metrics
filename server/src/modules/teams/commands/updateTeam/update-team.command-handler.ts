@@ -1,9 +1,9 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateTeamCommand } from './update-team-command';
 import { LoggerService } from '@core/logger/logger.service';
-import { TeamUseCases } from '@modules/team/use-cases/team.use-cases';
+import { TeamUseCases } from '@modules/teams/use-cases/teams.use-cases';
 import { SchemaValidator } from '@core/utils';
-import { AddParticipantsToTeamEvent } from '@modules/team/events/add-participants-to-team.event';
+import { AddParticipantsToTeamEvent } from '@modules/teams/events/add-participants-to-team.event';
 
 @CommandHandler(UpdateTeamCommand)
 export class UpdateTeamCommandHandler implements ICommandHandler {

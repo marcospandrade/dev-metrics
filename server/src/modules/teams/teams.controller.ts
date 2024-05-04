@@ -10,7 +10,7 @@ import {
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { TeamUseCases } from './use-cases/team.use-cases';
+import { TeamUseCases } from './use-cases/teams.use-cases';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { User } from '@modules/auth/entities/user.entity';
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';

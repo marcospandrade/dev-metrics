@@ -1,6 +1,6 @@
 import { TestBed } from '@automock/jest';
 
-import { TeamUseCases } from './team.use-cases';
+import { TeamUseCases } from './teams.use-cases';
 import { Team } from '../entities/team.entity';
 
 describe('TeamUseCasesService', () => {

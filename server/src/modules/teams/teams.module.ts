@@ -3,11 +3,11 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Module } from '@nestjs/common';
 
 import { CreateTeamCommandHandler } from './commands/createTeam/create-team.command-handler';
-import { TeamUseCases } from './use-cases/team.use-cases';
-import { TeamController } from './team.controller';
+import { TeamUseCases } from './use-cases/teams.use-cases';
+import { TeamController } from './teams.controller';
 import { Team } from './entities/team.entity';
 import { Participant } from './entities/participant.entity';
-import { TeamSaga } from './saga/team.saga';
+import { TeamSaga } from './saga/teams.saga';
 import { AddTeamParticipantCommandHandler } from './commands/addTeamParticipants/add-team-participant.command-handler';
 import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.command-handler';
 
@@ -22,4 +22,4 @@ import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.comm
         TeamSaga,
     ],
 })
-export class TeamModule {}
+export class TeamsModule {}

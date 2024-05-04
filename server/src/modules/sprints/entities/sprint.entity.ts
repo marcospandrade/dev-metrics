@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsDate, IsString } from 'class-validator';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
 import { User } from '@modules/auth/entities/user.entity';
+import { Issue } from '@modules/issues/entities/issue.entity';
 
 @Entity({ name: 'sprints' })
 export class Sprint extends Base {
@@ -39,6 +40,9 @@ export class Sprint extends Base {
     @IsString()
     @Column()
     goals: string;
+
+    @OneToMany(() => Issue, issue => issue.id)
+    issuesList?: Issue[];
 
     @ManyToOne(() => User, user => user.projects)
     user?: User;

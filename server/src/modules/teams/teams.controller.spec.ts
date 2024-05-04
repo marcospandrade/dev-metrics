@@ -1,6 +1,6 @@
-import { TeamController } from './team.controller';
+import { TeamController } from './teams.controller';
 import { TestBed } from '@automock/jest';
-import { TeamUseCases } from './use-cases/team.use-cases';
+import { TeamUseCases } from './use-cases/teams.use-cases';
 import { User } from '@modules/auth/entities/user.entity';
 
 describe('TeamController', () => {
