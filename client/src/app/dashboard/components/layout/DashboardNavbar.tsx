@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navbar, Typography, Button, Avatar, Menu, MenuHandler, MenuList, MenuItem } from '@/lib/material'
 import { useAuth } from '@/hooks/useAuth'
 import { useModal } from '@/hooks/useModal'
-import { LoginHelper } from '@/app/login/helpers/login.helper'
+import { LoginHelper } from '@/helpers/login.helper'
 
 export function DashboardNavbar() {
   const { user, getUserDetails, handleLogout } = useAuth()

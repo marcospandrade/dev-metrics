@@ -2,12 +2,15 @@
 
 import React, { ReactElement, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { LoginHelper } from '@/helpers/login.helper'
+import Link from 'next/link'
 interface Props {
   transparent?: boolean
 }
 
 export function Navbar(props: Props): ReactElement {
   const [navbarOpen, setNavbarOpen] = useState(false)
+  const [url, setUrl] = useState(LoginHelper.getLoginUrl())
   const { push } = useRouter()
 
   function navigateToLogin() {
@@ -17,9 +20,7 @@ export function Navbar(props: Props): ReactElement {
   return (
     <nav
       className={
-        (props.transparent
-          ? 'absolute top-0 z-50 w-full'
-          : 'relative bg-indigo-700 shadow-lg') +
+        (props.transparent ? 'absolute top-0 z-50 w-full' : 'relative bg-indigo-700 shadow-lg') +
         ' flex flex-wrap items-center justify-between px-2 py-3 '
       }
     >
@@ -39,12 +40,7 @@ export function Navbar(props: Props): ReactElement {
             type="button"
             onClick={() => setNavbarOpen(!navbarOpen)}
           >
-            <i
-              className={
-                (props.transparent ? 'text-white' : 'text-gray-100') +
-                ' fas fa-bars'
-              }
-            ></i>
+            <i className={(props.transparent ? 'text-white' : 'text-gray-100') + ' fas fa-bars'}></i>
           </button>
         </div>
         <div
@@ -64,30 +60,26 @@ export function Navbar(props: Props): ReactElement {
                 target="_blank"
                 rel="noreferrer"
               >
-                <i
-                  className={
-                    'fab fa-github leading-lg text-lg text-gray-500 lg:text-white'
-                  }
-                />
+                <i className={'fab fa-github leading-lg text-lg text-gray-500 lg:text-white'} />
                 <span className="ml-2 inline-block lg:hidden">Star</span>
               </a>
             </li>
 
             <li className="flex items-center">
-              <button
-                className={
-                  (props.transparent
-                    ? 'bg-white text-gray-800 active:bg-gray-100'
-                    : 'bg-red-700 text-white active:bg-red-300') +
-                  ' mb-3 ml-3 rounded px-4 py-2 text-xs font-bold uppercase shadow outline-none hover:shadow-md focus:outline-none lg:mb-0 lg:mr-1'
-                }
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-                onClick={navigateToLogin}
-              >
-                Sign In
-                <i className="fa fa-sign-in ml-2" aria-hidden="true"></i>
-              </button>
+              <Link href={url}>
+                <button
+                  className={
+                    (props.transparent
+                      ? 'bg-white text-gray-800 active:bg-gray-100'
+                      : 'bg-red-700 text-white active:bg-red-300') +
+                    ' mb-3 ml-3 rounded px-4 py-2 text-xs font-bold uppercase shadow outline-none hover:shadow-md focus:outline-none lg:mb-0 lg:mr-1'
+                  }
+                  type="button"
+                  style={{ transition: 'all .15s ease' }}
+                >
+                  Sign In<i className="fa fa-sign-in ml-2" aria-hidden="true"></i>
+                </button>
+              </Link>
             </li>
           </ul>
         </div>

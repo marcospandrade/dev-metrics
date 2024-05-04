@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { LoginHelper } from './login/helpers/login.helper'
+import { LoginHelper } from '../helpers/login.helper'
 import { redirect } from 'next/navigation'
 
 const signInUrl = LoginHelper.getLoginUrl()
