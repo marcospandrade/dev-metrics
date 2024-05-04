@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { Project } from '../../project/entities/project.entity';
+import { IntegrationProject } from '../../integration-project/entities/integration-project.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginDto {
@@ -28,5 +28,5 @@ export interface ICreateUserDTO {
     email: string;
     picture?: string;
     jobTitle?: string;
-    project: Partial<Project>;
+    project: Partial<IntegrationProject>;
 }

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable unused-imports/no-unused-imports */
 import { ClassConstructor } from 'class-transformer';
 import { SchemaValidator } from '@core/utils';
 

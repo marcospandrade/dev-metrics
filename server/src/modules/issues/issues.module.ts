@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { IssuesService } from './issues.service';
+import { IssuesService } from './use-cases/issues.use-cases.service';
 import { IssuesController } from './issues.controller';
 
 @Module({

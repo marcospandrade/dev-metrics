@@ -5,8 +5,8 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 import { User } from '../../auth/entities/user.entity';
 import { Transform, Type } from 'class-transformer';
 
-@Entity({ name: 'projects' })
-export class Project extends Base {
+@Entity({ name: 'integration_projects' })
+export class IntegrationProject extends Base {
     @ApiProperty({
         type: String,
         description: 'jiraId',

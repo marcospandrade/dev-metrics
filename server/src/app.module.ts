@@ -14,10 +14,11 @@ import { EventStacksModule } from './modules/event-stacks/event-stacks.module';
 import { OrmConfig } from '@core/config/sources/database.config';
 import { DatabaseModule } from '@core/database/database.module';
 import { VendorModule } from './modules/vendor/vendor.module';
-import { CqrsErrorHandlerModule } from '@modules/cqrs-error-handler/cqrs-error-handler.module';
+import { CqrsErrorHandlerModule } from '@core/cqrs-error-handler/cqrs-error-handler.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { TeamsModule } from './modules/teams/teams.module';
 import { IssuesModule } from './modules/issues/issues.module';
+import { IntegrationProjectModule } from './modules/integration-project/integration-project.module';
 
 dotenv.config({
     debug: true,
@@ -42,6 +43,7 @@ export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) 
         VendorModule,
         TeamsModule,
         IssuesModule,
+        IntegrationProjectModule,
     ],
 })
 export class AppModule {}

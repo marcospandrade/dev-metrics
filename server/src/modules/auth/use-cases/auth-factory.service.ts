@@ -28,13 +28,13 @@ export class AuthFactoryService {
     }
 
     public async createUser(payload: CreateUserDto): Promise<User> {
-        const user = await this.userRepository.insert(payload);
+        const user = await this.userRepository.save(payload);
 
         if (!user) {
             throw new BadRequestException('User not created');
         }
 
-        return;
+        return user;
     }
 
     public generateJwtToken(

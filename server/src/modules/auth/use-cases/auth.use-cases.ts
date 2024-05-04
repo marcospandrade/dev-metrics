@@ -6,11 +6,12 @@ import { AuthFactoryService } from './auth-factory.service';
 import { AtlassianFactoryService } from '@lib/atlassian/services/atlassian-factory.service';
 import { AtlassianHelper } from '@lib/atlassian/helpers/atlassian.helper';
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
-import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
+
 import { LoggerService } from '@core/logger/logger.service';
-import { CreateProjectDto } from '@modules/project/dto/create-project.dto';
+
 import { SchemaValidator } from '@core/utils';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateIntegrationProjectCommand } from '@modules/integration-project/commands/create-integration-project.command';
 
 @Injectable()
 export class AuthUseCase {
@@ -26,7 +27,7 @@ export class AuthUseCase {
         const { code, state } = registerDto;
 
         const { userInfo, exchangedCode } = await this._atlassianUseCases.exchangeCodeAndUserInformation(code);
-        this.logger.info(userInfo, 'User info exchanged: ');
+        this.logger.info({ email: userInfo.email }, 'User info exchanged: ');
 
         const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
 
@@ -36,7 +37,7 @@ export class AuthUseCase {
 
         const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
 
-        this.logger.info({ accessibleResources }, 'Got accessible resources');
+        this.logger.info({ projectUrl: accessibleResources?.url }, 'Got accessible resources for the project: ');
 
         const accessTokenEstimai = this.authFactoryService.generateJwtToken(
             state,
@@ -56,14 +57,14 @@ export class AuthUseCase {
                 email: userInfo.email,
                 picture: userInfo.picture,
                 jobTitle: userInfo.extended_profile.job_title,
-                project: this.mountProjectDto(accessibleResources),
             },
             CreateUserDto,
         );
-
-        this.logger.info({ createUser }, 'Create user');
+        this.commandBus.execute(SchemaValidator.toInstance(accessibleResources, CreateIntegrationProjectCommand));
 
         const userCreated = await this.authFactoryService.createUser(createUser);
+
+        this.logger.info({ userCreated: userCreated.id }, 'Create user');
 
         return userCreated;
     }
@@ -78,17 +79,5 @@ export class AuthUseCase {
         const refreshedToken = await this.atlassianService.refreshToken(userEmail, user.refreshToken);
 
         return refreshedToken;
-    }
-
-    private mountProjectDto(accessibleResources: IAccessibleResources): CreateProjectDto {
-        return SchemaValidator.toInstance(
-            {
-                name: accessibleResources.name,
-                url: accessibleResources.url,
-                jiraId: accessibleResources.id,
-                scopes: accessibleResources.scopes,
-            },
-            CreateProjectDto,
-        );
     }
 }

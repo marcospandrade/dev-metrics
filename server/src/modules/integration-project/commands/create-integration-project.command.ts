@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 
-export class CreateProjectDto {
+export class CreateIntegrationProjectCommand {
     @ApiProperty({
         type: String,
         description: 'jiraId',
     })
     @IsString()
-    jiraId: string;
+    id: string;
 
     @ApiProperty({
         type: String,
@@ -32,8 +32,8 @@ export class CreateProjectDto {
 
     @ApiProperty({
         type: String,
-        description: 'scopes',
+        description: 'avatarUrl',
     })
-    @IsUUID()
-    userId?: string;
+    @IsString()
+    avatarUrl?: string;
 }

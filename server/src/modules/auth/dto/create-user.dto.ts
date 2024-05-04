@@ -1,6 +1,4 @@
-import { IsEmail, IsObject, IsOptional, IsString } from 'class-validator';
-
-import { CreateProjectDto } from '@modules/project/dto/create-project.dto';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
     @IsString()
@@ -32,7 +30,4 @@ export class CreateUserDto {
     @IsOptional()
     @IsString()
     jobTitle?: string;
-
-    @IsObject()
-    project: CreateProjectDto;
 }
