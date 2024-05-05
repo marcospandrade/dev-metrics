@@ -31,7 +31,7 @@ export class CreateIntegrationProjectDto {
 
     @ApiProperty({
         type: String,
-        description: 'scopes',
+        description: 'userId',
     })
     @IsUUID()
     userId?: string;

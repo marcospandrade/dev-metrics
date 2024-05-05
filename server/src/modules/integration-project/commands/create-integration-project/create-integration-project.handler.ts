@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateIntegrationProjectCommand } from './create-integration-project.command';
-import { IntegrationProjectUseCases } from '../use-cases/integration-project.use-cases.service';
-import { CreateIntegrationProjectDto } from '../dto/create-integration-project.dto';
+import { IntegrationProjectUseCases } from '../../use-cases/integration-project.use-cases.service';
+import { CreateIntegrationProjectDto } from '../../dto/create-integration-project.dto';
 import { SchemaValidator } from '@core/utils';
 import { LoggerService } from '@core/logger/logger.service';
 
@@ -26,6 +26,7 @@ export class CreateIntegrationProjectCommandHandler implements ICommandHandler<C
                 url: payload.url,
                 jiraId: payload.id,
                 scopes: JSON.stringify(payload.scopes),
+                userId: payload.userId,
             },
             CreateIntegrationProjectDto,
         );

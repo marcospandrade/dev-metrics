@@ -11,7 +11,7 @@ import { LoggerService } from '@core/logger/logger.service';
 
 import { SchemaValidator } from '@core/utils';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { CreateIntegrationProjectCommand } from '@modules/integration-project/commands/create-integration-project.command';
+import { CreateIntegrationProjectCommand } from '@modules/integration-project/commands/create-integration-project/create-integration-project.command';
 
 @Injectable()
 export class AuthUseCase {
@@ -27,17 +27,18 @@ export class AuthUseCase {
         const { code, state } = registerDto;
 
         const { userInfo, exchangedCode } = await this._atlassianUseCases.exchangeCodeAndUserInformation(code);
+
         this.logger.info({ email: userInfo.email }, 'User info exchanged: ');
 
         const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
+        const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
+
+        this.logger.info({ projectUrl: accessibleResources?.url }, 'Got accessible resources for the project: ');
+        this.authFactoryService.notifyProjectNewLogin(accessibleResources);
 
         if (userExists) {
             return userExists;
         }
-
-        const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
-
-        this.logger.info({ projectUrl: accessibleResources?.url }, 'Got accessible resources for the project: ');
 
         const accessTokenEstimai = this.authFactoryService.generateJwtToken(
             state,

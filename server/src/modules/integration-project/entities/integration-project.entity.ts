@@ -12,7 +12,7 @@ export class IntegrationProject extends Base {
         description: 'jiraId',
     })
     @IsString()
-    @Column()
+    @Column({ unique: true })
     jiraId: string;
 
     @ApiProperty({
@@ -28,7 +28,7 @@ export class IntegrationProject extends Base {
         description: 'url',
     })
     @IsString()
-    @Column()
+    @Column({ unique: true })
     url: string;
 
     @ApiProperty({
@@ -46,6 +46,14 @@ export class IntegrationProject extends Base {
     @Column()
     @Transform(scopes => JSON.stringify(scopes))
     scopes: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'userId',
+    })
+    @Column()
+    @IsString()
+    userId: string;
 
     @ManyToOne(() => User, user => user.projects)
     @Type(() => User)

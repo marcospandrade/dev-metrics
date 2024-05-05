@@ -1,28 +1,27 @@
-import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
 
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
+import { Repository } from 'typeorm';
 
 import {
     IExchangeCodeToAccessTokenAtlassian,
     IExchangeResponse,
     IRefreshTokenAtlassian,
 } from '../interfaces/config-atlassian.model';
-
 import { UserAtlassianInfo } from '../interfaces/user-info.model';
 import { IAccessibleResources } from '../interfaces/accessible-resources.model';
 import { ServerAppConfig } from '../../../app.module';
-import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '@modules/auth/entities/user.entity';
-import { Repository } from 'typeorm';
+import { LoggerService } from '@core/logger/logger.service';
 
 @Injectable()
 export class AtlassianFactoryService {
-    private readonly logger = new Logger(AtlassianFactoryService.name);
-
     public constructor(
+        private readonly logger: LoggerService,
         @InjectRepository(User) private readonly userRepository: Repository<User>,
         private readonly configService: ConfigService<ServerAppConfig>,
         private readonly httpService: HttpService,
@@ -94,7 +93,7 @@ export class AtlassianFactoryService {
     }
 
     public async getAccessibleResources(accessToken: string) {
-        this.logger.log('Getting accessible resources...');
+        this.logger.info('Getting accessible resources...');
         const { data } = await firstValueFrom(
             this.httpService
                 .get<IAccessibleResources[]>('https://api.atlassian.com/oauth/token/accessible-resources', {

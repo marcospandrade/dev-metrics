@@ -1,20 +1,25 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EventBus } from '@nestjs/cqrs';
 
 import { Repository } from 'typeorm';
 
 import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
+import { NotifyProjectLoginEvent } from '@modules/integration-project/events/notify-project-login.event';
+import { LoggerService } from '@core/logger/logger.service';
 @Injectable()
 export class AuthFactoryService {
-    private readonly logger = new Logger(AuthFactoryService.name);
     public constructor(
+        private readonly logger: LoggerService,
         @InjectRepository(User) private readonly userRepository: Repository<User>,
         private readonly jwtService: JwtService,
         private configService: ConfigService,
+        private eventBus: EventBus,
     ) {}
 
     public async checkUserExists(email: string): Promise<User | null> {
@@ -43,7 +48,7 @@ export class AuthFactoryService {
         urlAuthenticated: string,
         cloudId: string,
     ): string {
-        this.logger.log('Generating jwt tokens...');
+        this.logger.info('Generating jwt tokens...');
 
         const payload = {
             state: state,
@@ -56,5 +61,13 @@ export class AuthFactoryService {
         };
 
         return this.jwtService.sign(payload, { secret: this.configService.get('JWT_KEY') });
+    }
+
+    public notifyProjectNewLogin(projectData: IAccessibleResources): void {
+        this.logger.info({ projectUrl: projectData.url }, 'Publish event NotifyProjectLoginEvent: ');
+        this.eventBus.publish<NotifyProjectLoginEvent>(
+            { projectId: projectData.id, url: projectData.url },
+            NotifyProjectLoginEvent,
+        );
     }
 }

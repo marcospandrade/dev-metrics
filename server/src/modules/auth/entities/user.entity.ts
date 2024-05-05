@@ -84,6 +84,6 @@ export class User extends Base {
 
     @IsOptional()
     @Type(() => IntegrationProject)
-    @OneToMany(() => IntegrationProject, project => project.user)
+    @OneToMany(() => IntegrationProject, project => project.userId)
     projects?: IntegrationProject[];
 }

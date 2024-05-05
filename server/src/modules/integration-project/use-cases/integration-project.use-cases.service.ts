@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateIntegrationProjectDto } from '../dto/create-integration-project.dto';
+import { EventBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IntegrationProject } from '../entities/integration-project.entity';
+
 import { Repository } from 'typeorm';
+
+import { CreateIntegrationProjectDto } from '../dto/create-integration-project.dto';
+import { IntegrationProject } from '../entities/integration-project.entity';
 import { LoggerService } from '@core/logger/logger.service';
+import { TCheckProjectIsSynced } from '../types/check-project-is-synced';
 
 @Injectable()
 export class IntegrationProjectUseCases {
@@ -11,10 +15,26 @@ export class IntegrationProjectUseCases {
         private readonly logger: LoggerService,
         @InjectRepository(IntegrationProject)
         private readonly integrationProjectRepository: Repository<IntegrationProject>,
+        private readonly eventBus: EventBus,
     ) {}
 
     public async create(payload: CreateIntegrationProjectDto): Promise<IntegrationProject> {
+        const newIntegrationProject = this.integrationProjectRepository.create({
+            ...payload,
+            userId: payload.userId,
+        });
         this.logger.info(payload.name, 'Creating new integration project on the database with the title:');
-        return this.integrationProjectRepository.save(payload);
+        return this.integrationProjectRepository.save(newIntegrationProject);
+    }
+
+    public async checkProjectIsSynced(projectId: string): Promise<TCheckProjectIsSynced> {
+        const integrationProject = await this.integrationProjectRepository.findOneBy({
+            jiraId: projectId,
+        });
+
+        if (integrationProject.isSynced) {
+            return { synced: true, project: integrationProject };
+        }
+        return { synced: false, project: integrationProject };
     }
 }
