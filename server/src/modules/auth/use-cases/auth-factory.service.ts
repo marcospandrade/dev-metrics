@@ -12,6 +12,8 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
 import { NotifyProjectLoginEvent } from '@modules/integration-project/events/notify-project-login.event';
 import { LoggerService } from '@core/logger/logger.service';
+import { SchemaValidator } from '@core/utils';
+
 @Injectable()
 export class AuthFactoryService {
     public constructor(
@@ -66,8 +68,7 @@ export class AuthFactoryService {
     public notifyProjectNewLogin(projectData: IAccessibleResources): void {
         this.logger.info({ projectUrl: projectData.url }, 'Publish event NotifyProjectLoginEvent: ');
         this.eventBus.publish<NotifyProjectLoginEvent>(
-            { projectId: projectData.id, url: projectData.url },
-            NotifyProjectLoginEvent,
+            SchemaValidator.toInstance({ projectId: projectData.id }, NotifyProjectLoginEvent),
         );
     }
 }

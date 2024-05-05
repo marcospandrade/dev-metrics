@@ -1,5 +1,4 @@
-import { Injectable } from '@nestjs/common';
-import { EventBus } from '@nestjs/cqrs';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -15,7 +14,6 @@ export class IntegrationProjectUseCases {
         private readonly logger: LoggerService,
         @InjectRepository(IntegrationProject)
         private readonly integrationProjectRepository: Repository<IntegrationProject>,
-        private readonly eventBus: EventBus,
     ) {}
 
     public async create(payload: CreateIntegrationProjectDto): Promise<IntegrationProject> {
@@ -27,10 +25,26 @@ export class IntegrationProjectUseCases {
         return this.integrationProjectRepository.save(newIntegrationProject);
     }
 
-    public async checkProjectIsSynced(projectId: string): Promise<TCheckProjectIsSynced> {
-        const integrationProject = await this.integrationProjectRepository.findOneBy({
-            jiraId: projectId,
+    public async checkProjectIsSynced(integrationProjectId: string): Promise<TCheckProjectIsSynced> {
+        const integrationProject = await this.integrationProjectRepository.findOne({
+            where: {
+                jiraId: integrationProjectId,
+            },
+            select: {
+                user: {
+                    email: true,
+                },
+            },
+            relations: {
+                user: true,
+            },
         });
+
+        if (!integrationProject) {
+            throw new NotFoundException('Project not found');
+        }
+
+        this.logger.info({ integrationProject }, 'Checking if integration project was synced');
 
         if (integrationProject.isSynced) {
             return { synced: true, project: integrationProject };

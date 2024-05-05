@@ -33,7 +33,7 @@ export class AuthUseCase {
         const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
         const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
 
-        this.logger.info({ projectUrl: accessibleResources?.url }, 'Got accessible resources for the project: ');
+        this.logger.info({ projectUrl: accessibleResources.url }, 'Got accessible resources for the project: ');
         this.authFactoryService.notifyProjectNewLogin(accessibleResources);
 
         if (userExists) {
