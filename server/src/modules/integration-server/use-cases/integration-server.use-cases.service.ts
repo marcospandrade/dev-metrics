@@ -12,6 +12,7 @@ import { SchemaValidator } from '@core/utils';
 import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
 import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
+import { GetPaginatedProjectsDTO } from '@lib/atlassian/dto/get-paginated-projects.dto';
 
 @Injectable()
 export class IntegrationServerUseCases {
@@ -29,6 +30,14 @@ export class IntegrationServerUseCases {
         });
         this.logger.info(payload.name, 'Creating new integration project on the database with the title:');
         return this.integrationServerRepository.save(newIntegrationProject);
+    }
+
+    public async findServerById(id: string): Promise<IntegrationServer> {
+        return this.integrationServerRepository.findOne({
+            where: {
+                id,
+            },
+        });
     }
 
     public async checkProjectIsSynced(integrationProjectId: string): Promise<CheckProjectIsSyncedDTO> {
@@ -78,6 +87,12 @@ export class IntegrationServerUseCases {
     public getUserAccessibleResources(userEmail: string) {
         return this.atlassianUseCases.getAccessibleResources(
             SchemaValidator.toInstance({ userEmail }, GetAccessibleResourcesDTO),
+        );
+    }
+
+    public async getServerProjects(serverId: string, userEmail: string) {
+        return this.atlassianUseCases.getPaginatedProjects(
+            SchemaValidator.toInstance({ userEmail, cloudId: serverId }, GetPaginatedProjectsDTO),
         );
     }
 }

@@ -26,7 +26,11 @@ export class IntegrationServerController {
         return this.integrationServerUseCases.getUserAccessibleResources(user.email);
     }
 
-    @Get('')
+    @Get('/projects/:serverId')
+    getProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId: string) {
+        return this.integrationServerUseCases.getServerProjects(serverId, user.email);
+    }
+
     @Get('/:projectId')
     checkProjectIsSynced(@Param('projectId') projectId: string) {
         return this.integrationServerUseCases.checkProjectIsSynced(projectId);

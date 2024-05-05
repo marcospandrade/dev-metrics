@@ -1,9 +1,10 @@
 import { Base } from '@core/database/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsString } from 'class-validator';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { User } from '../../auth/entities/user.entity';
 import { Transform, Type } from 'class-transformer';
+import { Project } from './project.entity';
 
 @Entity({ name: 'integration_servers' })
 export class IntegrationServer extends Base {
@@ -58,4 +59,7 @@ export class IntegrationServer extends Base {
     @ManyToOne(() => User, user => user.projects)
     @Type(() => User)
     user: User;
+
+    @OneToMany(() => Project, project => project.integrationServer)
+    projects: Project[];
 }

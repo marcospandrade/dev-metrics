@@ -11,6 +11,7 @@ import { LoggerService } from '@core/logger/logger.service';
 
 import { SchemaValidator } from '@core/utils';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
 // import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
 
 @Injectable()
@@ -34,7 +35,7 @@ export class AuthUseCase {
         const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
 
         this.logger.info({ projectUrl: accessibleResources.url }, 'Got accessible resources for the project: ');
-        this.authFactoryService.notifyIntegrationServerNewLogin(accessibleResources);
+        // this.authFactoryService.notifyIntegrationServerNewLogin(accessibleResources);
 
         if (userExists) {
             return userExists;
@@ -64,12 +65,12 @@ export class AuthUseCase {
 
         const userCreated = await this.authFactoryService.createUser(createUser);
 
-        // this.commandBus.execute(
-        //     SchemaValidator.toInstance(
-        //         { ...accessibleResources, userId: userCreated.id },
-        //         CreateIntegrationServerCommand,
-        //     ),
-        // );
+        this.commandBus.execute(
+            SchemaValidator.toInstance(
+                { ...accessibleResources, userId: userCreated.id },
+                CreateIntegrationServerCommand,
+            ),
+        );
 
         this.logger.info({ userCreated: userCreated.id }, 'Create user');
 
