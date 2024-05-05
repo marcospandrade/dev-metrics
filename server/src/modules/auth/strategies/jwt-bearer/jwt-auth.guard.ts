@@ -21,7 +21,7 @@ import { ServerAppConfig } from '../../../../app.module';
  * ...
  *
  * _@Post('/assert-consistency')
- * _@Roles(['baileys'])
+ * _@Roles(['admin'])
  * assertConsistency(@Body() payload: UpdateContactDto) {
  *   return this.contactsService.assertConsistency(payload);
  * }

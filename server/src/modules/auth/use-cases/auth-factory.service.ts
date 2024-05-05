@@ -29,6 +29,11 @@ export class AuthFactoryService {
             where: {
                 email,
             },
+            select: {
+                email: true,
+                id: true,
+                name: true,
+            },
         });
 
         return user;
