@@ -7,6 +7,9 @@ import { CreateIntegrationProjectDto } from '../dto/create-integration-project.d
 import { IntegrationProject } from '../entities/integration-project.entity';
 import { LoggerService } from '@core/logger/logger.service';
 import { TCheckProjectIsSynced } from '../types/check-project-is-synced';
+import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
+import { SchemaValidator } from '@core/utils';
+import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 
 @Injectable()
 export class IntegrationProjectUseCases {
@@ -14,6 +17,7 @@ export class IntegrationProjectUseCases {
         private readonly logger: LoggerService,
         @InjectRepository(IntegrationProject)
         private readonly integrationProjectRepository: Repository<IntegrationProject>,
+        private readonly atlassianUseCases: AtlassianUseCases,
     ) {}
 
     public async create(payload: CreateIntegrationProjectDto): Promise<IntegrationProject> {
@@ -50,5 +54,22 @@ export class IntegrationProjectUseCases {
             return { synced: true, project: integrationProject };
         }
         return { synced: false, project: integrationProject };
+    }
+
+    public async getAllTickets(cloudId: string, userEmail: string) {
+        const testQuery = `fields=description,summary`;
+        const tickets = await this.atlassianUseCases.getIssues(cloudId, userEmail, testQuery);
+
+        return tickets;
+    }
+
+    public async getIssueById(cloudId: string, userEmail: string, issueId: string) {
+        // const testQuery = `fields=issuetype.name,parent.id,parent.key,priority.name,assignee.displayName,status.name,summary,description`;
+        const testQuery = `fields=issuetype&properties=name&fields=parent,priority,assignee,status,summary,description`;
+        const ticket = await this.atlassianUseCases.getSpecificIssue(
+            SchemaValidator.toInstance({ cloudId, userEmail, issueId, query: testQuery }, GetSpecificIssueDTO),
+        );
+
+        return ticket;
     }
 }

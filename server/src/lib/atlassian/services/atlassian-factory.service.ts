@@ -11,9 +11,9 @@ import {
     IExchangeCodeToAccessTokenAtlassian,
     IExchangeResponse,
     IRefreshTokenAtlassian,
-} from '../interfaces/config-atlassian.model';
-import { UserAtlassianInfo } from '../interfaces/user-info.model';
-import { IAccessibleResources } from '../interfaces/accessible-resources.model';
+} from '../types/config-atlassian.model';
+import { UserAtlassianInfo } from '../types/user-info.model';
+import { IAccessibleResources } from '../types/accessible-resources.model';
 import { ServerAppConfig } from '../../../app.module';
 import { User } from '@modules/auth/entities/user.entity';
 import { LoggerService } from '@core/logger/logger.service';
@@ -47,6 +47,7 @@ export class AtlassianFactoryService {
             return userAuthInfo.accessTokenAtlassian;
         }
 
+        this.logger.info('Refreshing user token... ');
         return this.refreshToken(userEmail, userAuthInfo.refreshToken);
     }
 

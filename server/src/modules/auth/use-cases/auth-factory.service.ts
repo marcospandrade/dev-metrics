@@ -6,10 +6,10 @@ import { EventBus } from '@nestjs/cqrs';
 
 import { Repository } from 'typeorm';
 
-import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
+import { UserAtlassianInfo } from '@lib/atlassian/types/user-info.model';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { IAccessibleResources } from '@lib/atlassian/interfaces/accessible-resources.model';
+import { IAccessibleResources } from '@lib/atlassian/types/accessible-resources.model';
 import { NotifyProjectLoginEvent } from '@modules/integration-project/events/notify-project-login.event';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';

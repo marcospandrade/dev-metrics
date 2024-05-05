@@ -1,7 +1,9 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { AtlassianFactoryService } from './atlassian-factory.service';
-import { IAccessibleResources } from '../interfaces/accessible-resources.model';
+import { IAccessibleResources } from '../types/accessible-resources.model';
+import { GetSpecificIssueDTO } from '../dto/get-specific-issue.dto';
+import { ValidateSchema } from '@core/decorators/validate-schema';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -9,10 +11,21 @@ export class AtlassianUseCases {
 
     public constructor(private readonly _atlassianFactoryService: AtlassianFactoryService) {}
 
-    public async getIssues(cloudId: string, userEmail: string) {
-        const urlGetIssues = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`;
+    public async getIssues(cloudId: string, userEmail: string, query?: string) {
+        const urlGetIssues = !!query
+            ? `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search?${query}`
+            : `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`;
 
         return this._atlassianFactoryService.genericAtlassianCall(urlGetIssues, userEmail);
+    }
+
+    @ValidateSchema(GetSpecificIssueDTO)
+    public async getSpecificIssue(payload: GetSpecificIssueDTO) {
+        const getIssueUrl = !!payload?.query
+            ? `https://api.atlassian.com/ex/jira/${payload.cloudId}/rest/api/3/issue/${payload.issueId}?${payload.query}`
+            : `https://api.atlassian.com/ex/jira/${payload.cloudId}/rest/api/3/issue/${payload.issueId}`;
+
+        return this._atlassianFactoryService.genericAtlassianCall(getIssueUrl, payload.userEmail);
     }
 
     public async getAccessibleResources(userEmail: string) {

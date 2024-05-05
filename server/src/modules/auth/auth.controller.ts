@@ -5,7 +5,7 @@ import { AuthUseCase } from './use-cases/auth.use-cases';
 import { RequestUser } from '@shared/helpers/generic.helpers';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
 
-import { UserAtlassianInfo } from '@lib/atlassian/interfaces/user-info.model';
+import { UserAtlassianInfo } from '@lib/atlassian/types/user-info.model';
 import { JwtAuthGuard } from './strategies/jwt-bearer/jwt-auth.guard';
 import { ResponseMessage } from '@core/decorators/response-message';
 
