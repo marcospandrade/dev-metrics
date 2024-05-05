@@ -11,11 +11,6 @@ import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard
 export class IntegrationProjectController {
     constructor(private readonly integrationProjectUseCases: IntegrationProjectUseCases) {}
 
-    @Get('/:projectId')
-    checkProjectIsSynced(@Param('projectId') projectId: string) {
-        return this.integrationProjectUseCases.checkProjectIsSynced(projectId);
-    }
-
     @Get('project-tickets/:projectId')
     getProjectTickets(@Param('projectId') projectId: string, @CurrentUser() user: User) {
         return this.integrationProjectUseCases.getAllTickets(projectId, user.email);
@@ -24,5 +19,15 @@ export class IntegrationProjectController {
     @Get('project-tickets/:projectId/:issueId')
     getTicketById(@Param('projectId') projectId: string, @Param('issueId') issueId: string, @CurrentUser() user: User) {
         return this.integrationProjectUseCases.getIssueById(projectId, user.email, issueId);
+    }
+
+    @Get('user-accessible-resources')
+    getUserAccessibleResources(@CurrentUser() user: User) {
+        return this.integrationProjectUseCases.getUserAccessibleResources(user.email);
+    }
+
+    @Get('/:projectId')
+    checkProjectIsSynced(@Param('projectId') projectId: string) {
+        return this.integrationProjectUseCases.checkProjectIsSynced(projectId);
     }
 }

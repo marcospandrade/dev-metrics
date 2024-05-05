@@ -10,6 +10,7 @@ import { TCheckProjectIsSynced } from '../types/check-project-is-synced';
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
 import { SchemaValidator } from '@core/utils';
 import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
+import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
 
 @Injectable()
 export class IntegrationProjectUseCases {
@@ -65,11 +66,17 @@ export class IntegrationProjectUseCases {
 
     public async getIssueById(cloudId: string, userEmail: string, issueId: string) {
         // const testQuery = `fields=issuetype.name,parent.id,parent.key,priority.name,assignee.displayName,status.name,summary,description`;
-        const testQuery = `fields=issuetype&properties=name&fields=parent,priority,assignee,status,summary,description`;
+        // const testQuery = `fields=issuetype&properties=name&fields=parent,priority,assignee,status,summary,description`;
         const ticket = await this.atlassianUseCases.getSpecificIssue(
-            SchemaValidator.toInstance({ cloudId, userEmail, issueId, query: testQuery }, GetSpecificIssueDTO),
+            SchemaValidator.toInstance({ cloudId, userEmail, issueId, query: '' }, GetSpecificIssueDTO),
         );
 
         return ticket;
+    }
+
+    public getUserAccessibleResources(userEmail: string) {
+        return this.atlassianUseCases.getAccessibleResources(
+            SchemaValidator.toInstance({ userEmail }, GetAccessibleResourcesDTO),
+        );
     }
 }

@@ -4,6 +4,7 @@ import { AtlassianFactoryService } from './atlassian-factory.service';
 import { IAccessibleResources } from '../types/accessible-resources.model';
 import { GetSpecificIssueDTO } from '../dto/get-specific-issue.dto';
 import { ValidateSchema } from '@core/decorators/validate-schema';
+import { GetAccessibleResourcesDTO } from '../dto/get-accessible-resources.dto';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -28,16 +29,13 @@ export class AtlassianUseCases {
         return this._atlassianFactoryService.genericAtlassianCall(getIssueUrl, payload.userEmail);
     }
 
-    public async getAccessibleResources(userEmail: string) {
-        if (!userEmail) {
-            throw new NotFoundException('Missing user id');
-        }
-
-        this.logger.log(`Getting accessible resources for ${userEmail}`);
+    @ValidateSchema(GetAccessibleResourcesDTO)
+    public async getAccessibleResources(payload: GetAccessibleResourcesDTO) {
+        this.logger.log(`Getting accessible resources for ${payload.userEmail}`);
 
         return this._atlassianFactoryService.genericAtlassianCall<IAccessibleResources>(
             'https://api.atlassian.com/oauth/token/accessible-resources',
-            userEmail,
+            payload.userEmail,
         );
     }
 
