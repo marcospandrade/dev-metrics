@@ -1,7 +1,7 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 
 import { CheckSyncIntegrationProjectCommand } from './check-sync-integration-project.command';
-import { IntegrationProjectUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
+import { IntegrationServerUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';
 import { StartSyncingProjectEvent } from '@modules/integration-server/events/start-syncing-project.event';
@@ -10,7 +10,7 @@ import { StartSyncingProjectEvent } from '@modules/integration-server/events/sta
 export class CheckSyncIntegrationProjectCommandHandler implements ICommandHandler<CheckSyncIntegrationProjectCommand> {
     public constructor(
         private readonly logger: LoggerService,
-        private readonly integrationProjectUseCases: IntegrationProjectUseCases,
+        private readonly integrationServerUseCases: IntegrationServerUseCases,
         private readonly eventBus: EventBus,
     ) {}
     async execute(command: CheckSyncIntegrationProjectCommand): Promise<any> {
@@ -18,7 +18,7 @@ export class CheckSyncIntegrationProjectCommandHandler implements ICommandHandle
             `Running CheckSyncIntegrationProjectCommand to check if the ${command.projectId} need to be synced`,
         );
 
-        const checkProjectIsSynced = await this.integrationProjectUseCases.checkProjectIsSynced(command.projectId);
+        const checkProjectIsSynced = await this.integrationServerUseCases.checkProjectIsSynced(command.projectId);
 
         if (checkProjectIsSynced.synced) {
             this.logger.info({ command }, `Project already synced`);

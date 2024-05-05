@@ -14,25 +14,25 @@ import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-res
 import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
 
 @Injectable()
-export class IntegrationProjectUseCases {
+export class IntegrationServerUseCases {
     public constructor(
         private readonly logger: LoggerService,
         @InjectRepository(IntegrationServer)
-        private readonly integrationProjectRepository: Repository<IntegrationServer>,
+        private readonly integrationServerRepository: Repository<IntegrationServer>,
         private readonly atlassianUseCases: AtlassianUseCases,
     ) {}
 
     public async create(payload: CreateIntegrationServerDto): Promise<IntegrationServer> {
-        const newIntegrationProject = this.integrationProjectRepository.create({
+        const newIntegrationProject = this.integrationServerRepository.create({
             ...payload,
             userId: payload.userId,
         });
         this.logger.info(payload.name, 'Creating new integration project on the database with the title:');
-        return this.integrationProjectRepository.save(newIntegrationProject);
+        return this.integrationServerRepository.save(newIntegrationProject);
     }
 
     public async checkProjectIsSynced(integrationProjectId: string): Promise<CheckProjectIsSyncedDTO> {
-        const integrationProject = await this.integrationProjectRepository.findOne({
+        const integrationProject = await this.integrationServerRepository.findOne({
             where: {
                 jiraId: integrationProjectId,
             },
