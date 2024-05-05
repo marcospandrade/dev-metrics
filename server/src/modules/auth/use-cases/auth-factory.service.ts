@@ -10,7 +10,7 @@ import { UserAtlassianInfo } from '@lib/atlassian/types/user-info.model';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { IAccessibleResources } from '@lib/atlassian/types/accessible-resources.model';
-import { NotifyProjectLoginEvent } from '@modules/integration-project/events/notify-project-login.event';
+import { NotifyServerLoginEvent } from '@modules/integration-server/events/notify-server-login.event';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';
 
@@ -70,10 +70,10 @@ export class AuthFactoryService {
         return this.jwtService.sign(payload, { secret: this.configService.get('JWT_KEY') });
     }
 
-    public notifyProjectNewLogin(projectData: IAccessibleResources): void {
-        this.logger.info({ projectUrl: projectData.url }, 'Publish event NotifyProjectLoginEvent: ');
-        this.eventBus.publish<NotifyProjectLoginEvent>(
-            SchemaValidator.toInstance({ projectId: projectData.id }, NotifyProjectLoginEvent),
+    public notifyIntegrationServerNewLogin(projectData: IAccessibleResources): void {
+        this.logger.info({ projectUrl: projectData.url }, 'Publish event NotifyServerLoginEvent: ');
+        this.eventBus.publish<NotifyServerLoginEvent>(
+            SchemaValidator.toInstance({ projectId: projectData.id }, NotifyServerLoginEvent),
         );
     }
 }

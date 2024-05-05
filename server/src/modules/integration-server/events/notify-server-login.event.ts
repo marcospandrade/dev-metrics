@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class NotifyProjectLoginEvent {
+export class NotifyServerLoginEvent {
     @IsString()
     projectId: string;
 }

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { IntegrationProjectUseCases } from './integration-project.use-cases.service';
+import { IntegrationProjectUseCases } from './integration-server.use-cases.service';
 
 describe('IntegrationProjectService', () => {
     let service: IntegrationProjectUseCases;

@@ -1,6 +1,6 @@
 import { ClassSerializerInterceptor, Controller, Get, Param, UseGuards, UseInterceptors } from '@nestjs/common';
 
-import { IntegrationProjectUseCases } from './use-cases/integration-project.use-cases.service';
+import { IntegrationProjectUseCases } from './use-cases/integration-server.use-cases.service';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { User } from '@modules/auth/entities/user.entity';
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';

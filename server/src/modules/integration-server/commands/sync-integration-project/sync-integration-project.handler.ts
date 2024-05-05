@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { SyncIntegrationProjectCommand } from './sync-integration-project.command';
-import { IntegrationProjectUseCases } from '@modules/integration-project/use-cases/integration-project.use-cases.service';
+import { IntegrationProjectUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
 
 @CommandHandler(SyncIntegrationProjectCommand)
 export class SyncIntegrationProjectCommandHandler implements ICommandHandler<SyncIntegrationProjectCommand> {

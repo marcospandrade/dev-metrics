@@ -3,25 +3,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { CreateIntegrationProjectDto } from '../dto/create-integration-project.dto';
-import { IntegrationProject } from '../entities/integration-project.entity';
+import { CreateIntegrationServerDto } from '../dto/create-integration-server.dto';
+import { IntegrationServer } from '../entities/integration-server.entity';
 import { LoggerService } from '@core/logger/logger.service';
-import { TCheckProjectIsSynced } from '../types/check-project-is-synced';
+
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
 import { SchemaValidator } from '@core/utils';
 import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
+import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
 
 @Injectable()
 export class IntegrationProjectUseCases {
     public constructor(
         private readonly logger: LoggerService,
-        @InjectRepository(IntegrationProject)
-        private readonly integrationProjectRepository: Repository<IntegrationProject>,
+        @InjectRepository(IntegrationServer)
+        private readonly integrationProjectRepository: Repository<IntegrationServer>,
         private readonly atlassianUseCases: AtlassianUseCases,
     ) {}
 
-    public async create(payload: CreateIntegrationProjectDto): Promise<IntegrationProject> {
+    public async create(payload: CreateIntegrationServerDto): Promise<IntegrationServer> {
         const newIntegrationProject = this.integrationProjectRepository.create({
             ...payload,
             userId: payload.userId,
@@ -30,7 +31,7 @@ export class IntegrationProjectUseCases {
         return this.integrationProjectRepository.save(newIntegrationProject);
     }
 
-    public async checkProjectIsSynced(integrationProjectId: string): Promise<TCheckProjectIsSynced> {
+    public async checkProjectIsSynced(integrationProjectId: string): Promise<CheckProjectIsSyncedDTO> {
         const integrationProject = await this.integrationProjectRepository.findOne({
             where: {
                 jiraId: integrationProjectId,

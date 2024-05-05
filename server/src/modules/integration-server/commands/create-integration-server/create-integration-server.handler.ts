@@ -1,25 +1,25 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { CreateIntegrationProjectCommand } from './create-integration-project.command';
-import { IntegrationProjectUseCases } from '../../use-cases/integration-project.use-cases.service';
-import { CreateIntegrationProjectDto } from '../../dto/create-integration-project.dto';
+import { CreateIntegrationServerCommand } from './create-integration-server.command';
+import { IntegrationProjectUseCases } from '../../use-cases/integration-server.use-cases.service';
+import { CreateIntegrationServerDto } from '../../dto/create-integration-server.dto';
 import { SchemaValidator } from '@core/utils';
 import { LoggerService } from '@core/logger/logger.service';
 
-@CommandHandler(CreateIntegrationProjectCommand)
-export class CreateIntegrationProjectCommandHandler implements ICommandHandler<CreateIntegrationProjectCommand> {
+@CommandHandler(CreateIntegrationServerCommand)
+export class CreateIntegrationServerCommandHandler implements ICommandHandler<CreateIntegrationServerCommand> {
     public constructor(
         private readonly integrationProjectUseCases: IntegrationProjectUseCases,
         private readonly logger: LoggerService,
     ) {}
 
-    async execute(command: CreateIntegrationProjectCommand): Promise<void> {
+    async execute(command: CreateIntegrationServerCommand): Promise<void> {
         this.logger.info('Executing CreateIntegrationProjectCommand');
         this.integrationProjectUseCases.create(
-            SchemaValidator.toInstance(this.mountProjectDto(command), CreateIntegrationProjectDto),
+            SchemaValidator.toInstance(this.mountProjectDto(command), CreateIntegrationServerDto),
         );
     }
 
-    private mountProjectDto(payload: CreateIntegrationProjectCommand): CreateIntegrationProjectDto {
+    private mountProjectDto(payload: CreateIntegrationServerCommand): CreateIntegrationServerDto {
         return SchemaValidator.toInstance(
             {
                 name: payload.name,
@@ -28,7 +28,7 @@ export class CreateIntegrationProjectCommandHandler implements ICommandHandler<C
                 scopes: JSON.stringify(payload.scopes),
                 userId: payload.userId,
             },
-            CreateIntegrationProjectDto,
+            CreateIntegrationServerDto,
         );
     }
 }

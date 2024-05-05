@@ -4,7 +4,7 @@ import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
-import { IntegrationProject } from '@modules/integration-project/entities/integration-project.entity';
+import { IntegrationServer } from '@modules/integration-server/entities/integration-server.entity';
 import { Type } from 'class-transformer';
 
 @Entity({ name: 'users' })
@@ -83,7 +83,7 @@ export class User extends Base {
     jobTitle?: string;
 
     @IsOptional()
-    @Type(() => IntegrationProject)
-    @OneToMany(() => IntegrationProject, project => project.userId)
-    projects?: IntegrationProject[];
+    @Type(() => IntegrationServer)
+    @OneToMany(() => IntegrationServer, project => project.userId)
+    projects?: IntegrationServer[];
 }

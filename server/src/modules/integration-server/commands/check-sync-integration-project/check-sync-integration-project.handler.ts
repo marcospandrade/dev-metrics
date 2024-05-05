@@ -1,10 +1,10 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 
 import { CheckSyncIntegrationProjectCommand } from './check-sync-integration-project.command';
-import { IntegrationProjectUseCases } from '@modules/integration-project/use-cases/integration-project.use-cases.service';
+import { IntegrationProjectUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';
-import { StartSyncingProjectEvent } from '@modules/integration-project/events/start-syncing-project.event';
+import { StartSyncingProjectEvent } from '@modules/integration-server/events/start-syncing-project.event';
 
 @CommandHandler(CheckSyncIntegrationProjectCommand)
 export class CheckSyncIntegrationProjectCommandHandler implements ICommandHandler<CheckSyncIntegrationProjectCommand> {

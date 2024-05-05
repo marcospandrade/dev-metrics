@@ -18,7 +18,7 @@ import { CqrsErrorHandlerModule } from '@core/cqrs-error-handler/cqrs-error-hand
 import { AuthModule } from '@modules/auth/auth.module';
 import { TeamsModule } from './modules/teams/teams.module';
 import { IssuesModule } from './modules/issues/issues.module';
-import { IntegrationProjectModule } from './modules/integration-project/integration-project.module';
+import { IntegrationProjectModule } from './modules/integration-server/integration-server.module';
 
 dotenv.config({
     debug: true,
