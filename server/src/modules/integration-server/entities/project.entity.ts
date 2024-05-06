@@ -39,6 +39,14 @@ export class Project extends Base {
     @Column({ type: 'boolean', default: false })
     isPrivate: boolean;
 
+    @ApiProperty({
+        type: Boolean,
+        description: 'issues synced',
+    })
+    @IsBoolean()
+    @Column({ type: 'boolean', default: false })
+    isSynced: boolean;
+
     @IsString()
     @Column()
     integrationServerId: string;

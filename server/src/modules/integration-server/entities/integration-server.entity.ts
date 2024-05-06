@@ -1,9 +1,11 @@
-import { Base } from '@core/database/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { User } from '../../auth/entities/user.entity';
 import { Transform, Type } from 'class-transformer';
+import { IsString } from 'class-validator';
+
+import { Base } from '@core/database/entities/base.entity';
+import { User } from '../../auth/entities/user.entity';
 import { Project } from './project.entity';
 
 @Entity({ name: 'integration_servers' })
@@ -31,14 +33,6 @@ export class IntegrationServer extends Base {
     @IsString()
     @Column({ unique: true })
     url: string;
-
-    @ApiProperty({
-        type: Boolean,
-        description: 'issues synced',
-    })
-    @IsBoolean()
-    @Column({ type: 'boolean', default: false })
-    isSynced: boolean;
 
     @ApiProperty({
         type: String,

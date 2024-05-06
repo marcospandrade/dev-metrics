@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsArray, IsString, IsUUID } from 'class-validator';
 
 export class CreateIntegrationServerCommand {
@@ -30,7 +30,7 @@ export class CreateIntegrationServerCommand {
     @IsArray()
     scopes: string[];
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         type: String,
         description: 'avatarUrl',
     })

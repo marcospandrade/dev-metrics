@@ -11,9 +11,9 @@ import {
     IExchangeCodeToAccessTokenAtlassian,
     IExchangeResponse,
     IRefreshTokenAtlassian,
-} from '../types/config-atlassian.model';
-import { UserAtlassianInfo } from '../types/user-info.model';
-import { IAccessibleResources } from '../types/accessible-resources.model';
+} from '../types/config-atlassian.type';
+import { UserAtlassianInfo } from '../types/user-info.type';
+import { TAccessibleResources } from '../types/accessible-resources.type';
 import { ServerAppConfig } from '../../../app.module';
 import { User } from '@modules/auth/entities/user.entity';
 import { LoggerService } from '@core/logger/logger.service';
@@ -97,7 +97,7 @@ export class AtlassianFactoryService {
         this.logger.info('Getting accessible resources...');
         const { data } = await firstValueFrom(
             this.httpService
-                .get<IAccessibleResources[]>('https://api.atlassian.com/oauth/token/accessible-resources', {
+                .get<TAccessibleResources[]>('https://api.atlassian.com/oauth/token/accessible-resources', {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },

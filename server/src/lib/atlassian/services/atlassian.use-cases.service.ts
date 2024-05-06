@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { AtlassianFactoryService } from './atlassian-factory.service';
-import { IAccessibleResources } from '../types/accessible-resources.model';
+import { TAccessibleResources } from '../types/accessible-resources.type';
 import { GetSpecificIssueDTO } from '../dto/get-specific-issue.dto';
 import { ValidateSchema } from '@core/decorators/validate-schema';
 import { GetAccessibleResourcesDTO } from '../dto/get-accessible-resources.dto';
@@ -37,7 +37,7 @@ export class AtlassianUseCases {
     public async getAccessibleResources(payload: GetAccessibleResourcesDTO) {
         this.logger.info(`Getting accessible resources for ${payload.userEmail}`);
 
-        return this._atlassianFactoryService.genericAtlassianCall<IAccessibleResources>(
+        return this._atlassianFactoryService.genericAtlassianCall<TAccessibleResources>(
             'https://api.atlassian.com/oauth/token/accessible-resources',
             payload.userEmail,
         );

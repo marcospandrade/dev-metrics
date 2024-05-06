@@ -4,16 +4,17 @@ import { Saga, ofType } from '@nestjs/cqrs';
 import { Observable, map } from 'rxjs';
 
 import { NotifyServerLoginEvent } from '../events/notify-server-login.event';
-import { CheckSyncIntegrationProjectCommand } from '../commands/check-sync-integration-project/check-sync-integration-project.command';
+// import { CheckSyncIntegrationProjectCommand } from '../commands/check-sync-integration-project/check-sync-integration-project.command';
 import { StartSyncingProjectEvent } from '../events/start-syncing-project.event';
 import { SyncIntegrationProjectCommand } from '../commands/sync-integration-project/sync-integration-project.command';
+import { CreateIntegrationServerCommand } from '../commands/create-integration-server/create-integration-server.command';
 
-export class IntegrationProjectSaga {
+export class IntegrationServerSaga {
     @Saga()
-    notifyProjectLogin($: Observable<any>) {
+    notifyServerNewLogin($: Observable<any>) {
         return $.pipe(
             ofType(NotifyServerLoginEvent),
-            map(ev => SchemaValidator.toInstance(ev, CheckSyncIntegrationProjectCommand)),
+            map(ev => SchemaValidator.toInstance(ev, CreateIntegrationServerCommand)),
         );
     }
 

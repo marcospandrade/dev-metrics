@@ -6,10 +6,10 @@ import { EventBus } from '@nestjs/cqrs';
 
 import { Repository } from 'typeorm';
 
-import { UserAtlassianInfo } from '@lib/atlassian/types/user-info.model';
+import { UserAtlassianInfo } from '@lib/atlassian/types/user-info.type';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { IAccessibleResources } from '@lib/atlassian/types/accessible-resources.model';
+import { TAccessibleResources } from '@lib/atlassian/types/accessible-resources.type';
 import { NotifyServerLoginEvent } from '@modules/integration-server/events/notify-server-login.event';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';
@@ -70,10 +70,8 @@ export class AuthFactoryService {
         return this.jwtService.sign(payload, { secret: this.configService.get('JWT_KEY') });
     }
 
-    public notifyIntegrationServerNewLogin(projectData: IAccessibleResources): void {
+    public notifyIntegrationServerNewLogin(projectData: TAccessibleResources & { userId: string }): void {
         this.logger.info({ projectUrl: projectData.url }, 'Publish event NotifyServerLoginEvent: ');
-        this.eventBus.publish<NotifyServerLoginEvent>(
-            SchemaValidator.toInstance({ projectId: projectData.id }, NotifyServerLoginEvent),
-        );
+        this.eventBus.publish<NotifyServerLoginEvent>(SchemaValidator.toInstance(projectData, NotifyServerLoginEvent));
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 
 import { CreateIntegrationServerDto } from '../dto/create-integration-server.dto';
 import { IntegrationServer } from '../entities/integration-server.entity';
@@ -24,18 +24,42 @@ export class IntegrationServerUseCases {
     ) {}
 
     public async create(payload: CreateIntegrationServerDto): Promise<IntegrationServer> {
-        const newIntegrationProject = this.integrationServerRepository.create({
-            ...payload,
-            userId: payload.userId,
+        this.logger.info({ payload }, 'Creating new integration project on the database with the title:');
+        const { identifiers } = await this.integrationServerRepository.upsert(
+            {
+                ...payload,
+                userId: payload.userId,
+            },
+            {
+                conflictPaths: ['jiraId'],
+                upsertType: 'on-conflict-do-update',
+            },
+        );
+
+        return this.findServerById(identifiers[0].id);
+    }
+
+    public async bulkFindServer(ids: string[]) {
+        return this.integrationServerRepository.find({
+            where: {
+                id: In(ids),
+            },
         });
-        this.logger.info(payload.name, 'Creating new integration project on the database with the title:');
-        return this.integrationServerRepository.save(newIntegrationProject);
     }
 
     public async findServerById(id: string): Promise<IntegrationServer> {
+        this.logger.info({ serverId: id }, 'Finding server by id:');
         return this.integrationServerRepository.findOne({
             where: {
                 id,
+            },
+            select: {
+                user: {
+                    email: true,
+                },
+            },
+            relations: {
+                user: true,
             },
         });
     }
@@ -61,7 +85,7 @@ export class IntegrationServerUseCases {
 
         this.logger.info({ integrationProject }, 'Checking if integration project was synced');
 
-        if (integrationProject.isSynced) {
+        if (integrationProject) {
             return { synced: true, project: integrationProject };
         }
         return { synced: false, project: integrationProject };

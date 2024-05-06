@@ -1,6 +1,8 @@
 import { IsString } from 'class-validator';
 import { IntegrationServer } from '../../integration-server/entities/integration-server.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { TAccessibleResources } from '@lib/atlassian/types/accessible-resources.type';
+import { User } from '../entities/user.entity';
 
 export class LoginDto {
     @ApiProperty({
@@ -28,5 +30,10 @@ export interface ICreateUserDTO {
     email: string;
     picture?: string;
     jobTitle?: string;
-    project: Partial<IntegrationServer>;
+    project?: Partial<IntegrationServer>;
+}
+
+export class LoginResponseDTO {
+    user: User;
+    accessibleResources: TAccessibleResources;
 }

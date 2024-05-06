@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+// import { CommandBus } from '@nestjs/cqrs';
 
-import { LoginDto } from '../dto/login.dto';
+import { LoginDto, LoginResponseDTO } from '../dto/login.dto';
 import { AuthFactoryService } from './auth-factory.service';
 import { AtlassianFactoryService } from '@lib/atlassian/services/atlassian-factory.service';
 import { AtlassianHelper } from '@lib/atlassian/helpers/atlassian.helper';
@@ -11,20 +11,20 @@ import { LoggerService } from '@core/logger/logger.service';
 
 import { SchemaValidator } from '@core/utils';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
+// import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
 // import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
 
 @Injectable()
 export class AuthUseCase {
     public constructor(
-        private readonly commandBus: CommandBus,
+        // private readonly commandBus: CommandBus,
         private readonly authFactoryService: AuthFactoryService,
         private readonly _atlassianUseCases: AtlassianUseCases,
         private readonly atlassianService: AtlassianFactoryService,
         private readonly logger: LoggerService,
     ) {}
 
-    public async login(registerDto: LoginDto) {
+    public async login(registerDto: LoginDto): Promise<LoginResponseDTO> {
         const { code, state } = registerDto;
 
         const { userInfo, exchangedCode } = await this._atlassianUseCases.exchangeCodeAndUserInformation(code);
@@ -34,11 +34,13 @@ export class AuthUseCase {
         const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
         const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
 
-        this.logger.info({ projectUrl: accessibleResources.url }, 'Got accessible resources for the project: ');
-        // this.authFactoryService.notifyIntegrationServerNewLogin(accessibleResources);
+        this.logger.info(
+            { serverUrl: accessibleResources.url },
+            'Got accessible resources for the integration server: ',
+        );
 
         if (userExists) {
-            return userExists;
+            return { user: userExists, accessibleResources };
         }
 
         const accessTokenEstimai = this.authFactoryService.generateJwtToken(
@@ -65,16 +67,16 @@ export class AuthUseCase {
 
         const userCreated = await this.authFactoryService.createUser(createUser);
 
-        this.commandBus.execute(
-            SchemaValidator.toInstance(
-                { ...accessibleResources, userId: userCreated.id },
-                CreateIntegrationServerCommand,
-            ),
-        );
+        // this.commandBus.execute(
+        //     SchemaValidator.toInstance(
+        //         { ...accessibleResources, userId: userCreated.id },
+        //         CreateIntegrationServerCommand,
+        //     ),
+        // );
 
         this.logger.info({ userCreated: userCreated.id }, 'Create user');
 
-        return userCreated;
+        return { user: userCreated, accessibleResources };
     }
 
     public async refreshToken(userEmail: string) {
