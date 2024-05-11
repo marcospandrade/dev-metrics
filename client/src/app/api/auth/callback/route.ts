@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   const code = searchParams.get('code')
   const state = searchParams.get('state')
-  console.log('search params', searchParams)
+
 
   // redirect to the URL
   const redirectTo = request.cookies.get('redirectTo')?.value
@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     code,
     state,
   })
+  console.log('RESPONSE SERVER', data)
 
   const redirectURL = redirectTo ?? new URL('/dashboard', request.url)
 
