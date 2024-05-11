@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { IntegrationProjectUseCases } from './integration-server.use-cases.service';
+import { IntegrationServerUseCases } from './integration-server.use-cases.service';
 
 describe('IntegrationProjectService', () => {
-    let service: IntegrationProjectUseCases;
+    let service: IntegrationServerUseCases;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [IntegrationProjectUseCases],
+            providers: [IntegrationServerUseCases],
         }).compile();
 
-        service = module.get<IntegrationProjectUseCases>(IntegrationProjectUseCases);
+        service = module.get<IntegrationServerUseCases>(IntegrationServerUseCases);
     });
 
     it('should be defined', () => {

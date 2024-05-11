@@ -2,7 +2,7 @@ import { IsString } from 'class-validator';
 
 export class StartSyncingProjectEvent {
     @IsString()
-    projectId: string;
+    serverId: string;
 
     @IsString()
     userEmail: string;

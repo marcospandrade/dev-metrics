@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CheckHasOnlyOneProjectEvent {
+export class CheckSyncProjectEvent {
     @IsString()
     cloudId: string;
 

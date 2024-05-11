@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository, In } from 'typeorm';
 
-import { CreateIntegrationServerDto } from '../dto/create-integration-server.dto';
+import { UpsertIntegrationServerDto } from '../dto/create-integration-server.dto';
 import { IntegrationServer } from '../entities/integration-server.entity';
 import { LoggerService } from '@core/logger/logger.service';
 
@@ -23,8 +23,8 @@ export class IntegrationServerUseCases {
         private readonly atlassianUseCases: AtlassianUseCases,
     ) {}
 
-    public async create(payload: CreateIntegrationServerDto): Promise<IntegrationServer> {
-        this.logger.info({ payload }, 'Creating new integration project on the database with the title:');
+    public async upsert(payload: UpsertIntegrationServerDto): Promise<IntegrationServer> {
+        this.logger.info({ payload }, 'Upserting integration project on the database with the title:');
         const { identifiers } = await this.integrationServerRepository.upsert(
             {
                 ...payload,
@@ -83,7 +83,7 @@ export class IntegrationServerUseCases {
             throw new NotFoundException('Project not found');
         }
 
-        this.logger.info({ integrationProject }, 'Checking if integration project was synced');
+        this.logger.info({ integrationProject }, 'Checked project sync status');
 
         if (integrationProject) {
             return { synced: true, project: integrationProject };

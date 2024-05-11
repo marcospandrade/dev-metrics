@@ -1,4 +1,4 @@
-import { IsArray, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 
 export class NotifyServerLoginEvent {
     @IsString()
@@ -11,7 +11,6 @@ export class NotifyServerLoginEvent {
     name: string;
 
     @IsArray()
-    @ValidateNested({ each: true })
     scopes: string[];
 
     @IsString()

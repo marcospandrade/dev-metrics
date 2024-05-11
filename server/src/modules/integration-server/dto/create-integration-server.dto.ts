@@ -1,7 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsUUID } from 'class-validator';
 
-export class CreateIntegrationServerDto {
+export class UpsertIntegrationServerDto {
+    @ApiProperty({
+        type: String,
+        description: 'id',
+    })
+    @IsString()
+    id?: string;
+
     @ApiProperty({
         type: String,
         description: 'jiraId',

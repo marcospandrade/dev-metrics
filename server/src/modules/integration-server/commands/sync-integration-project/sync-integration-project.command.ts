@@ -1,9 +1,12 @@
-import { IsString } from 'class-validator';
+import { IntegrationServer } from '@modules/integration-server/entities/integration-server.entity';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsObject } from 'class-validator';
 
 export class SyncIntegrationProjectCommand {
-    @IsString()
-    projectId: string;
+    @IsBoolean()
+    synced: boolean;
 
-    @IsString()
-    userEmail: string;
+    @IsObject({ each: true })
+    @Type(() => IntegrationServer)
+    project: IntegrationServer;
 }

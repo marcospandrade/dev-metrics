@@ -6,7 +6,11 @@ import { IntegrationServerUseCases } from '@modules/integration-server/use-cases
 export class SyncIntegrationProjectCommandHandler implements ICommandHandler<SyncIntegrationProjectCommand> {
     public constructor(private readonly integrationServerUseCases: IntegrationServerUseCases) {}
     execute(command: SyncIntegrationProjectCommand): Promise<any> {
-        console.log('Test');
-        return this.integrationServerUseCases.getAllTickets(command.projectId, command.userEmail);
+        console.log({ command }, 'Starting syncing project...');
+
+        // return this.integrationServerUseCases.getAllTickets(command.projectId, command.userEmail);
+        return new Promise(() => {
+            return command;
+        });
     }
 }

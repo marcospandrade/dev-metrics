@@ -1,24 +1,28 @@
 import { SchemaValidator } from '@core/utils';
 import { QueryBus, Saga, ofType } from '@nestjs/cqrs';
 
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, filter, map, switchMap, tap } from 'rxjs';
 
-import { CheckHasOnlyOneProjectEvent } from '../events/check-has-only-one-project.event';
+import { CheckSyncProjectEvent } from '../events/check-sync-project.event';
 import { GetProjectSyncStatusQuery } from '../queries/get-project-sync-status/get-project-sync-status.query';
-import { GetProjectSyncStatusQueryHandler } from '../queries/get-project-sync-status/get-project-sync-status.handler';
 import { SyncIntegrationProjectCommand } from '../commands/sync-integration-project/sync-integration-project.command';
+import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
 
 export class ProjectSaga {
     public constructor(private readonly queryBus: QueryBus) {}
 
-    // @Saga()
-    // checkServerHasOnlyOneProject($: Observable<any>) {
-    //     $.pipe(
-    //         ofType(CheckHasOnlyOneProjectEvent),
-    //         // map(ev =>
-    //         //     this.queryBus.execute(SchemaValidator.toInstance({ jiraId: ev.cloudId }, GetProjectSyncStatusQuery)),
-    //         // ),
-    //         // map(ev => SchemaValidator.toInstance({ projectId: ev. }, SyncIntegrationProjectCommand)),
-    //     );
-    // }
+    @Saga()
+    checkSyncProject($: Observable<any>) {
+        return $.pipe(
+            ofType(CheckSyncProjectEvent),
+            switchMap(ev =>
+                this.queryBus.execute<GetProjectSyncStatusQuery, CheckProjectIsSyncedDTO>(
+                    SchemaValidator.toInstance({ jiraId: ev.cloudId }, GetProjectSyncStatusQuery),
+                ),
+            ),
+            tap(console.error),
+            filter(ev => ev.synced),
+            map(ev => SchemaValidator.toInstance(ev, SyncIntegrationProjectCommand)),
+        );
+    }
 }
