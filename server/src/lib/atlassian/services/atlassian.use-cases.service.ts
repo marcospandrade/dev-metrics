@@ -9,6 +9,7 @@ import { GetPaginatedProjectsDTO } from '../dto/get-paginated-projects.dto';
 import { LoggerService } from '@core/logger/logger.service';
 import { generateBasicAtlassianUrl } from '../helpers/constants';
 import { AtlassianProject, PaginatedResponse } from '../types/atlassian-project.type';
+import { AtlassianIssue, PaginatedIssues } from '../types/issues.type';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -16,13 +17,15 @@ export class AtlassianUseCases {
         private readonly logger: LoggerService,
         private readonly _atlassianFactoryService: AtlassianFactoryService,
     ) {}
-
     public async getIssues(cloudId: string, userEmail: string, query?: string) {
         const urlGetIssues = !!query
             ? `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search?${query}`
             : `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`;
 
-        return this._atlassianFactoryService.genericAtlassianCall(urlGetIssues, userEmail);
+        return this._atlassianFactoryService.genericAtlassianCall<PaginatedIssues<AtlassianIssue>>(
+            urlGetIssues,
+            userEmail,
+        );
     }
 
     @ValidateSchema(GetSpecificIssueDTO)

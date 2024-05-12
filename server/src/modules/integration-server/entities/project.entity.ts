@@ -1,9 +1,12 @@
-import { Base } from '@core/database/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
+
 import { IsBoolean, IsString, IsUUID } from 'class-validator';
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { IntegrationServer } from './integration-server.entity';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Type } from 'class-transformer';
+
+import { IntegrationServer } from './integration-server.entity';
+import { Base } from '@core/database/entities/base.entity';
+import { Issue } from '@modules/issues/entities/issue.entity';
 
 @Entity('projects')
 export class Project extends Base {
@@ -66,4 +69,8 @@ export class Project extends Base {
     @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.projects)
     @Type(() => IntegrationServer)
     integrationServer: IntegrationServer;
+
+    @OneToMany(() => Issue, issue => issue.projectId)
+    @Type(() => Issue)
+    issuesList?: Issue[];
 }

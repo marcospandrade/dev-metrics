@@ -5,8 +5,8 @@ import { IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { Sprint } from '@modules/sprints/entities/sprint.entity';
-import { User } from '@modules/auth/entities/user.entity';
 import { Base } from '@core/database/entities/base.entity';
+import { Project } from '@modules/integration-server/entities/project.entity';
 
 @Entity({ name: 'issues' })
 export class Issue extends Base {
@@ -16,7 +16,7 @@ export class Issue extends Base {
     })
     @IsString()
     @Column()
-    title: string;
+    summary: string;
 
     @ApiPropertyOptional({
         type: String,
@@ -45,11 +45,27 @@ export class Issue extends Base {
     @Column()
     description?: string;
 
+    @ApiProperty({
+        type: String,
+        description: 'projectId',
+    })
+    @IsString()
+    @Column()
+    projectId: string;
+
+    @ApiProperty({
+        type: String,
+        description: 'sprintId',
+    })
+    @IsString()
+    @Column()
+    sprintId?: string;
+
+    @ManyToOne(() => Project, project => project.issuesList)
+    @Type(() => Project)
+    project: Project;
+
     @ManyToOne(() => Sprint, sprint => sprint.issuesList)
     @Type(() => Sprint)
     sprint: Sprint;
-
-    @ManyToOne(() => User, user => user.projects)
-    @Type(() => User)
-    user: User;
 }
