@@ -23,18 +23,16 @@ export class Issue extends Base {
         description: 'jiraIssueId',
     })
     @IsString()
-    @IsOptional()
-    @Column()
-    jiraIssueId?: string;
+    @Column({ unique: true })
+    jiraIssueId: string;
 
     @ApiPropertyOptional({
         type: String,
         description: 'jiraIssueKey',
     })
     @IsString()
-    @IsOptional()
-    @Column()
-    jiraIssueKey?: string;
+    @Column({ unique: true })
+    jiraIssueKey: string;
 
     @ApiPropertyOptional({
         type: String,
@@ -42,7 +40,7 @@ export class Issue extends Base {
     })
     @IsString()
     @IsOptional()
-    @Column()
+    @Column({ nullable: true })
     description?: string;
 
     @ApiProperty({
@@ -58,7 +56,8 @@ export class Issue extends Base {
         description: 'sprintId',
     })
     @IsString()
-    @Column()
+    @IsOptional()
+    @Column({ nullable: true })
     sprintId?: string;
 
     @ManyToOne(() => Project, project => project.issuesList)

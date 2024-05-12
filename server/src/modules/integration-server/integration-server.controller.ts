@@ -17,6 +17,7 @@ import { EventBus, QueryBus } from '@nestjs/cqrs';
 import { SchemaValidator } from '@core/utils';
 import { GetProjectSyncStatusQuery } from './queries/get-project-sync-status/get-project-sync-status.query';
 import { NotifyServerLoginEvent } from './events/notify-server-login.event';
+import { QueryIssues } from '@lib/atlassian/types/issues.type';
 
 @Controller('integration-server')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -30,7 +31,13 @@ export class IntegrationServerController {
 
     @Get('/project-tickets/:projectId')
     getProjectTickets(@Param('projectId') projectId: string, @CurrentUser() user: User) {
-        return this.integrationServerUseCases.getAllTickets(projectId, user.email);
+        const query: QueryIssues = {
+            startAt: 50,
+            maxResults: 100,
+            jql: 'project=ED',
+            fields: ['description', 'summary'],
+        };
+        return this.integrationServerUseCases.getAllTickets(projectId, user.email, query);
     }
 
     @Get('/project-tickets/:projectId/:issueId')

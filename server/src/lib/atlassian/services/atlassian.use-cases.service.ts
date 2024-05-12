@@ -19,7 +19,7 @@ export class AtlassianUseCases {
     ) {}
     public async getIssues(cloudId: string, userEmail: string, query?: string) {
         const urlGetIssues = !!query
-            ? `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search?${query}`
+            ? `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search${query}`
             : `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`;
 
         return this._atlassianFactoryService.genericAtlassianCall<PaginatedIssues<AtlassianIssue>>(

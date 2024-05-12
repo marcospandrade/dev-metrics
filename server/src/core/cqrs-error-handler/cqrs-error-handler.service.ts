@@ -27,12 +27,12 @@ export class CqrsErrorHandlerService {
                     const error = exception.exception;
 
                     if (error) {
-                        this.asyncLogger.error(error, 'Unhandled exception');
+                        this.asyncLogger.error({ error }, 'Unhandled exception');
                     }
 
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     const { exception: _, ...rest } = exception;
-                    this.asyncLogger.error(rest, 'Unhandled exception meta');
+                    this.asyncLogger.error({ rest }, 'Unhandled exception meta');
                 }),
             )
             .subscribe();

@@ -6,6 +6,8 @@ export class CreateIssueDto extends OmitType(Issue, [
     'createdAt',
     'updatedAt',
     'deletedAt',
+    'project',
+    'sprint',
     'hasId',
     'recover',
     'reload',

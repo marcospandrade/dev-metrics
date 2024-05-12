@@ -32,7 +32,7 @@ export class AuthFactoryService {
             select: {
                 email: true,
                 id: true,
-                name: true,
+                accessTokenEstimai: true,
             },
         });
 

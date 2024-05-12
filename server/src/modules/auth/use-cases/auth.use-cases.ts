@@ -11,8 +11,6 @@ import { LoggerService } from '@core/logger/logger.service';
 
 import { SchemaValidator } from '@core/utils';
 import { CreateUserDto } from '../dto/create-user.dto';
-// import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
-// import { CreateIntegrationServerCommand } from '@modules/integration-server/commands/create-integration-server/create-integration-server.command';
 
 @Injectable()
 export class AuthUseCase {

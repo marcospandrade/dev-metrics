@@ -125,7 +125,7 @@ export class AtlassianFactoryService {
                 })
                 .pipe(
                     catchError((error: AxiosError) => {
-                        this.logger.error(error.response);
+                        this.logger.error({ error }, `Error with generic call: ${url}`);
                         throw new InternalServerErrorException(error.response?.data);
                     }),
                 ),

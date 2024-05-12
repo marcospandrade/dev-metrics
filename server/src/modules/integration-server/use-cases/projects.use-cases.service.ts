@@ -39,6 +39,7 @@ export class ProjectUseCases {
             },
             select: {
                 integrationServer: {
+                    jiraId: true,
                     user: {
                         email: true,
                     },

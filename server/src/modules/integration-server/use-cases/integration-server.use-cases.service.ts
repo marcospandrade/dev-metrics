@@ -12,6 +12,8 @@ import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
 import { GetPaginatedProjectsDTO } from '@lib/atlassian/dto/get-paginated-projects.dto';
 import { AtlassianProject, PaginatedResponse } from '@lib/atlassian/types/atlassian-project.type';
+import { QueryIssues } from '@lib/atlassian/types/issues.type';
+import { generateQueryIssueString } from '@lib/atlassian/helpers/issue.helper';
 
 @Injectable()
 export class IntegrationServerUseCases {
@@ -63,11 +65,11 @@ export class IntegrationServerUseCases {
         });
     }
 
-    public async getAllTickets(cloudId: string, userEmail: string) {
-        const testQuery = `fields=description,summary`;
-        const tickets = await this.atlassianUseCases.getIssues(cloudId, userEmail, testQuery);
+    public async getAllTickets(cloudId: string, userEmail: string, query?: QueryIssues) {
+        const queryString = generateQueryIssueString(query);
+        const paginatedIssues = await this.atlassianUseCases.getIssues(cloudId, userEmail, queryString);
 
-        return tickets;
+        return paginatedIssues;
     }
 
     public async getIssueById(cloudId: string, userEmail: string, issueId: string) {
