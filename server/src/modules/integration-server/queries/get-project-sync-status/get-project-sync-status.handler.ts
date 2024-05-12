@@ -1,22 +1,21 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { GetProjectSyncStatusQuery } from './get-project-sync-status.query';
-import { IntegrationServerUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
 import { LoggerService } from '@core/logger/logger.service';
 import { CheckProjectIsSyncedDTO } from '@modules/integration-server/dto/check-project-is-synced.dto';
+import { ProjectUseCases } from '@modules/integration-server/use-cases/projects.use-cases.service';
+import { Observable, of } from 'rxjs';
 
 @QueryHandler(GetProjectSyncStatusQuery)
-export class GetProjectSyncStatusQueryHandler
-    implements IQueryHandler<GetProjectSyncStatusQuery, CheckProjectIsSyncedDTO>
-{
+export class GetProjectSyncStatusQueryHandler implements IQueryHandler<GetProjectSyncStatusQuery> {
     public constructor(
         private readonly logger: LoggerService,
-        private readonly integrationServerUseCases: IntegrationServerUseCases,
+        private readonly projectUseCases: ProjectUseCases,
     ) {}
-    async execute(query: GetProjectSyncStatusQuery): Promise<CheckProjectIsSyncedDTO> {
+    async execute(query: GetProjectSyncStatusQuery): Promise<Observable<CheckProjectIsSyncedDTO>> {
         this.logger.info({ query }, 'Running GetProjectSyncStatusQueryHandler...');
-        const result = await this.integrationServerUseCases.checkProjectIsSynced(query.jiraId);
+        const result = await this.projectUseCases.checkProjectIsSynced(query.projectId);
 
-        return result;
+        return of(result);
     }
 }

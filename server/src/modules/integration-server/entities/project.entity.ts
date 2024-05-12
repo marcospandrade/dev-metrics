@@ -1,6 +1,6 @@
 import { Base } from '@core/database/entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean, IsString, IsUUID } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { IntegrationServer } from './integration-server.entity';
 import { Type } from 'class-transformer';
@@ -47,9 +47,21 @@ export class Project extends Base {
     @Column({ type: 'boolean', default: false })
     isSynced: boolean;
 
+    @ApiProperty({
+        type: String,
+        description: 'integration server id',
+    })
     @IsString()
     @Column()
     integrationServerId: string;
+
+    @ApiProperty({
+        type: Boolean,
+        description: 'integrationUUID',
+    })
+    @IsUUID()
+    @Column()
+    integrationUUID: string;
 
     @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.projects)
     @Type(() => IntegrationServer)

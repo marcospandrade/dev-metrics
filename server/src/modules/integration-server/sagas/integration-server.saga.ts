@@ -4,9 +4,9 @@ import { Saga, ofType } from '@nestjs/cqrs';
 import { Observable, map } from 'rxjs';
 
 import { NotifyServerLoginEvent } from '../events/notify-server-login.event';
-// import { StartSyncingProjectEvent } from '../events/start-syncing-project.event';
-// import { SyncIntegrationProjectCommand } from '../commands/sync-integration-project/sync-integration-project.command';
 import { UpsertIntegrationServerCommand } from '../commands/upsert-integration-server/upsert-integration-server.command';
+import { UpsertRawProjectsEvent } from '../events/upsert-raw-projects.event';
+import { UpsertProjectsCommand } from '../commands/upsert-projects/upsert-projects.command';
 
 export class IntegrationServerSaga {
     @Saga()
@@ -17,11 +17,20 @@ export class IntegrationServerSaga {
         );
     }
 
-    // @Saga()
-    // startSyncingProject($: Observable<any>) {
-    //     return $.pipe(
-    //         ofType(StartSyncingProjectEvent),
-    //         map(ev => SchemaValidator.toInstance(ev, SyncIntegrationProjectCommand)),
-    //     );
-    // }
+    @Saga()
+    upsertRawProjects($: Observable<any>) {
+        return $.pipe(
+            ofType(UpsertRawProjectsEvent),
+            map(ev =>
+                SchemaValidator.toInstance(
+                    {
+                        serverExternalId: ev.serverExternalId,
+                        serverInternalId: ev.serverInternalId,
+                        userEmail: ev.userEmail,
+                    },
+                    UpsertProjectsCommand,
+                ),
+            ),
+        );
+    }
 }

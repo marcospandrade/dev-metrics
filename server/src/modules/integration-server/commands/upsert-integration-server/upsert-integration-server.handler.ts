@@ -4,7 +4,7 @@ import { SchemaValidator } from '@core/utils';
 import { LoggerService } from '@core/logger/logger.service';
 import { ValidateSchema } from '@core/decorators/validate-schema';
 import { IntegrationServer } from '@modules/integration-server/entities/integration-server.entity';
-import { CheckSyncProjectEvent } from '@modules/integration-server/events/check-sync-project.event';
+import { UpsertRawProjectsEvent } from '@modules/integration-server/events/upsert-raw-projects.event';
 import { IntegrationServerUseCases } from '../../use-cases/integration-server.use-cases.service';
 import { UpsertIntegrationServerDto } from '../../dto/create-integration-server.dto';
 import { UpsertIntegrationServerCommand } from './upsert-integration-server.command';
@@ -25,8 +25,11 @@ export class UpsertIntegrationServerCommandHandler implements ICommandHandler<Up
 
         this.logger.info({ server }, 'Integration server created successfully');
 
-        this.eventBus.publish<CheckSyncProjectEvent, void>(
-            SchemaValidator.toInstance({ cloudId: server.jiraId, userEmail: server.user.email }, CheckSyncProjectEvent),
+        this.eventBus.publish<UpsertRawProjectsEvent, void>(
+            SchemaValidator.toInstance(
+                { serverExternalId: server.jiraId, serverInternalId: server.id, userEmail: server.user.email },
+                UpsertRawProjectsEvent,
+            ),
         );
 
         return server;

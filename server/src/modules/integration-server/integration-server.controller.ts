@@ -50,7 +50,7 @@ export class IntegrationServerController {
 
     @Get('/:projectId')
     checkProjectIsSynced(@Param('projectId') projectId: string) {
-        return this.queryBus.execute(SchemaValidator.toInstance({ jiraId: projectId }, GetProjectSyncStatusQuery));
+        return this.queryBus.execute(SchemaValidator.toInstance({ projectId }, GetProjectSyncStatusQuery));
     }
 
     // TEST Event stack

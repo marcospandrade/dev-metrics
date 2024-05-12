@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository, In } from 'typeorm';
@@ -6,13 +6,12 @@ import { Repository, In } from 'typeorm';
 import { UpsertIntegrationServerDto } from '../dto/create-integration-server.dto';
 import { IntegrationServer } from '../entities/integration-server.entity';
 import { LoggerService } from '@core/logger/logger.service';
-
 import { AtlassianUseCases } from '@lib/atlassian/services/atlassian.use-cases.service';
 import { SchemaValidator } from '@core/utils';
 import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
-import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
 import { GetPaginatedProjectsDTO } from '@lib/atlassian/dto/get-paginated-projects.dto';
+import { AtlassianProject, PaginatedResponse } from '@lib/atlassian/types/atlassian-project.type';
 
 @Injectable()
 export class IntegrationServerUseCases {
@@ -64,33 +63,6 @@ export class IntegrationServerUseCases {
         });
     }
 
-    public async checkProjectIsSynced(integrationProjectId: string): Promise<CheckProjectIsSyncedDTO> {
-        const integrationProject = await this.integrationServerRepository.findOne({
-            where: {
-                jiraId: integrationProjectId,
-            },
-            select: {
-                user: {
-                    email: true,
-                },
-            },
-            relations: {
-                user: true,
-            },
-        });
-
-        if (!integrationProject) {
-            throw new NotFoundException('Project not found');
-        }
-
-        this.logger.info({ integrationProject }, 'Checked project sync status');
-
-        if (integrationProject) {
-            return { synced: true, project: integrationProject };
-        }
-        return { synced: false, project: integrationProject };
-    }
-
     public async getAllTickets(cloudId: string, userEmail: string) {
         const testQuery = `fields=description,summary`;
         const tickets = await this.atlassianUseCases.getIssues(cloudId, userEmail, testQuery);
@@ -114,7 +86,7 @@ export class IntegrationServerUseCases {
         );
     }
 
-    public async getServerProjects(serverId: string, userEmail: string) {
+    public async getServerProjects(serverId: string, userEmail: string): Promise<PaginatedResponse<AtlassianProject>> {
         return this.atlassianUseCases.getPaginatedProjects(
             SchemaValidator.toInstance({ userEmail, cloudId: serverId }, GetPaginatedProjectsDTO),
         );

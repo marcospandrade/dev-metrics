@@ -8,6 +8,7 @@ import { GetAccessibleResourcesDTO } from '../dto/get-accessible-resources.dto';
 import { GetPaginatedProjectsDTO } from '../dto/get-paginated-projects.dto';
 import { LoggerService } from '@core/logger/logger.service';
 import { generateBasicAtlassianUrl } from '../helpers/constants';
+import { AtlassianProject, PaginatedResponse } from '../types/atlassian-project.type';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -58,6 +59,9 @@ export class AtlassianUseCases {
 
         this.logger.info({ getUrl: urlGetProjects }, 'Getting paginated projects');
 
-        return this._atlassianFactoryService.genericAtlassianCall(urlGetProjects, payload.userEmail);
+        return this._atlassianFactoryService.genericAtlassianCall<PaginatedResponse<AtlassianProject>>(
+            urlGetProjects,
+            payload.userEmail,
+        );
     }
 }

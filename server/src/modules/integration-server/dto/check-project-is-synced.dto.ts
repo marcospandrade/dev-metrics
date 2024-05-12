@@ -1,5 +1,6 @@
 import { IsBoolean, IsObject, ValidateNested } from 'class-validator';
-import { IntegrationServer } from '../entities/integration-server.entity';
+
+import { Project } from '../entities/project.entity';
 
 export class CheckProjectIsSyncedDTO {
     @IsBoolean()
@@ -7,5 +8,5 @@ export class CheckProjectIsSyncedDTO {
 
     @IsObject()
     @ValidateNested()
-    project: IntegrationServer;
+    project: Project;
 }
