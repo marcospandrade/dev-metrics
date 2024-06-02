@@ -33,4 +33,22 @@ export class IssueUseCases {
             },
         });
     }
+
+    public async findTicketsByProject(projectId: string, userId: string) {
+        this.logger.info('Finding tickets by project...');
+
+        const [issues, count] = await this.issueRepository.findAndCountBy({
+            projectId,
+            project: {
+                integrationServer: {
+                    userId,
+                },
+            },
+        });
+
+        return {
+            issues,
+            count,
+        };
+    }
 }

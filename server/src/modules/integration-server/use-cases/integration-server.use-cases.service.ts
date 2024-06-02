@@ -32,7 +32,7 @@ export class IntegrationServerUseCases {
                 userId: payload.userId,
             },
             {
-                conflictPaths: ['jiraId'],
+                conflictPaths: ['jiraId', 'url'],
                 upsertType: 'on-conflict-do-update',
             },
         );

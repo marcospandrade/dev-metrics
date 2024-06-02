@@ -35,7 +35,7 @@ export class IntegrationServerController {
             startAt: 50,
             maxResults: 100,
             jql: 'project=ED',
-            fields: ['description', 'summary'],
+            fields: ['description', 'summary', 'customfield_10016'],
         };
         return this.integrationServerUseCases.getAllTickets(projectId, user.email, query);
     }

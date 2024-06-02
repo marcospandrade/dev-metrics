@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, Unique } from 'typeorm';
 import { Transform, Type } from 'class-transformer';
 import { IsString } from 'class-validator';
 
@@ -9,6 +9,7 @@ import { User } from '../../auth/entities/user.entity';
 import { Project } from './project.entity';
 
 @Entity({ name: 'integration_servers' })
+@Unique('jira-server', ['jiraId', 'url'])
 export class IntegrationServer extends Base {
     @ApiProperty({
         type: String,

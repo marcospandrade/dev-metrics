@@ -39,7 +39,7 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
                 startAt: offset,
                 maxResults: 50,
                 jql: `project=${project.key}`,
-                fields: ['description', 'summary'],
+                fields: ['description', 'summary', 'timetracking'],
             },
         );
 
