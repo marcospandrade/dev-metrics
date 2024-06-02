@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { cookies } from 'next/headers'
+import { getUser } from './auth'
+import { User } from '@/models/User.model'
 
 export interface GenericHttpResponse<T> {
   status: string
@@ -6,7 +9,7 @@ export interface GenericHttpResponse<T> {
   message?: string
 }
 
-export const api = axios.create({
+const axiosInterceptorInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
   headers: {
@@ -20,3 +23,22 @@ export const localApi = axios.create({
     'Content-Type': 'application/json',
   },
 })
+
+// Request interceptor
+axiosInterceptorInstance.interceptors.request.use(
+  async (config) => {
+    const { data } = await localApi.get<User>('api/get-token');
+
+    if (data) {
+      config.headers['Authorization'] = `Bearer ${data}`;
+    }
+    console.log("CONFIG", config)
+    return config;
+  },
+  (error) => {
+    // Handle request errors here
+    return Promise.reject(error);
+  }
+);
+
+export const api = axiosInterceptorInstance

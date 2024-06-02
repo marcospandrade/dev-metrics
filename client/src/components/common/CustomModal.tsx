@@ -4,13 +4,13 @@ import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@/lib/ma
 interface SignInModalProps {
   isOpen: boolean
   modalData: ModalProps
-  openModal: () => void
+  openModal: (value: boolean) => void
 }
 
 export function CustomModal({ isOpen, modalData, openModal }: SignInModalProps) {
   function handleCancelModal() {
     modalData.handleCancel?.()
-    openModal()
+    openModal(false)
   }
   return (
     <Dialog open={isOpen} handler={openModal} dismiss={{ enabled: false }}>

@@ -18,6 +18,11 @@ export const routes: Route[] = [
     icon: faPeopleGroup,
   },
   {
+    name: 'Teams',
+    path: '/dashboard/teams',
+    icon: faPeopleGroup,
+  },
+  {
     name: 'Profile',
     path: '/dashboard/profile',
     icon: faUser,

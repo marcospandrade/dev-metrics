@@ -16,7 +16,7 @@ export interface ModalProps {
 interface ModalContextData {
   isOpen: boolean
   defineModal: (data: ModalProps) => void
-  handleModal: () => void
+  handleModal: (value: boolean) => void
 }
 
 interface ModalContextProviderProps {
@@ -34,8 +34,8 @@ function ModalContextProvider({ children }: ModalContextProviderProps) {
     setIsOpen(!isOpen)
   }
 
-  function handleModal() {
-    setIsOpen(!isOpen)
+  function handleModal(value: boolean) {
+    setIsOpen(value)
   }
 
   const contextData: ModalContextData = useMemo(
@@ -44,7 +44,7 @@ function ModalContextProvider({ children }: ModalContextProviderProps) {
       defineModal,
       handleModal,
     }),
-    [isOpen, handleModal, defineModal]
+    [isOpen, handleModal]
   )
 
   return (

@@ -16,7 +16,7 @@ export function DashboardNavbar() {
   const { user, getUserDetails, handleLogout } = useAuth()
   const { push, replace } = useRouter()
   const { defineModal } = useModal()
-  const pathName = usePathname().split('/').pop()
+  const pathName = usePathname().split('/').pop()?.replace(/-/g, ' ')
 
   async function onLogout() {
     try {
@@ -68,11 +68,7 @@ export function DashboardNavbar() {
               </Button>
             </MenuHandler>
             <MenuList className="w-max border-0">
-              <MenuItem
-                className="items-center gap-1 justify-center px-4 py-2 xl:flex"
-                color="indigo"
-                onClick={onLogout}
-              >
+              <MenuItem className="items-center gap-1 justify-center px-4 py-2 xl:flex" color="indigo" onClick={onLogout}>
                 <FontAwesomeIcon icon={faSignOut} className="h-5 w-5 mr-2 text-inherit" />
                 Logout
               </MenuItem>
