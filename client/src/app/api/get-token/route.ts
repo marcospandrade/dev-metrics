@@ -8,7 +8,8 @@ export async function GET(request: NextRequest) {
 
   if (!token) {
     request.cookies.set('redirectTo', request.url)
-    throw new Error(`Unauthorized!`)
+    return NextResponse.json({})
+    // throw new Error(`Unauthorized!`)
   }
 
   return NextResponse.json(token)

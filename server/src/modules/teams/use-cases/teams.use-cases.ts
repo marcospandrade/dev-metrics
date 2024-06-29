@@ -8,6 +8,8 @@ import { LoggerService } from '@core/logger/logger.service';
 import { AddTeamParticipantCommand } from '../commands/addTeamParticipants/add-team-participant.command';
 import { Participant } from '../entities/participant.entity';
 import { UpdateTeamCommand } from '../commands/updateTeam/update-team-command';
+import { SchemaValidator } from '@core/utils';
+import { GetAndCountTeamsDto } from '../dto/get-teams.dto';
 
 @Injectable()
 export class TeamUseCases {
@@ -17,10 +19,13 @@ export class TeamUseCases {
         private readonly logger: LoggerService,
     ) {}
 
-    public async getTeamsByUser(user: User): Promise<Team[]> {
-        const teams = await this.teamRepository.find({
+    public async getTeamsByUser(user: User): Promise<GetAndCountTeamsDto> {
+        const [teams, count] = await this.teamRepository.findAndCount({
             where: {
                 createdById: user.id,
+            },
+            relations: {
+                participants: true,
             },
         });
 
@@ -28,7 +33,7 @@ export class TeamUseCases {
             this.logger.error(`User: ${user.id} has no teams`);
         }
 
-        return teams;
+        return SchemaValidator.toInstance({ teams, count }, GetAndCountTeamsDto);
     }
 
     public async createTeam(payload: CreateTeamDto, userId: string) {

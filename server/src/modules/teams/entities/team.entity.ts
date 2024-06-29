@@ -1,11 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString, IsUUID } from 'class-validator';
+import { IsArray, IsString, IsUUID, ValidateNested } from 'class-validator';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
 import { User } from '@modules/auth/entities/user.entity';
 import { Participant } from './participant.entity';
+import { Type } from 'class-transformer';
 
 @Entity({ name: 'teams' })
 export class Team extends Base {
@@ -26,6 +27,9 @@ export class Team extends Base {
     createdById: string;
 
     @OneToMany(() => Participant, participant => participant.team)
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => Participant)
     participants?: Participant[];
 
     @ManyToOne(() => User, user => user.projects)
