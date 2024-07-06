@@ -17,7 +17,8 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
         private readonly integrationServerUseCases: IntegrationServerUseCases,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
-    ) {}
+    ) { }
+
     public async execute(command: SyncIntegrationProjectCommand): Promise<any> {
         this.logger.info({ command }, 'Checking project sync status...');
         const checkProjectIsSynced = await this.queryBus.execute<GetProjectSyncStatusQuery, CheckProjectIsSyncedDTO>(
@@ -51,8 +52,6 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
         if (newOffset < total) {
             return this.getTicketForSync(project, userEmail, newOffset);
         }
-
-        return;
     }
 
     private generateSyncIssuesEvent(issues: AtlassianIssue[], projectId: string) {
@@ -62,7 +61,7 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
             description: issue.fields.description,
             jiraIssueId: issue.id,
             jiraIssueKey: issue.key,
-            projectId,
+            projectId
         }));
 
         this.eventBus.publish(SchemaValidator.toInstance({ issues: syncIssues }, StartSyncIssuesEvent));

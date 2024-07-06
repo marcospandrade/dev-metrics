@@ -22,7 +22,7 @@ export class AuthFactoryService {
         private readonly jwtService: JwtService,
         private configService: ConfigService,
         private eventBus: EventBus,
-    ) {}
+    ) { }
 
     public async checkUserExists(email: string): Promise<User | null> {
         const user = await this.userRepository.findOne({

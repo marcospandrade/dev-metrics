@@ -20,7 +20,7 @@ export class AuthUseCase {
         private readonly _atlassianUseCases: AtlassianUseCases,
         private readonly atlassianService: AtlassianFactoryService,
         private readonly logger: LoggerService,
-    ) {}
+    ) { }
 
     public async login(registerDto: LoginDto): Promise<LoginResponseDTO> {
         const { code, state } = registerDto;
@@ -29,8 +29,10 @@ export class AuthUseCase {
 
         this.logger.info({ email: userInfo.email }, 'User info exchanged: ');
 
-        const userExists = await this.authFactoryService.checkUserExists(userInfo.email);
-        const accessibleResources = await this.atlassianService.getAccessibleResources(exchangedCode.access_token);
+        const [userExists, accessibleResources] = await Promise.all([
+            await this.authFactoryService.checkUserExists(userInfo.email),
+            await this.atlassianService.getAccessibleResources(exchangedCode.access_token)
+        ])
 
         this.logger.info(
             { serverUrl: accessibleResources.url },
@@ -64,13 +66,6 @@ export class AuthUseCase {
         );
 
         const userCreated = await this.authFactoryService.createUser(createUser);
-
-        // this.commandBus.execute(
-        //     SchemaValidator.toInstance(
-        //         { ...accessibleResources, userId: userCreated.id },
-        //         CreateIntegrationServerCommand,
-        //     ),
-        // );
 
         this.logger.info({ userCreated: userCreated.id }, 'Create user');
 
