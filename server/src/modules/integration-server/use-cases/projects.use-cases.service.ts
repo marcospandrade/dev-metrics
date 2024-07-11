@@ -61,4 +61,17 @@ export class ProjectUseCases {
         }
         return { synced: false, project: integrationProject };
     }
+
+    public async findProjectsByServer(integrationServerId: string, userEmail: string){
+        return this.projectRepository.find({
+            where: {
+                integrationServerId,
+                integrationServer: {
+                    user: {
+                        email: userEmail
+                    }
+                }
+            }
+        })
+    }
 }

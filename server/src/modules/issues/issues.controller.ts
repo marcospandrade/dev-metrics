@@ -13,7 +13,6 @@ import { CreateIssueDto } from './dto/create-issue.dto';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { IUser } from '@modules/auth/dto/user.dto';
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';
-// import { ValidateSchema } from '@core/decorators/validate-schema';
 
 @Controller('issues')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -28,7 +27,6 @@ export class IssuesController {
 
     @Post('/upsert')
     upsertTicket(@Body() payload: CreateIssueDto) {
-        console.log('asduahsd');
         return this.issueUseCases.upsertMany([payload]);
     }
 }

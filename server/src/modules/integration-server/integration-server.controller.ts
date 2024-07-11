@@ -18,6 +18,7 @@ import { SchemaValidator } from '@core/utils';
 import { GetProjectSyncStatusQuery } from './queries/get-project-sync-status/get-project-sync-status.query';
 import { NotifyServerLoginEvent } from './events/notify-server-login.event';
 import { QueryIssues } from '@lib/atlassian/types/issues.type';
+import { ProjectUseCases } from './use-cases/projects.use-cases.service';
 
 @Controller('integration-server')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -27,6 +28,7 @@ export class IntegrationServerController {
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
+        private readonly projectsUseCases: ProjectUseCases
     ) {}
 
     @Get('/project-tickets/:projectId')
@@ -50,10 +52,16 @@ export class IntegrationServerController {
         return this.integrationServerUseCases.getUserAccessibleResources(user.email);
     }
 
-    @Get('/projects/:serverId')
-    getProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId: string) {
+    @Get('external/projects/:serverId')
+    getExternalProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId: string) {
         return this.integrationServerUseCases.getServerProjects(serverId, user.email);
     }
+    
+    @Get("/projects/:serverId")
+    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId:string){
+        return this.projectsUseCases.findProjectsByServer(serverId, user.email)
+    }
+
 
     @Get('/:projectId')
     checkProjectIsSynced(@Param('projectId') projectId: string) {
