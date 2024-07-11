@@ -7,6 +7,7 @@ import { LoggerService } from '@core/logger/logger.service';
 import { CreateProjectDto } from '../dto/create-project.dto';
 import { Project } from '../entities/project.entity';
 import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
+import { UpsertProjectDto } from '../dto/upsert-project.dto';
 
 @Injectable()
 export class ProjectUseCases {
@@ -16,7 +17,11 @@ export class ProjectUseCases {
         private readonly projectRepository: Repository<Project>,
     ) {}
 
-    public async upsertMany(payload: CreateProjectDto[]) {
+    public async updateOne(id: string, payload: UpsertProjectDto) {
+        return this.projectRepository.update({ id }, payload);
+    }
+
+    public async upsertMany(payload: UpsertProjectDto[]) {
         const { identifiers } = await this.projectRepository.upsert(payload, { conflictPaths: ['atlassianId'] });
 
         if (!identifiers) {

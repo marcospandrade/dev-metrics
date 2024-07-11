@@ -9,12 +9,14 @@ import { CheckProjectIsSyncedDTO } from '@modules/integration-server/dto/check-p
 import { AtlassianIssue } from '@lib/atlassian/types/issues.type';
 import { Project } from '@modules/integration-server/entities/project.entity';
 import { StartSyncIssuesEvent } from '@modules/issues/events/start-sync-issues.event';
+import { ProjectUseCases } from '@modules/integration-server/use-cases/projects.use-cases.service';
 
 @CommandHandler(SyncIntegrationProjectCommand)
 export class SyncIntegrationProjectCommandHandler implements ICommandHandler<SyncIntegrationProjectCommand> {
     public constructor(
         private readonly logger: LoggerService,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
+        private readonly projectUseCases: ProjectUseCases,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
     ) { }
@@ -27,7 +29,12 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
 
         this.logger.info({ checkProjectIsSynced }, 'Starting syncing project...');
 
-        return this.getTicketForSync(checkProjectIsSynced.project, command.userEmail);
+        await this.getTicketForSync(checkProjectIsSynced.project, command.userEmail);
+        
+        return this.projectUseCases.updateOne(
+            command.projectId,
+            { isSynced: true }
+        )
     }
 
     public async getTicketForSync(project: Project, userEmail: string, offset: number = 0) {
@@ -58,7 +65,7 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
         this.logger.info({ issuesLength: issues.length, projectId }, 'Generating ticket sync events...');
         const syncIssues = issues.map(issue => ({
             summary: issue.fields.summary,
-            description: issue.fields.description,
+            description: JSON.stringify(issue.fields.description),
             jiraIssueId: issue.id,
             jiraIssueKey: issue.key,
             projectId
