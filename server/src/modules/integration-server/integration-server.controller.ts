@@ -57,9 +57,9 @@ export class IntegrationServerController {
         return this.integrationServerUseCases.getServerProjects(serverId, user.email);
     }
     
-    @Get("/projects/:serverId")
-    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId:string){
-        return this.projectsUseCases.findProjectsByServer(serverId, user.email)
+    @Get("/projects/:jiraId")
+    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('jiraId') jiraId: string){
+        return this.projectsUseCases.findProjectsByJiraId(jiraId, user.email)
     }
 
 

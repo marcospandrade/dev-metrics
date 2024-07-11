@@ -67,11 +67,11 @@ export class ProjectUseCases {
         return { synced: false, project: integrationProject };
     }
 
-    public async findProjectsByServer(integrationServerId: string, userEmail: string){
+    public async findProjectsByJiraId(jiraId: string, userEmail: string){
         return this.projectRepository.find({
             where: {
-                integrationServerId,
                 integrationServer: {
+                    jiraId: jiraId,
                     user: {
                         email: userEmail
                     }

@@ -9,12 +9,12 @@ export function middleware(request: NextRequest) {
   const redirectURL = new URL(signInUrl, request.url)
 
   if (!token) {
-    redirect('/login')
-    return NextResponse.redirect(redirectURL, {
+    NextResponse.redirect(redirectURL, {
       headers: {
         'Set-Cookie': `redirectTo=${request.url}; Path=/; HttpOnly; max-age=20`,
       },
     })
+    redirect('/login')
   }
 
   return NextResponse.next()
