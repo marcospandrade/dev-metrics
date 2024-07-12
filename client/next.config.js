@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'avatars.githubusercontent.com',
-      '192.168.0.102',
-      'localhost',
-      'images.unsplash.com',
-      'secure.gravatar.com',
-      'encrypted-tbn0.gstatic.com'
-    ],
+    remotePatterns: [
+      { hostname: 'api.atlassian.com' },
+      { hostname: 'avatars.githubusercontent.com' },
+      { hostname: 'images.unsplash.com' },
+      { hostname: 'secure.gravatar.com' },
+      { hostname: 'encrypted-tbn0.gstatic.com' },
+      { hostname: 'localhost' },
+    ]
   },
 }
 

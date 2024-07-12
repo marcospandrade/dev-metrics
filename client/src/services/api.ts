@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { cookies } from 'next/headers'
-import { getUser } from './auth'
+import { getUser } from '../lib/auth'
 import { User } from '@/models/User.model'
 
 export interface GenericHttpResponse<T> {
@@ -32,12 +32,11 @@ axiosInterceptorInstance.interceptors.request.use(
     if (data) {
       config.headers['Authorization'] = `Bearer ${data}`;
     }
-    console.log("CONFIG", config)
     return config;
   },
   (error) => {
     // Handle request errors here
-    // return Promise.reject(error);
+    return Promise.reject(new Error(error));
   }
 );
 

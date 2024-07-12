@@ -46,6 +46,8 @@ export class IssueUseCases {
             },
         });
 
+        this.logger.info({ count }, 'Found tickets by project');
+
         return {
             issues,
             count,

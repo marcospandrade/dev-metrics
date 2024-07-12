@@ -13,6 +13,11 @@ export const routes: Route[] = [
     icon: faHome,
   },
   {
+    name: 'Projects',
+    path: '/dashboard/projects',
+    icon: faUser
+  },
+  {
     name: 'Sprints',
     path: '/dashboard/sprints',
     icon: faPeopleGroup,
@@ -21,10 +26,11 @@ export const routes: Route[] = [
     name: 'Teams',
     path: '/dashboard/teams',
     icon: faPeopleGroup,
-  },
-  {
-    name: 'Profile',
-    path: '/dashboard/profile',
-    icon: faUser,
-  },
+  }
+  // {
+  //   name: 'Profile',
+  //   path: '/dashboard/profile',
+  //   icon: faUser,
+  // },
+  
 ]

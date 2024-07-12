@@ -42,8 +42,8 @@ export class IntegrationServerController {
         return this.integrationServerUseCases.getAllTickets(projectId, user.email, query);
     }
 
-    @Get('/project-tickets/:projectId/:issueId')
-    getTicketById(@Param('projectId') projectId: string, @Param('issueId') issueId: string, @CurrentUser() user: User) {
+    @Get('external/project-tickets/:externalProjectId/:issueId')
+    getTicketById(@Param('externalProjectId') projectId: string, @Param('issueId') issueId: string, @CurrentUser() user: User) {
         return this.integrationServerUseCases.getIssueById(projectId, user.email, issueId);
     }
 
