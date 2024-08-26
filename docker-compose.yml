@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  nats: 
-    image: nats
-    hostname: nats
-    container_name: nats
-    ports:
-      - 4222:4222
-      - 8222:8222
-    volumes:
-      - ./nats.conf:/nats-server.conf
-    networks:
-        - api
-    command: [ "--config", "/nats-server.conf", "-D", "-m", "8222" ]
+  # nats: 
+  #   image: nats
+  #   hostname: nats
+  #   container_name: nats
+  #   ports:
+  #     - 4222:4222
+  #     - 8222:8222
+  #   volumes:
+  #     - ./nats.conf:/nats-server.conf
+  #   networks:
+  #       - api
+  #   command: [ "--config", "/nats-server.conf", "-D", "-m", "8222" ]
 
   postgres:
     image: postgres
