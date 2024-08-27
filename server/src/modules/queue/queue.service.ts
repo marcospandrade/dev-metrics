@@ -40,16 +40,17 @@ export class QueueService {
 
         this.logger.info('NATS is enabled');
 
-        this.processQueueMessages(INCOMING_ORDER_EVENTS_QUEUE, INCOMING_ORDER_EVENTS_QUEUE_CONSUMER_NAME).subscribe();
+        //NOTE: enable this to use NATS
+        // this.processQueueMessages(INCOMING_ORDER_EVENTS_QUEUE, INCOMING_ORDER_EVENTS_QUEUE_CONSUMER_NAME).subscribe();
 
-        this.client
-            .createKeyValueStore$('event-stack-status-update', {
-                history: 1,
-            })
-            .pipe(take(1))
-            .subscribe();
+        // this.client
+        //     .createKeyValueStore$('event-stack-status-update', {
+        //         history: 1,
+        //     })
+        //     .pipe(take(1))
+        //     .subscribe();
 
-        await this.createOrdersKv();
+        // await this.createOrdersKv();
     }
 
     @OnEvent('PUBLISH_ORDERS_KV')

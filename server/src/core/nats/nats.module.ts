@@ -23,7 +23,8 @@ export class NatsModule {
         return {
             provide: CustomClientNats,
             useFactory: (_configSvc: ConfigService<ServerAppConfig>) => {
-                return new CustomClientNats(BaseNatsConfig.getNatsClientConfig(config));
+                return;
+                new CustomClientNats(BaseNatsConfig.getNatsClientConfig(config));
             },
             inject: [ConfigService],
         };
