@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { GenericHttpResponse, api } from '@/lib/api'
+import { GenericHttpResponse, api } from '@/services/api'
 import { User } from '@/models/User.model'
 
 export async function GET(request: NextRequest) {
@@ -17,7 +17,6 @@ export async function GET(request: NextRequest) {
     code,
     state,
   })
-  console.log('RESPONSE SERVER', data)
 
   const redirectURL = redirectTo ?? new URL('/dashboard', request.url)
 
