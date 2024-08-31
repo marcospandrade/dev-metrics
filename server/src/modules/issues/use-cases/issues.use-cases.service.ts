@@ -13,6 +13,7 @@ export class IssueUseCases {
         private readonly logger: LoggerService,
         @InjectRepository(Issue) private readonly issueRepository: Repository<Issue>,
     ) {}
+
     public async upsertMany(payload: CreateIssueDto[]) {
         this.logger.info({ payload }, 'Upserting issues...');
 

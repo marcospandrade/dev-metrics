@@ -14,6 +14,7 @@ import { GetPaginatedProjectsDTO } from '@lib/atlassian/dto/get-paginated-projec
 import { AtlassianProject, PaginatedResponse } from '@lib/atlassian/types/atlassian-project.type';
 import { QueryIssues } from '@lib/atlassian/types/issues.type';
 import { generateQueryIssueString } from '@lib/atlassian/helpers/issue.helper';
+import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
 
 @Injectable()
 export class IntegrationServerUseCases {
@@ -92,5 +93,9 @@ export class IntegrationServerUseCases {
         return this.atlassianUseCases.getPaginatedProjects(
             SchemaValidator.toInstance({ userEmail, cloudId: serverId }, GetPaginatedProjectsDTO),
         );
+    }
+
+    public async searchFieldIdByName(payload: SearchFieldByNameDto) {
+        return this.atlassianUseCases.searchByFieldName(SchemaValidator.toInstance(payload, SearchFieldByNameDto));
     }
 }

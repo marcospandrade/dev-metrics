@@ -10,6 +10,7 @@ import { LoggerService } from '@core/logger/logger.service';
 import { generateBasicAtlassianUrl } from '../helpers/constants';
 import { AtlassianProject, PaginatedResponse } from '../types/atlassian-project.type';
 import { AtlassianIssue, PaginatedIssues } from '../types/issues.type';
+import { SearchFieldByNameDto } from '../dto/search-field-by-name.dto';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -66,5 +67,14 @@ export class AtlassianUseCases {
             urlGetProjects,
             payload.userEmail,
         );
+    }
+
+    @ValidateSchema(SearchFieldByNameDto)
+    public async searchByFieldName({ cloudId, userEmail, fieldName }: SearchFieldByNameDto) {
+        const urlSearchField = `${generateBasicAtlassianUrl(cloudId)}/field/search?query=${fieldName}`;
+
+        this.logger.info('Searching by field ' + urlSearchField);
+
+        return this._atlassianFactoryService.genericAtlassianCall(urlSearchField, userEmail);
     }
 }

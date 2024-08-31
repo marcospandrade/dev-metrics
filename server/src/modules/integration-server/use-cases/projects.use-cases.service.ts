@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 
 import { LoggerService } from '@core/logger/logger.service';
-import { CreateProjectDto } from '../dto/create-project.dto';
 import { Project } from '../entities/project.entity';
 import { CheckProjectIsSyncedDTO } from '../dto/check-project-is-synced.dto';
 import { UpsertProjectDto } from '../dto/upsert-project.dto';
@@ -67,16 +66,16 @@ export class ProjectUseCases {
         return { synced: false, project: integrationProject };
     }
 
-    public async findProjectsByJiraId(jiraId: string, userEmail: string){
+    public async findProjectsByJiraId(jiraId: string, userEmail: string) {
         return this.projectRepository.find({
             where: {
                 integrationServer: {
                     jiraId: jiraId,
                     user: {
-                        email: userEmail
-                    }
-                }
-            }
-        })
+                        email: userEmail,
+                    },
+                },
+            },
+        });
     }
 }

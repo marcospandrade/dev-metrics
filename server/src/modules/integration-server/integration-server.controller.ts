@@ -8,17 +8,18 @@ import {
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
+import { EventBus, QueryBus } from '@nestjs/cqrs';
 
 import { IntegrationServerUseCases } from './use-cases/integration-server.use-cases.service';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { User } from '@modules/auth/entities/user.entity';
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';
-import { EventBus, QueryBus } from '@nestjs/cqrs';
 import { SchemaValidator } from '@core/utils';
 import { GetProjectSyncStatusQuery } from './queries/get-project-sync-status/get-project-sync-status.query';
 import { NotifyServerLoginEvent } from './events/notify-server-login.event';
 import { QueryIssues } from '@lib/atlassian/types/issues.type';
 import { ProjectUseCases } from './use-cases/projects.use-cases.service';
+import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
 
 @Controller('integration-server')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -28,7 +29,7 @@ export class IntegrationServerController {
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
-        private readonly projectsUseCases: ProjectUseCases
+        private readonly projectsUseCases: ProjectUseCases,
     ) {}
 
     @Get('/project-tickets/:projectId')
@@ -43,7 +44,11 @@ export class IntegrationServerController {
     }
 
     @Get('external/project-tickets/:externalProjectId/:issueId')
-    getTicketById(@Param('externalProjectId') projectId: string, @Param('issueId') issueId: string, @CurrentUser() user: User) {
+    getTicketById(
+        @Param('externalProjectId') projectId: string,
+        @Param('issueId') issueId: string,
+        @CurrentUser() user: User,
+    ) {
         return this.integrationServerUseCases.getIssueById(projectId, user.email, issueId);
     }
 
@@ -56,12 +61,22 @@ export class IntegrationServerController {
     getExternalProjectsByServerId(@CurrentUser() user: User, @Param('serverId') serverId: string) {
         return this.integrationServerUseCases.getServerProjects(serverId, user.email);
     }
-    
-    @Get("/projects/:jiraId")
-    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('jiraId') jiraId: string){
-        return this.projectsUseCases.findProjectsByJiraId(jiraId, user.email)
+
+    @Get('/projects/:jiraId')
+    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('jiraId') jiraId: string) {
+        return this.projectsUseCases.findProjectsByJiraId(jiraId, user.email);
     }
 
+    @Get('search-field/:cloudId/:fieldName')
+    searchFieldByName(
+        @Param('cloudId') cloudId: string,
+        @Param('fieldName') fieldName: string,
+        @CurrentUser() user: User,
+    ) {
+        return this.integrationServerUseCases.searchFieldIdByName(
+            SchemaValidator.toInstance({ cloudId, userEmail: user.email, fieldName }, SearchFieldByNameDto),
+        );
+    }
 
     @Get('/:projectId')
     checkProjectIsSynced(@Param('projectId') projectId: string) {

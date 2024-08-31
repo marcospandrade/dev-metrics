@@ -19,7 +19,7 @@ prune:
 	docker rmi dev-metrics-server -f \
 
 local:
-	docker compose --env-file ./server/.env up -d postgres nats --remove-orphans;
+	docker compose --env-file ./server/.env up -d postgres --remove-orphans;
 	NATS_HOST=localhost \
 	DB_HOST=localhost \
 	npm --prefix ./server run start:dev

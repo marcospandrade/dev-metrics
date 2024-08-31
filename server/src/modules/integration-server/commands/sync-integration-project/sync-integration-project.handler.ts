@@ -19,7 +19,7 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
         private readonly projectUseCases: ProjectUseCases,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
-    ) { }
+    ) {}
 
     public async execute(command: SyncIntegrationProjectCommand): Promise<any> {
         this.logger.info({ command }, 'Checking project sync status...');
@@ -30,11 +30,8 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
         this.logger.info({ checkProjectIsSynced }, 'Starting syncing project...');
 
         await this.getTicketForSync(checkProjectIsSynced.project, command.userEmail);
-        
-        return this.projectUseCases.updateOne(
-            command.projectId,
-            { isSynced: true }
-        )
+
+        return this.projectUseCases.updateOne(command.projectId, { isSynced: true });
     }
 
     public async getTicketForSync(project: Project, userEmail: string, offset: number = 0) {
@@ -68,7 +65,7 @@ export class SyncIntegrationProjectCommandHandler implements ICommandHandler<Syn
             description: JSON.stringify(issue.fields.description),
             jiraIssueId: issue.id,
             jiraIssueKey: issue.key,
-            projectId
+            projectId,
         }));
 
         this.eventBus.publish(SchemaValidator.toInstance({ issues: syncIssues }, StartSyncIssuesEvent));
