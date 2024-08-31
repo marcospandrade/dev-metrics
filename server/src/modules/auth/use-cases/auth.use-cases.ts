@@ -20,7 +20,7 @@ export class AuthUseCase {
         private readonly _atlassianUseCases: AtlassianUseCases,
         private readonly atlassianService: AtlassianFactoryService,
         private readonly logger: LoggerService,
-    ) { }
+    ) {}
 
     public async login(registerDto: LoginDto): Promise<LoginResponseDTO> {
         const { code, state } = registerDto;
@@ -31,8 +31,8 @@ export class AuthUseCase {
 
         const [userExists, accessibleResources] = await Promise.all([
             await this.authFactoryService.checkUserExists(userInfo.email),
-            await this.atlassianService.getAccessibleResources(exchangedCode.access_token)
-        ])
+            await this.atlassianService.getAccessibleResources(exchangedCode.access_token),
+        ]);
 
         this.logger.info(
             { serverUrl: accessibleResources.url },

@@ -15,14 +15,14 @@ export class AuthController {
     constructor(
         private readonly authUseCase: AuthUseCase,
         private readonly authFactoryService: AuthFactoryService,
-    ) { }
+    ) {}
 
     @HttpCode(HttpStatus.OK)
     @Post('login')
     @ResponseMessage('login successfully')
     public async login(@Body() body: LoginDto) {
         const { user, accessibleResources } = await this.authUseCase.login(body);
-        (() => this.authFactoryService.notifyIntegrationServerNewLogin({ ...accessibleResources, userId: user.id }))()
+        (() => this.authFactoryService.notifyIntegrationServerNewLogin({ ...accessibleResources, userId: user.id }))();
 
         return user;
     }

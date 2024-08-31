@@ -1,13 +1,4 @@
-import {
-    Body,
-    ClassSerializerInterceptor,
-    Controller,
-    Get,
-    Param,
-    Post,
-    UseGuards,
-    UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { EventBus, QueryBus } from '@nestjs/cqrs';
 
 import { IntegrationServerUseCases } from './use-cases/integration-server.use-cases.service';
@@ -22,7 +13,6 @@ import { ProjectUseCases } from './use-cases/projects.use-cases.service';
 import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
 
 @Controller('integration-server')
-@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(JwtAuthGuard)
 export class IntegrationServerController {
     public constructor(
