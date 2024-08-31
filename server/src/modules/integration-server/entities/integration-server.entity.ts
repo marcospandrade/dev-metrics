@@ -7,6 +7,7 @@ import { IsString } from 'class-validator';
 import { Base } from '@core/database/entities/base.entity';
 import { User } from '../../auth/entities/user.entity';
 import { Project } from './project.entity';
+import { CustomFields } from './custom-fields.entity';
 
 @Entity({ name: 'integration_servers' })
 @Unique('jira-server', ['jiraId', 'url'])
@@ -57,4 +58,7 @@ export class IntegrationServer extends Base {
 
     @OneToMany(() => Project, project => project.integrationServer)
     projects: Project[];
+
+    @OneToMany(() => CustomFields, customField => customField.integrationServer)
+    customFields: CustomFields[];
 }
