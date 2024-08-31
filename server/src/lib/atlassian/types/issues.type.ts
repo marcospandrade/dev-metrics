@@ -14,7 +14,7 @@ export type QueryIssues = {
 export type AtlassianIssue = {
     id: string;
     key: string;
-    fields: IssueFields;
+    fields: IssueFields | Record<string, any>;
 };
 
 export type IssueFields = {

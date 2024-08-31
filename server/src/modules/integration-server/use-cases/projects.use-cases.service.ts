@@ -43,6 +43,7 @@ export class ProjectUseCases {
             },
             select: {
                 integrationServer: {
+                    id: true,
                     jiraId: true,
                     user: {
                         email: true,
@@ -61,9 +62,17 @@ export class ProjectUseCases {
         this.logger.info({ integrationProject }, 'Checked project sync status');
 
         if (integrationProject) {
-            return { synced: true, project: integrationProject };
+            return {
+                synced: true,
+                project: integrationProject,
+                integrationServerId: integrationProject.integrationServer.id,
+            };
         }
-        return { synced: false, project: integrationProject };
+        return {
+            synced: false,
+            project: integrationProject,
+            integrationServerId: integrationProject.integrationServer.id,
+        };
     }
 
     public async findProjectsByJiraId(jiraId: string, userEmail: string) {

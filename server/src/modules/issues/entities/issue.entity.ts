@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { IsOptional, IsString } from 'class-validator';
+import { IsJSON, IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import { Sprint } from '@modules/sprints/entities/sprint.entity';
@@ -50,6 +50,11 @@ export class Issue extends Base {
     @IsString()
     @Column()
     projectId: string;
+
+    @IsJSON()
+    @IsOptional()
+    @Column('jsonb', { nullable: false, default: {} })
+    customFields: object;
 
     @ApiProperty({
         type: String,

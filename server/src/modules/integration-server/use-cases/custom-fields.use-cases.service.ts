@@ -17,4 +17,21 @@ export class CustomFieldsUseCases {
             conflictPaths: ['atlassianId'],
         });
     }
+
+    async getCustomFieldIds(internalServerId: string) {
+        return this.customFieldRepository.find({
+            where: {
+                integrationServerId: internalServerId,
+            },
+        });
+    }
+
+    createCustomFieldMap(customFields: CustomFields[]) {
+        const customFieldsMap = new Map<string, string>();
+        customFields.forEach(cf => {
+            customFieldsMap.set(cf.atlassianId, cf.name);
+        });
+
+        return customFieldsMap;
+    }
 }
