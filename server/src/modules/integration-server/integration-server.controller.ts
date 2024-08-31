@@ -52,9 +52,12 @@ export class IntegrationServerController {
         return this.integrationServerUseCases.getServerProjects(serverId, user.email);
     }
 
-    @Get('/projects/:jiraId')
-    getInternalProjectsByServerId(@CurrentUser() user: User, @Param('jiraId') jiraId: string) {
-        return this.projectsUseCases.findProjectsByJiraId(jiraId, user.email);
+    @Get('/projects/:integrationServerId')
+    getInternalProjectsByServerId(
+        @CurrentUser() user: User,
+        @Param('integrationServerId') integrationServerId: string,
+    ) {
+        return this.projectsUseCases.findProjectsByJiraId(integrationServerId, user.email);
     }
 
     @Get('search-field/:cloudId/:fieldName')

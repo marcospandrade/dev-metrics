@@ -20,6 +20,7 @@ import { SearchCustomFieldQueryHandler } from './queries/search-custom-field/sea
 import { CustomFieldsSaga } from './sagas/custom-fields.saga';
 import { RegisterCustomFieldsHandler } from './commands/register-custom-fields/register-custom-fields.handler';
 import { CustomFields } from './entities/custom-fields.entity';
+import { ProjectsController } from './projects.controller';
 
 const CommandHandlers = [
     UpsertIntegrationServerCommandHandler,
@@ -36,7 +37,7 @@ const Sagas = [IntegrationServerSaga, ProjectSaga, CustomFieldsSaga];
 const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCases];
 
 @Module({
-    controllers: [IntegrationServerController],
+    controllers: [IntegrationServerController, ProjectsController],
     imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), CqrsModule, AtlassianModule],
     providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
