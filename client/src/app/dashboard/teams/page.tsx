@@ -1,6 +1,6 @@
 'use client'
 
-import { GenericHttpResponse, api } from '@/lib/api'
+import { GenericHttpResponse, api } from '@/services/api'
 import { Button, Typography } from '@/lib/material'
 import { Team } from '@/models/Team.model'
 import { useRouter } from 'next/navigation'

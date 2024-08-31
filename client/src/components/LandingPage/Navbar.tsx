@@ -13,10 +13,6 @@ export function Navbar(props: Props): ReactElement {
   const [url, setUrl] = useState(LoginHelper.getLoginUrl())
   const { push } = useRouter()
 
-  function navigateToLogin() {
-    return push('/login')
-  }
-
   return (
     <nav
       className={

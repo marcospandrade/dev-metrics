@@ -1,12 +1,8 @@
 'use client'
 
-import { api } from '@/lib/api'
-import { Button } from '@/lib/material'
+import { api } from '@/services/api'
 
 export default function Sprints() {
-  async function testAPI() {
-    const result = await api.get('sprint')
-  }
 
   return (
     <form className="max-w-md mx-auto">
