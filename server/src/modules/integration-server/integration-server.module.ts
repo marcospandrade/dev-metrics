@@ -15,21 +15,29 @@ import { ProjectSaga } from './sagas/project.saga';
 import { ProjectUseCases } from './use-cases/projects.use-cases.service';
 import { Project } from './entities/project.entity';
 import { UpsertProjectsCommandHandler } from './commands/upsert-projects/upsert-projects.handler';
+import { CustomFieldsUseCases } from './use-cases/custom-fields.use-cases.service';
+import { SearchCustomFieldQueryHandler } from './queries/search-custom-field/search-custom-field.handler';
+import { CustomFieldsSaga } from './sagas/custom-fields.saga';
+import { RegisterCustomFieldsHandler } from './commands/register-custom-fields/register-custom-fields.handler';
+import { CustomFields } from './entities/custom-fields.entity';
 
 const CommandHandlers = [
     UpsertIntegrationServerCommandHandler,
     CheckSyncIntegrationProjectCommandHandler,
     SyncIntegrationProjectCommandHandler,
     UpsertProjectsCommandHandler,
+    RegisterCustomFieldsHandler,
 ];
 
-const QueryHandlers = [GetProjectSyncStatusQueryHandler];
+const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler];
 
-const Sagas = [IntegrationServerSaga, ProjectSaga];
+const Sagas = [IntegrationServerSaga, ProjectSaga, CustomFieldsSaga];
+
+const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCases];
 
 @Module({
     controllers: [IntegrationServerController],
-    imports: [TypeOrmModule.forFeature([IntegrationServer, Project]), CqrsModule, AtlassianModule],
-    providers: [IntegrationServerUseCases, ProjectUseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
+    imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), CqrsModule, AtlassianModule],
+    providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
 export class IntegrationProjectModule {}

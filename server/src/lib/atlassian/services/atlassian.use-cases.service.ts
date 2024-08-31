@@ -8,9 +8,11 @@ import { GetAccessibleResourcesDTO } from '../dto/get-accessible-resources.dto';
 import { GetPaginatedProjectsDTO } from '../dto/get-paginated-projects.dto';
 import { LoggerService } from '@core/logger/logger.service';
 import { generateBasicAtlassianUrl } from '../helpers/constants';
-import { AtlassianProject, PaginatedResponse } from '../types/atlassian-project.type';
+import { AtlassianProject } from '../types/atlassian-project.type';
 import { AtlassianIssue, PaginatedIssues } from '../types/issues.type';
 import { SearchFieldByNameDto } from '../dto/search-field-by-name.dto';
+import { PaginatedResponse } from '../types/paginated-response.type';
+import { AtlassianCustomType } from '../types/atlassian-custom-field.type';
 
 @Injectable()
 export class AtlassianUseCases {
@@ -75,6 +77,9 @@ export class AtlassianUseCases {
 
         this.logger.info('Searching by field ' + urlSearchField);
 
-        return this._atlassianFactoryService.genericAtlassianCall(urlSearchField, userEmail);
+        return this._atlassianFactoryService.genericAtlassianCall<PaginatedResponse<AtlassianCustomType>>(
+            urlSearchField,
+            userEmail,
+        );
     }
 }

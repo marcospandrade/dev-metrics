@@ -1,4 +1,4 @@
-import { PaginatedResponse } from './atlassian-project.type';
+import { PaginatedResponse } from './paginated-response.type';
 
 export type PaginatedIssues<T> = Omit<PaginatedResponse<T>, 'values'> & {
     issues: T[];

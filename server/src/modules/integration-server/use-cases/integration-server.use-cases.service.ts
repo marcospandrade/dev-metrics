@@ -11,10 +11,11 @@ import { SchemaValidator } from '@core/utils';
 import { GetSpecificIssueDTO } from '@lib/atlassian/dto/get-specific-issue.dto';
 import { GetAccessibleResourcesDTO } from '@lib/atlassian/dto/get-accessible-resources.dto';
 import { GetPaginatedProjectsDTO } from '@lib/atlassian/dto/get-paginated-projects.dto';
-import { AtlassianProject, PaginatedResponse } from '@lib/atlassian/types/atlassian-project.type';
+import { AtlassianProject } from '@lib/atlassian/types/atlassian-project.type';
 import { QueryIssues } from '@lib/atlassian/types/issues.type';
 import { generateQueryIssueString } from '@lib/atlassian/helpers/issue.helper';
 import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
+import { PaginatedResponse } from '@lib/atlassian/types/paginated-response.type';
 
 @Injectable()
 export class IntegrationServerUseCases {

@@ -1,10 +1,3 @@
-export type PaginatedResponse<T> = {
-    maxResults: number;
-    startAt: number;
-    total: number;
-    values: T[];
-};
-
 export type AtlassianProject = {
     id: string;
     key: string;

@@ -16,4 +16,8 @@ export class AtlassianConfig {
     @IsNotEmpty()
     @IsString()
     ATLASSIAN_BASE_URL!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    RELEVANT_FIELDS!: string;
 }
