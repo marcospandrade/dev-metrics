@@ -20,11 +20,7 @@ interface FooterProps {
   routes?: Route[]
 }
 
-export function DashboardFooter({
-  brandName = defaultProps.brandName,
-  brandLink = defaultProps.brandLink,
-  routes = defaultProps.routes,
-}: FooterProps) {
+export function DashboardFooter({ brandName = defaultProps.brandName, brandLink = defaultProps.brandLink, routes = defaultProps.routes }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (

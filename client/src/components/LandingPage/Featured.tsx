@@ -3,10 +3,7 @@ import Image from 'next/image'
 export function Featured() {
   return (
     <section className="relative bg-white py-24">
-      <div
-        className="pointer-events-none absolute bottom-auto left-0 right-0 top-0 -mt-20 w-full overflow-hidden"
-        style={{ height: '80px' }}
-      >
+      <div className="pointer-events-none absolute bottom-auto left-0 right-0 top-0 -mt-20 w-full overflow-hidden" style={{ height: '80px' }}>
         <svg
           className="absolute bottom-0 overflow-hidden"
           xmlns="http://www.w3.org/2000/svg"
@@ -16,10 +13,7 @@ export function Featured() {
           x="0"
           y="0"
         >
-          <polygon
-            className="fill-current text-indigo-400"
-            points="2560 0 2560 100 0 100"
-          ></polygon>
+          <polygon className="fill-current text-indigo-400" points="2560 0 2560 100 0 100"></polygon>
         </svg>
       </div>
 
@@ -41,11 +35,8 @@ export function Featured() {
               </div>
               <h3 className="text-3xl font-semibold">A brand new project</h3>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                This tool is development and is a open source looking for
-                provide help, mostly to small and medium size teams of software
-                development. If you like this area, feel free to reach the
-                organization inside our contact section. We are looking forward
-                to have you with us!
+                This tool is development and is a open source looking for provide help, mostly to small and medium size teams of software development. If you
+                like this area, feel free to reach the organization inside our contact section. We are looking forward to have you with us!
               </p>
               <ul className="mt-6 list-none">
                 <li className="py-2">
@@ -56,9 +47,7 @@ export function Featured() {
                       </span>
                     </div>
                     <div>
-                      <h4 className="text-gray-600">
-                        Carefully created for developers to developers
-                      </h4>
+                      <h4 className="text-gray-600">Carefully created for developers to developers</h4>
                     </div>
                   </div>
                 </li>
@@ -70,9 +59,7 @@ export function Featured() {
                       </span>
                     </div>
                     <div>
-                      <h4 className="text-gray-600">
-                        Dynamic login with your Atlassian account
-                      </h4>
+                      <h4 className="text-gray-600">Dynamic login with your Atlassian account</h4>
                     </div>
                   </div>
                 </li>
@@ -84,9 +71,7 @@ export function Featured() {
                       </span>
                     </div>
                     <div>
-                      <h4 className="text-gray-600">
-                        New technologies used inside the project
-                      </h4>
+                      <h4 className="text-gray-600">New technologies used inside the project</h4>
                     </div>
                   </div>
                 </li>

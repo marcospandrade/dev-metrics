@@ -27,17 +27,17 @@ export const localApi = axios.create({
 // Request interceptor
 axiosInterceptorInstance.interceptors.request.use(
   async (config) => {
-    const { data } = await localApi.get<User>('api/get-token');
+    const { data } = await localApi.get<User>('api/get-token')
 
     if (data) {
-      config.headers['Authorization'] = `Bearer ${data}`;
+      config.headers['Authorization'] = `Bearer ${data}`
     }
-    return config;
+    return config
   },
   (error) => {
     // Handle request errors here
-    return Promise.reject(new Error(error));
+    return Promise.reject(new Error(error))
   }
-);
+)
 
 export const api = axiosInterceptorInstance

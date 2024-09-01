@@ -15,7 +15,7 @@ export const routes: Route[] = [
   {
     name: 'Projects',
     path: '/dashboard/projects',
-    icon: faUser
+    icon: faUser,
   },
   {
     name: 'Sprints',
@@ -26,11 +26,10 @@ export const routes: Route[] = [
     name: 'Teams',
     path: '/dashboard/teams',
     icon: faPeopleGroup,
-  }
+  },
   // {
   //   name: 'Profile',
   //   path: '/dashboard/profile',
   //   icon: faUser,
   // },
-  
 ]

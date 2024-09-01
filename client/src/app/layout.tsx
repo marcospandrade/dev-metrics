@@ -24,18 +24,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </head>
 
       <body suppressHydrationWarning={true} className={`${roboto.variable} bg-blue-gray-50/50  font-sans`}>
         <LoadingContextProvider>
-          <ModalContextProvider>
-            {children}
-          </ModalContextProvider>
-          <ToastContainer position='top-right' autoClose={3000} />
+          <ModalContextProvider>{children}</ModalContextProvider>
+          <ToastContainer position="top-right" autoClose={3000} />
         </LoadingContextProvider>
       </body>
     </html>

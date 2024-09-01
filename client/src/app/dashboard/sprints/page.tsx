@@ -3,7 +3,6 @@
 import { api } from '@/services/api'
 
 export default function Sprints() {
-
   return (
     <form className="max-w-md mx-auto">
       <div className="relative z-0 w-full mb-5 group">

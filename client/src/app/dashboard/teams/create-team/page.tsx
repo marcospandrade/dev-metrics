@@ -1,6 +1,6 @@
 'use client'
 
-import { api } from '@/lib/api'
+// import { api } from '@/lib/api'
 import { Input, Typography } from '@/lib/material'
 import { useForm } from 'react-hook-form'
 import { ParticipantsField } from './components/ParticipantsField'

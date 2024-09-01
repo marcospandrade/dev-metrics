@@ -19,9 +19,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <Sidenav brandImg={'../../public/img/logo-ct.png'} brandName="EstimAi" />
             <div className="p-4 xl:ml-80 min-h-screen flex flex-col justify-between">
               <DashboardNavbar />
-              <div className="mb-auto">
-                {children}
-              </div>
+              <div className="mb-auto">{children}</div>
 
               <div className="h-12 text-blue-gray-400">
                 <DashboardFooter />

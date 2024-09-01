@@ -1,8 +1,8 @@
-import { Participant } from "./Participant.model";
+import { Participant } from './Participant.model'
 
 export type Team = {
-    id: string;
-    teamName: string;
-    createdById: string;
-    participants: Participant[]
+  id: string
+  teamName: string
+  createdById: string
+  participants: Participant[]
 }

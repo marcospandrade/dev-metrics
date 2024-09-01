@@ -8,7 +8,7 @@ const nextConfig = {
       { hostname: 'secure.gravatar.com' },
       { hostname: 'encrypted-tbn0.gstatic.com' },
       { hostname: 'localhost' },
-    ]
+    ],
   },
 }
 

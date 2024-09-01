@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const state = searchParams.get('state')
 
-
   // redirect to the URL
   const redirectTo = request.cookies.get('redirectTo')?.value
 
