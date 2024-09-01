@@ -21,11 +21,7 @@ export default function IssuesPage() {
     const [projects, setProjects] = useState<Project[]>([])
     const [selectedProject, setSelectedProject] = useState<Project>({} as Project)
     const [selectedProjectId, setSelectedProjectId] = useState<string | undefined>(undefined)
-
     const [issues, setIssues] = useState<Issue[]>([])
-    //TODO: think about doing something with that info or just remove it
-    const [issuesCount, setIssuesCount] = useState<number>()
-
     const [activeTab, setActiveTab] = useState<ProjectPageTabsEnum>(ProjectPageTabsEnum.INFO)
 
     async function fetchProjects() {
@@ -47,7 +43,6 @@ export default function IssuesPage() {
     async function fetchTicketsFromProject(selectedProjectId: string) {
         const data = await issuesService.getIssues(selectedProjectId);
         if (data) {
-            setIssuesCount(data.count)
             setIssues(data.issues)
         }
         toast.success('Project fetched successfully')

@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
 
-      <body suppressHydrationWarning={true} className={`${roboto.variable} bg-gray-900 font-sans`}>
+      <body suppressHydrationWarning={true} className={`${roboto.variable} bg-blue-gray-50/50  font-sans`}>
         <LoadingContextProvider>
           <ModalContextProvider>
             {children}
