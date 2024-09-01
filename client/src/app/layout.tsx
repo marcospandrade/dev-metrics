@@ -4,7 +4,6 @@ import { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import 'react-toastify/dist/ReactToastify.css';
 
 // import { ThemeProvider } from '@material-tailwind/react'
 
