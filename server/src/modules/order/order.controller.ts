@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
-import { QueryDto } from '@core/models/query';
+// import { QueryDto } from '@core/models/query';
 
 import { OrderService } from './order.service';
 import { CommandBus } from '@nestjs/cqrs';
@@ -20,8 +20,8 @@ export class OrderController {
         return this.commandBus.execute(SchemaValidator.toInstance(payload, CreateOrderCommand));
     }
 
-    @Get()
-    readOrders(@Query() query: QueryDto) {
-        return this.orderService.readOrders(query);
-    }
+    // @Get()
+    // readOrders(@Query() query: QueryDto) {
+    //     return this.orderService.readOrders(query);
+    // }
 }
