@@ -30,7 +30,7 @@ export class PaginationService {
 
         return {
             data: result,
-            total,
+            count: total,
         };
     }
 
@@ -41,13 +41,11 @@ export class PaginationService {
         params: string[],
         repository: Repository<T>,
     ) {
-        // Inicia a query com a condição obrigatória (PrimeiraCondicao)
         const query = repository
             .createQueryBuilder('entity')
             .where(`entity.${String(idFieldName)} = :identifier`, { identifier });
 
-        // Adiciona OR para os params dentro de um AND
-        if (params.length > 0) {
+        if (params.length > 0 && searchText) {
             query.andWhere(
                 new Brackets(qb => {
                     params.forEach((key, index) => {

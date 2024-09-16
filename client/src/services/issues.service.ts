@@ -1,6 +1,7 @@
 import { api, GenericHttpResponse } from './api'
 import { AxiosError } from 'axios'
 import { Issue } from '@/models/Issue.model'
+import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 
 type GetIssueDto = {
   issues: Issue[]
@@ -18,6 +19,20 @@ async function getIssues(projectId: string) {
   }
 }
 
+async function getPaginatedIssues(projectId: string, page: number, pageSize: number): Promise<PaginatedData<GenericWithId<Issue>>>{
+  try {
+    const { data: apiData } = await api.get<GenericHttpResponse<GetIssueDto>>(`/issues/${projectId}?page=${page}&pageSize=${pageSize}`)
+    
+    return {
+      data: apiData.response.issues,
+      count: apiData.response.count
+    };
+  } catch (error: AxiosError | any){
+    throw new Error(error.response.data ?? 'Error trying to get projects')
+  }
+}
+
 export default {
   getIssues,
+  getPaginatedIssues
 }

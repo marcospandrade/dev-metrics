@@ -46,7 +46,7 @@ export class IssueUseCases extends PaginationService {
 
         const { page, pageSize, sortOrder, orderBy, searchText } = query;
 
-        const { data, total } = await this.paginate(
+        const { data, count } = await this.paginate(
             this.createQueryBuilderWithFilters<Issue>(
                 serverExternalId,
                 'projectId',
@@ -65,11 +65,11 @@ export class IssueUseCases extends PaginationService {
             ),
         );
 
-        this.logger.info({ total }, 'Found tickets by project');
+        this.logger.info({ count }, 'Found tickets by project');
 
         return {
-            data,
-            total,
+            issues: data,
+            count,
         };
     }
 }
