@@ -22,6 +22,9 @@ export class GenericQueryDto {
     @IsOptional()
     public sortOrder?: SortOrder = SortOrder.DESC;
 
+    @IsOptional()
+    public searchText?: string;
+
     static parsePage({ value }: { value: string }) {
         if (!value || isNaN(parseInt(`${value}`))) {
             return 0;

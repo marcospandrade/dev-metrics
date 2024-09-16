@@ -16,11 +16,7 @@ import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { IUser } from '@modules/auth/dto/user.dto';
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';
 import { GenericQueryDto } from '@shared/helpers/pagination/query';
-
-export interface IssueSearch {
-    jiraIssueKey?: string;
-    summary?: string;
-}
+import { IssueSearch } from './helpers/issue-search';
 
 @Controller('issues')
 @UseInterceptors(ClassSerializerInterceptor)

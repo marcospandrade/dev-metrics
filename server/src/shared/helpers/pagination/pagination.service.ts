@@ -1,4 +1,4 @@
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { Repository, Brackets, SelectQueryBuilder } from 'typeorm';
 
 import { GenericQueryDto, SortOrder } from './query';
 
@@ -8,19 +8,59 @@ export class PaginationService {
 
         if (filter.orderBy) {
             order[filter.orderBy] = filter.sortOrder;
-            return order;
+            return { sort: filter.orderBy, order: filter.sortOrder };
         }
 
-        order.createdAt = SortOrder.DESC;
-        return order;
+        return { sort: '"createdAt"', order: SortOrder.DESC };
     }
 
-    protected paginate<T>(repository: Repository<T>, filter: GenericQueryDto, where: FindOptionsWhere<T>) {
-        return repository.findAndCount({
-            order: this.createOrderQuery(filter),
-            skip: (filter.page - 1) * filter.pageSize,
-            take: filter.pageSize,
-            where: where,
-        });
+    protected async paginate<T>(
+        queryBuilder: SelectQueryBuilder<T>, // Accept the QueryBuilder directly
+        filter: GenericQueryDto,
+    ) {
+        const page = filter.page || 1;
+        const pageSize = filter.pageSize || 10;
+        const { sort, order } = this.createOrderQuery(filter);
+
+        const [result, total] = await queryBuilder
+            .orderBy(sort, order)
+            .skip((page - 1) * pageSize)
+            .take(pageSize)
+            .getManyAndCount();
+
+        return {
+            data: result,
+            total,
+        };
+    }
+
+    protected createQueryBuilderWithFilters<T>(
+        identifier: string,
+        idFieldName: keyof T,
+        searchText: string,
+        params: string[],
+        repository: Repository<T>,
+    ) {
+        // Inicia a query com a condição obrigatória (PrimeiraCondicao)
+        const query = repository
+            .createQueryBuilder('entity')
+            .where(`entity.${String(idFieldName)} = :identifier`, { identifier });
+
+        // Adiciona OR para os params dentro de um AND
+        if (params.length > 0) {
+            query.andWhere(
+                new Brackets(qb => {
+                    params.forEach((key, index) => {
+                        if (index === 0) {
+                            qb.where(`entity.${key} ILIKE :searchText`, { searchText: `%${searchText}%` });
+                        } else {
+                            qb.orWhere(`entity.${key} ILIKE :searchText`, { searchText: `%${searchText}%` });
+                        }
+                    });
+                }),
+            );
+        }
+
+        return query;
     }
 }

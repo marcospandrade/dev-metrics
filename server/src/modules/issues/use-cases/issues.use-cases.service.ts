@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ILike, In, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { CreateIssueDto } from '../dto/create-issue.dto';
 import { Issue } from '../entities/issue.entity';
 import { LoggerService } from '@core/logger/logger.service';
 import { GenericQueryDto } from '@shared/helpers/pagination/query';
 import { PaginationService } from '@shared/helpers/pagination/pagination.service';
-import { IssueSearch } from '../issues.controller';
 import { SchemaValidator } from '@core/utils';
+import { IssueSearch, ISSUES_SEARCH_FIELDS } from '../helpers/issue-search';
 
 @Injectable()
 export class IssueUseCases extends PaginationService {
@@ -41,34 +41,35 @@ export class IssueUseCases extends PaginationService {
         });
     }
 
-    public async findTicketsByProject(projectId: string, userId: string, query: GenericQueryDto & IssueSearch) {
+    public async findTicketsByProject(serverExternalId: string, userId: string, query: GenericQueryDto & IssueSearch) {
         this.logger.info('Finding tickets by project...');
-        const { ...params } = query;
-        const [issues, count] = await this.paginate(
-            this.issueRepository,
-            SchemaValidator.toInstance(query, GenericQueryDto),
-            this.createWhereQuery(params),
+
+        const { page, pageSize, sortOrder, orderBy, searchText } = query;
+
+        const { data, total } = await this.paginate(
+            this.createQueryBuilderWithFilters<Issue>(
+                serverExternalId,
+                'projectId',
+                searchText,
+                ISSUES_SEARCH_FIELDS,
+                this.issueRepository,
+            ),
+            SchemaValidator.toInstance(
+                {
+                    page,
+                    pageSize,
+                    sortOrder,
+                    orderBy,
+                },
+                GenericQueryDto,
+            ),
         );
 
-        this.logger.info({ count }, 'Found tickets by project');
+        this.logger.info({ total }, 'Found tickets by project');
 
         return {
-            issues,
-            count,
+            data,
+            total,
         };
-    }
-
-    private createWhereQuery(params: IssueSearch) {
-        const where: any = {};
-
-        if (params.jiraIssueKey) {
-            where.jiraIssueKey = ILike(`%${params.jiraIssueKey}%`);
-        }
-
-        if (params.summary) {
-            where.summary = ILike(`%${params.summary}%`);
-        }
-
-        return where;
     }
 }
