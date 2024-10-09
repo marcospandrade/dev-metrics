@@ -2,8 +2,13 @@ install-deps:
 	bash ./scripts/install.sh
 
 clean-deps:
-	bash ./scripts/remove.sh
+	bash ./scripts/remove.sh§
 
+client-dev:
+	cd client && npm run dev
+
+dev: client-dev
+	
 up:
 	docker compose --env-file ./server/.env up -d --remove-orphans
 

@@ -4,26 +4,33 @@ import { GenericHttpResponse, api } from '@/services/api'
 import { User } from '@/models/User.model'
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
+  try {
 
-  const code = searchParams.get('code')
-  const state = searchParams.get('state')
 
-  // redirect to the URL
-  const redirectTo = request.cookies.get('redirectTo')?.value
+    const { searchParams } = new URL(request.url)
 
-  const { data } = await api.post<GenericHttpResponse<User>>('auth/login', {
-    code,
-    state,
-  })
+    const code = searchParams.get('code')
+    const state = searchParams.get('state')
 
-  const redirectURL = redirectTo ?? new URL('/dashboard', request.url)
+    // redirect to the URL
+    const redirectTo = request.cookies.get('redirectTo')?.value
 
-  const cookieExpiresInSeconds = 60 * 60 * 24 * 30 // 30 days
+    const { data } = await api.post<GenericHttpResponse<User>>('auth/login', {
+      code,
+      state,
+    })
 
-  return NextResponse.redirect(redirectURL, {
-    headers: {
-      'Set-Cookie': `token=${data.response.accessTokenEstimai}; Path=/; max-age=${cookieExpiresInSeconds}`,
-    },
-  })
+    const redirectURL = redirectTo ?? new URL('/dashboard', request.url)
+
+    const cookieExpiresInSeconds = 60 * 60 * 24 * 30 // 30 days
+
+    return NextResponse.redirect(redirectURL, {
+      headers: {
+        'Set-Cookie': `token=${data.response.accessTokenEstimai}; Path=/; max-age=${cookieExpiresInSeconds}`,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.redirect(new URL('/', request.url))
+  }
 }
