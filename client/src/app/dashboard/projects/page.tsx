@@ -2,16 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { Tab, TabPanel, Tabs, TabsBody, TabsHeader, Typography } from '@material-tailwind/react'
-import { toast } from 'react-toastify'
 
 import { useAuth } from '@/hooks/useAuth'
 import { Project } from '@/models/Project.model'
 import projectsService from '@/services/projects.service'
-import issuesService from '@/services/issues.service'
+
 import { SelectProjects } from './components/SelectProjects'
 import { IssuesTable } from './components/IssuesTable'
-import { Issue } from '@/models/Issue.model'
-import { ProjectPageTabsEnum, tabsData } from './helpers/tabs'
+
+import { ProjectPageTabsEnum, tabsData } from './constants/tabs'
 import { ProjectInfo } from './components/tabs/ProjectInfo'
 import { useLoading } from '@/hooks/useLoading'
 
@@ -21,7 +20,6 @@ export default function IssuesPage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [selectedProject, setSelectedProject] = useState<Project>({} as Project)
   const [selectedProjectId, setSelectedProjectId] = useState<string | undefined>(undefined)
-  const [issues, setIssues] = useState<Issue[]>([])
   const [activeTab, setActiveTab] = useState<ProjectPageTabsEnum>(ProjectPageTabsEnum.INFO)
 
   async function fetchProjects() {
@@ -39,20 +37,6 @@ export default function IssuesPage() {
       setSelectedProject(project)
     }
   }
-
-  async function fetchTicketsFromProject(selectedProjectId: string) {
-    const data = await issuesService.getIssues(selectedProjectId)
-    if (data) {
-      setIssues(data.issues)
-    }
-    toast.success('Project fetched successfully')
-  }
-
-  useEffect(() => {
-    if (selectedProjectId && activeTab === ProjectPageTabsEnum.ISSUES) {
-      fetchTicketsFromProject(selectedProjectId)
-    }
-  }, [activeTab])
 
   useEffect(() => {
     fetchProjects()
@@ -87,7 +71,7 @@ export default function IssuesPage() {
                   <ProjectInfo selectedProject={selectedProject}></ProjectInfo>
                 </TabPanel>
                 <TabPanel value={ProjectPageTabsEnum.ISSUES} className="px-0">
-                  <IssuesTable tickets={issues}></IssuesTable>
+                  <IssuesTable activeTab={activeTab} selectedProjectId={selectedProjectId}></IssuesTable>
                 </TabPanel>
               </TabsBody>
             </Tabs>

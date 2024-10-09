@@ -19,9 +19,9 @@ async function getIssues(projectId: string) {
   }
 }
 
-async function getPaginatedIssues(projectId: string, page: number, pageSize: number): Promise<PaginatedData<GenericWithId<Issue>>>{
+async function getPaginatedIssues(projectId: string, queryString: string): Promise<PaginatedData<GenericWithId<Issue>>>{
   try {
-    const { data: apiData } = await api.get<GenericHttpResponse<GetIssueDto>>(`/issues/${projectId}?page=${page}&pageSize=${pageSize}`)
+    const { data: apiData } = await api.get<GenericHttpResponse<GetIssueDto>>(`/issues/${projectId}?${queryString}`)
     
     return {
       data: apiData.response.issues,
