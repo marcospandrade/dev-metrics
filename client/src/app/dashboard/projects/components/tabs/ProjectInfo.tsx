@@ -2,7 +2,7 @@ import { LibIcons } from '@/lib/icons'
 import { Project } from '@/models/Project.model'
 
 interface ProjectInfoProps {
-  selectedProject: Project
+  readonly selectedProject: Project
 }
 
 export function ProjectInfo({ selectedProject }: ProjectInfoProps) {
