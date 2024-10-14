@@ -739,7 +739,7 @@
 								},
 								"method": "GET",
 								"header": [],
-								"url": "{{ _.base_url }}/auth/profile"
+								"url": "{{base_url}}/auth/profile"
 							},
 							"response": []
 						}
