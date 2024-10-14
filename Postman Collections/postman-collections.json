@@ -756,6 +756,43 @@
 			"id": "7e29fe40-c57e-41b6-b5d8-89c0b54cdb75"
 		},
 		{
+			"name": "Integration Server",
+			"item": [
+				{
+					"name": "Get All Issues Fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [],
+								"id": "097187d1-8124-4811-bad5-03186b3372f6"
+							}
+						}
+					],
+					"id": "8cb3d0a3-3a7e-4644-8a0e-639f0d4ee854",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": false,
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Insomnia/2023.5.7"
+							}
+						],
+						"url": "http://localhost:3000/api/auth/user"
+					},
+					"response": []
+				}
+			],
+			"id": "f96f3565-07cb-4584-8628-582188ccca84"
+		},
+		{
 			"name": "health-check",
 			"event": [
 				{
