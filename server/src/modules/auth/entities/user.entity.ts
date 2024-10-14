@@ -70,7 +70,9 @@ export class User extends Base {
     })
     @IsString()
     @IsOptional()
-    @Column()
+    @Column({
+        nullable: true,
+    })
     picture?: string;
 
     @ApiPropertyOptional({
@@ -79,7 +81,9 @@ export class User extends Base {
     })
     @IsString()
     @IsOptional()
-    @Column()
+    @Column({
+        nullable: true,
+    })
     jobTitle?: string;
 
     @IsOptional()

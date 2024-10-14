@@ -78,7 +78,6 @@ export default function IssuesPage() {
           ) : (
             <div className="bg-gray-100 flex text-center justify-center py-8 px-12 rounded">
               <Typography variant="paragraph" className="text-indigo-500">
-                {' '}
                 You should select a project to view details and issues
               </Typography>
             </div>

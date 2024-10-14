@@ -33,7 +33,8 @@
     "react-hook-form": "^7.51.5",
     "react-toastify": "^10.0.5",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.2.0",
