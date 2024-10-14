@@ -2,8 +2,8 @@ import querystring from 'querystring'
 
 import issuesService from '@/services/issues.service'
 import { CustomTable } from '@/components/Table/CustomTable'
-import { ProjectPageTabsEnum } from '../constants/tabs'
-import { ISSUES_TABLE_DEFINITIONS, ISSUES_TABLE_HEADINGS } from '../constants/table'
+import { ProjectPageTabsEnum } from '../../constants/tabs'
+import { ISSUES_TABLE_DEFINITIONS, ISSUES_TABLE_HEADINGS } from '../../constants/table'
 interface IssueTableProps {
   selectedProjectId: string
   activeTab: ProjectPageTabsEnum

@@ -24,7 +24,19 @@ async function getProjectWithDetails(projectId: string) {
   }
 }
 
+async function syncProject(projectId: string){
+  return;
+  try {
+    const { data } = await api.post<GenericHttpResponse<any>>(`/projects/${projectId}/sync`)
+
+    return data
+  } catch (error: AxiosError | any) {
+    throw new Error(error.response.data ?? 'Error trying to sync the project')
+  }
+}
+
 export default {
   getProjects,
   getProjectWithDetails,
+  syncProject
 }
