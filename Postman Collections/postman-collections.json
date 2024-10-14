@@ -379,9 +379,12 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "ba8c7e0e-dc01-4e8e-bc42-4d00e1caffef",
+										"exec": [
+											""
+										],
 										"type": "text/javascript",
-										"exec": [],
-										"id": "ba8c7e0e-dc01-4e8e-bc42-4d00e1caffef"
+										"packages": {}
 									}
 								}
 							],
@@ -396,7 +399,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "{{ _.token }}"
+										"token": "{{token}}"
 									}
 								},
 								"method": "DELETE",
@@ -419,7 +422,7 @@
 										}
 									}
 								},
-								"url": "{{ _.base_url }}/team/76a0d435-96fb-44a6-9326-44653e05fb7d"
+								"url": "{{base_url}}/team/a9938796-37b1-4a70-96b1-1bfb734af7d8"
 							},
 							"response": []
 						},
