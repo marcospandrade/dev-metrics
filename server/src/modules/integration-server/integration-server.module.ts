@@ -21,6 +21,7 @@ import { CustomFieldsSaga } from './sagas/custom-fields.saga';
 import { RegisterCustomFieldsHandler } from './commands/register-custom-fields/register-custom-fields.handler';
 import { CustomFields } from './entities/custom-fields.entity';
 import { ProjectsController } from './projects.controller';
+import { GetAllIssuesFieldsQueryHandler } from './queries/get-all-issues-fields/get-all-issues-fields.handler';
 
 const CommandHandlers = [
     UpsertIntegrationServerCommandHandler,
@@ -30,7 +31,7 @@ const CommandHandlers = [
     RegisterCustomFieldsHandler,
 ];
 
-const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler];
+const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler, GetAllIssuesFieldsQueryHandler];
 
 const Sagas = [IntegrationServerSaga, ProjectSaga, CustomFieldsSaga];
 
@@ -41,4 +42,4 @@ const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCas
     imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), CqrsModule, AtlassianModule],
     providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
-export class IntegrationProjectModule {}
+export class IntegrationProjectModule { }

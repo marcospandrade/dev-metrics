@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./orchestrator/.env
+source ./server/.env
 
 # Default values
 socks_proxy=""
@@ -17,7 +17,7 @@ inbox_prefix=""
 user_jwt=""
 color_scheme=""
 tls_first=false
-description="Vendors local account"
+description="DevMetrics Local Account"
 url="nats://127.0.0.1:4222"
 token=$NATS_TOKEN
 user=$NATS_USER
@@ -48,5 +48,5 @@ function nats_cli_config() {
     }' | jq .
 }
 
-# Write to file at $HOME/.config/orchestrator-cli.json
-echo $(nats_cli_config) > $HOME/.config/nats/context/orchestrator-cli.json
+# Write to file at $HOME/.config/devmetrics-cli.json
+echo $(nats_cli_config) >$HOME/.config/nats/context/devmetrics-cli.json
