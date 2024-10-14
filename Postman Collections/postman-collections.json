@@ -747,7 +747,13 @@
 					"id": "6eb02ea8-889a-4943-ae8d-06ca77080d67"
 				}
 			],
-			"id": "320b12a7-68c1-4d0b-b599-3a91e77e36cf"
+			"id": "320b12a7-68c1-4d0b-b599-3a91e77e36cf",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			}
 		},
 		{
 			"name": "API Front",
