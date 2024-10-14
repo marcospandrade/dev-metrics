@@ -37,9 +37,8 @@ export function Sidenav({ brandImg, brandName }: SidenavProps) {
     >
       <div className="relative border-b border-white/20">
         <Link href="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EseM8xGgrPeEfubhmXjbXb3Tn-_1N_nOQA&usqp=CAU" width={50} height={50} alt="Logo" />
           <Typography variant="h6" color="white">
-            {brandName ?? 'EstimAi'}
+            {brandName ?? 'Dev Metrics'}
           </Typography>
         </Link>
         <IconButton

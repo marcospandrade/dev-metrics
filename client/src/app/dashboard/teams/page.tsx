@@ -1,21 +1,42 @@
 'use client'
 
-import { GenericHttpResponse, api } from '@/services/api'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 import { Button, Typography } from '@/lib/material'
 import { Team } from '@/models/Team.model'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import teamsService from '@/services/teams.service'
+import { LibIcons } from '@/lib/icons'
+import { useModal } from '@/hooks/useModal'
 
 export default function Teams() {
   const [teams, setTeams] = useState<Team[]>([])
   const [count, setCount] = useState<number>(0)
+  const { defineModal, handleModal } = useModal()
+
   const { push } = useRouter()
 
   async function fetchTeams() {
-    const { data } = await api.get<GenericHttpResponse<{ teams: Team[]; count: number }>>('team')
-    setTeams(data.response.teams)
-    setCount(data.response.count)
+    const getTeamsResponse = await teamsService.getTeams()
+    setTeams(getTeamsResponse.teams)
+    setCount(getTeamsResponse.count)
   }
+
+  async function onDeleteTeamButton(teamId: string) {
+    defineModal({
+      title: "Delete Team",
+      text: "Are you sure you want to delete a team?",
+      handleConfirm: () => handleDeleteTeam(teamId),
+    })
+  }
+
+  async function handleDeleteTeam(teamId:string){
+    const responseDeleteTeam = await teamsService.deleteTeam(teamId);
+    handleModal(false)
+    // if(responseDeleteTeam.status)
+    return fetchTeams();
+  }
+
 
   async function onCreateTeamButton() {
     return push('teams/create-team')
@@ -50,7 +71,7 @@ export default function Teams() {
               <th scope="col" className="px-6 py-3">
                 Participants
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-center">
                 Action
               </th>
             </tr>
@@ -63,10 +84,14 @@ export default function Teams() {
                 </th>
                 <td className="px-6 py-4">{team.teamName}</td>
                 <td className="px-6 py-4">{team.participants.map((participant) => participant.name).join(', ')}</td>
-                <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    Edit
-                  </a>
+                <td className="px-6 py-4 text-center">
+                  {/* NOTE: Implement edit behavior */}
+                  {/* <Button size='sm' className="font-medium text-green-600 bg-transparent drop-shadow-lg hover:underline p-2">
+                    <LibIcons.EditIcon />
+                  </Button> */}
+                  <Button size='sm' className="font-medium text-red-600 bg-transparent drop-shadow-lg hover:underline p-2" onClick={() => onDeleteTeamButton(team.id)}>
+                    <LibIcons.DeleteIcon />
+                  </Button>
                 </td>
               </tr>
             ))}

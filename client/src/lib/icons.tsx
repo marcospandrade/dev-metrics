@@ -3,6 +3,8 @@ import ErrorIcon from '@mui/icons-material/Error'
 import SearchIcon from '@mui/icons-material/Search'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const LibIcons = {
   CheckCircleIcon,
@@ -10,4 +12,6 @@ export const LibIcons = {
   SearchIcon,
   ArrowBackIcon,
   ArrowForwardIcon,
+  DeleteIcon,
+  EditIcon
 }
