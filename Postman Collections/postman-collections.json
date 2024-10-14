@@ -122,9 +122,12 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "0cd945fd-cc15-42b2-a47f-08b30cf29738",
+										"exec": [
+											""
+										],
 										"type": "text/javascript",
-										"exec": [],
-										"id": "0cd945fd-cc15-42b2-a47f-08b30cf29738"
+										"packages": {}
 									}
 								}
 							],
@@ -139,7 +142,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "{{ _.token }}"
+										"token": "{{token}}"
 									}
 								},
 								"method": "POST",
@@ -162,7 +165,7 @@
 										}
 									}
 								},
-								"url": "{{ _.base_url }}/integration-server/start-notify-server-login"
+								"url": "{{base_url}}/integration-server/start-notify-server-login"
 							},
 							"response": []
 						},
@@ -272,7 +275,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "{{ _.token }}"
+										"token": "{{token}}"
 									}
 								},
 								"method": "GET",
