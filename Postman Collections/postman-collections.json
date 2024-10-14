@@ -4,5 +4,781 @@
 		"name": "REST - Devmetrics",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Server",
+			"item": [
+				{
+					"name": "Integration Server",
+					"item": [
+						{
+							"name": "Get Accessible Resources",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "aabb170a-c841-4553-824d-eb2e1f149eb9"
+									}
+								}
+							],
+							"id": "fa07cc98-6b71-416a-ba20-e0587bc30697",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.5.1"
+									}
+								],
+								"url": "{{ _.base_url }}/integration-server/user-accessible-resources"
+							},
+							"response": []
+						},
+						{
+							"name": "Check Project is Synced",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "6f0c40ca-e870-4239-bf91-88fac1637aed"
+									}
+								}
+							],
+							"id": "0db64ac6-3377-4d22-8089-146b6c83662a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/9.1.0"
+									}
+								],
+								"url": "{{ _.base_url }}/integration-project/38c1175e-cc2f-4e89-b8c3-14ede43a333b"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Project Tickets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "a487c151-6fff-4ef3-9717-d0f24ab72c3a"
+									}
+								}
+							],
+							"id": "8c24dc12-d09a-4766-a2da-5383c0c83ba2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/9.1.0"
+									}
+								],
+								"url": "{{ _.base_url }}/integration-server/project-tickets/{{ _.jira_server_id }}"
+							},
+							"response": []
+						},
+						{
+							"name": "start-notify-server-login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "0cd945fd-cc15-42b2-a47f-08b30cf29738"
+									}
+								}
+							],
+							"id": "bb13e7e3-4a3b-4f36-96a9-963cb2c3f20c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"value": "insomnia/9.1.0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\": \"38c1175e-cc2f-4e89-b8c3-14ede43a333b\",\n\t\"url\": \"https://marcos-andrade.atlassian.net\",\n\t\"name\": \"marcos-andrade\",\n\t\"scopes\": [\n\t\t\"read:avatar:jira\",\n\t\t\"read:board-scope:jira-software\",\n\t\t\"read:dashboard:jira\",\n\t\t\"read:field:jira\",\n\t\t\"read:issue-details:jira\",\n\t\t\"read:issue-field-values:jira\",\n\t\t\"read:issue-status:jira\",\n\t\t\"read:issue.time-tracking:jira\",\n\t\t\"read:issue:jira\",\n\t\t\"read:issue:jira-software\",\n\t\t\"read:jira-work\",\n\t\t\"read:sprint:jira-software\",\n\t\t\"write:issue:jira\",\n\t\t\"write:issue:jira-software\"\n\t],\n\t\"avatarUrl\": \"https://site-admin-avatar-cdn.prod.public.atl-paas.net/avatars/240/star.png\",\n\n\t\"userId\": \"927537ff-ddd3-4103-8a3a-69f0d50daa21\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{ _.base_url }}/integration-server/start-notify-server-login"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Ticket By Atlassian Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "68f049fb-1f36-40e5-97ca-5f6f8f242933"
+									}
+								}
+							],
+							"id": "1c1691f5-fd8e-462d-bcbf-2f186ea837cd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/9.1.0"
+									}
+								],
+								"url": "{{ _.base_url }}/integration-server/project-tickets/{{ _.jira_server_id }}/10470"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Projects By Server Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "f7bf83de-fcbe-4db0-99b2-7c76830b4396"
+									}
+								}
+							],
+							"id": "5874c395-6e48-4981-9889-535d4bf228f3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/9.1.0"
+									}
+								],
+								"url": "{{ _.base_url }}/integration-server/projects/38c1175e-cc2f-4e89-b8c3-14ede43a333b"
+							},
+							"response": []
+						}
+					],
+					"id": "a8ae96d3-997b-4de4-abb8-85ea3e4448e3"
+				},
+				{
+					"name": "Teams/Participants",
+					"item": [
+						{
+							"name": "Get teams",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bdf2c6bb-90b6-4738-a15f-ca51f8b669d3",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "7f20e05b-a114-403f-a831-ffd51514885b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"url": "{{base_url}}/team"
+							},
+							"response": []
+						},
+						{
+							"name": "Get teams by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "f9525543-556d-4b51-9fe1-6481c3514a17"
+									}
+								}
+							],
+							"id": "1a59d26e-4d34-447d-abf9-2ef780676712",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"url": "{{ _.base_url }}/team/76a0d435-96fb-44a6-9326-44653e05fb7d"
+							},
+							"response": []
+						},
+						{
+							"name": "Update team by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "da206e23-e5ba-4240-84e6-8e0f25b38c0d"
+									}
+								}
+							],
+							"id": "dab8d0b8-a159-4f39-922b-44890bd9d627",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"teamName\": \"Teste editado 1\",\n\t\"participants\": [\n\t\t{\n\t\t\t\"id\": \"6de6b1c7-254c-4e87-8b32-07b8147d5481\",\n\t\t\t\"name\": \"Marcos 2\"\n\t\t}\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{ _.base_url }}/team/76a0d435-96fb-44a6-9326-44653e05fb7d"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete team by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "ba8c7e0e-dc01-4e8e-bc42-4d00e1caffef"
+									}
+								}
+							],
+							"id": "cdd2d332-30d2-4a73-9148-beb1ae02fbf2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"teamName\": \"Teste editado 1\",\n\t\"participants\": [\n\t\t{\n\t\t\t\"id\": \"6de6b1c7-254c-4e87-8b32-07b8147d5481\",\n\t\t\t\"name\": \"Marcos 2\"\n\t\t}\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{ _.base_url }}/team/76a0d435-96fb-44a6-9326-44653e05fb7d"
+							},
+							"response": []
+						},
+						{
+							"name": "Create teams",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ab1f903a-0e8c-4b5f-a5e2-55ead55b6f98",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b00c23df-1503-4be7-a14c-d8fd0d5660bd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"teamName\": \"Teste\",\n\t\"participants\": [\n\t\t{\n\t\t\t\"name\": \"Marcos\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Sarah\"\n\t\t}\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/team"
+							},
+							"response": []
+						}
+					],
+					"id": "f30a9bf6-395d-4f7f-a410-d0fc7942cfbd"
+				},
+				{
+					"name": "Issues",
+					"item": [
+						{
+							"name": "upsert tickets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "01f83107-f8b1-4ffc-9096-b25e5086cf32"
+									}
+								}
+							],
+							"id": "10dc2052-f092-4947-9665-66094cbda295",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.6.1"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"summary\": \"Autenticação no aplicativo mobile\",\n\t\"description\": null,\n\t\"jiraIssueId\": \"10006\",\n\t\"jiraIssueKey\": \"ED-1\",\n\t\"projectId\": \"8199f0df-7f64-4305-a5c2-c0b52080c836\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{ _.base_url }}/issues/upsert"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Issues",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "cc9130cc-7de8-46d1-b153-d13965704418"
+									}
+								}
+							],
+							"id": "9c0fc312-e754-4f60-a762-2571e1c8ac82",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/2023.5.8"
+									}
+								],
+								"url": "{{ _.base_url }}/issues/38c1175e-cc2f-4e89-b8c3-14ede43a333b"
+							},
+							"response": []
+						}
+					],
+					"id": "a43a5535-68cc-47f2-b5da-78d99ea7eb02"
+				},
+				{
+					"name": "Sprint",
+					"item": [
+						{
+							"name": "New Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d"
+									}
+								}
+							],
+							"id": "7228ef3f-d637-4b6e-8ac4-9fe2d30e2184",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "Insomnia/2023.5.7"
+									}
+								],
+								"url": "{{ _.base_url }}api/sprint/test"
+							},
+							"response": []
+						}
+					],
+					"id": "baeb46e6-eec1-4e97-9e50-b042a17b7e4e"
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "3c92b8bf-5919-4516-bbac-421411780b2d"
+									}
+								}
+							],
+							"id": "34baa805-673d-4e24-9dd0-eff7fe4481bf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.5.1"
+									}
+								],
+								"url": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "95fe05d4-4c2d-48d9-b922-36366a1887f5"
+									}
+								}
+							],
+							"id": "3f1acd4c-24d8-4f32-9e39-09827ffb71e8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "insomnia/8.2.0"
+									}
+								],
+								"url": "{{ _.base_url }}auth/refresh-token"
+							},
+							"response": []
+						},
+						{
+							"name": "Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "0f78b5ca-eb68-4d62-a0b8-a58ae973eeca"
+									}
+								}
+							],
+							"id": "af2cc74b-2546-42cc-becf-0eb69a78eb56",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{ _.token }}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{ _.base_url }}/auth/profile"
+							},
+							"response": []
+						}
+					],
+					"id": "6eb02ea8-889a-4943-ae8d-06ca77080d67"
+				}
+			],
+			"id": "320b12a7-68c1-4d0b-b599-3a91e77e36cf"
+		},
+		{
+			"name": "API Front",
+			"item": [
+				{
+					"name": "Get User Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [],
+								"id": "097187d1-8124-4811-bad5-03186b3372f6"
+							}
+						}
+					],
+					"id": "a56878fd-a541-4db3-b4e4-7535f3cd01e0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": false,
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Insomnia/2023.5.7"
+							}
+						],
+						"url": "http://localhost:3000/api/auth/user"
+					},
+					"response": []
+				}
+			],
+			"id": "7e29fe40-c57e-41b6-b5d8-89c0b54cdb75"
+		},
+		{
+			"name": "health-check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [],
+						"id": "420af2fa-0675-4cc8-9948-f35f095b1998"
+					}
+				}
+			],
+			"id": "3767d683-302d-4163-a088-a4b0b6bb38a9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": false,
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/8.2.0"
+					}
+				],
+				"url": "{{ _.base_url }}/health-check"
+			},
+			"response": []
+		}
+	]
 }
