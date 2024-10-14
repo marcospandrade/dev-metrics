@@ -11,6 +11,8 @@ import { NotifyServerLoginEvent } from './events/notify-server-login.event';
 import { QueryIssues } from '@lib/atlassian/types/issues.type';
 import { ProjectUseCases } from './use-cases/projects.use-cases.service';
 import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
+import { GetAllIssuesFieldsQuery } from './queries/get-all-issues-fields/get-all-issues-fields.query';
+import { IUser } from '@modules/auth/dto/user.dto';
 
 @Controller('integration-server')
 @UseGuards(JwtAuthGuard)
@@ -20,7 +22,7 @@ export class IntegrationServerController {
         private readonly eventBus: EventBus,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
         private readonly projectsUseCases: ProjectUseCases,
-    ) {}
+    ) { }
 
     @Get('/project-tickets/:projectId')
     getProjectTickets(@Param('projectId') projectId: string, @CurrentUser() user: User) {
@@ -74,6 +76,11 @@ export class IntegrationServerController {
     @Get('/:projectId')
     checkProjectIsSynced(@Param('projectId') projectId: string) {
         return this.queryBus.execute(SchemaValidator.toInstance({ projectId }, GetProjectSyncStatusQuery));
+    }
+
+    @Get('/get-all-issue-fields/:projectId')
+    getAllIssueFields(@Param('projectId') projectId: string, @CurrentUser() user: IUser) {
+        return this.queryBus.execute(SchemaValidator.toInstance({ projectId, userEmail: user.email }, GetAllIssuesFieldsQuery));
     }
 
     // TEST Event stack

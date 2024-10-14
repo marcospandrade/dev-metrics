@@ -13,13 +13,14 @@ import { AtlassianIssue, PaginatedIssues } from '../types/issues.type';
 import { SearchFieldByNameDto } from '../dto/search-field-by-name.dto';
 import { PaginatedResponse } from '../types/paginated-response.type';
 import { AtlassianCustomType } from '../types/atlassian-custom-field.type';
+import { GetAllIssuesFieldsDto } from '../dto/get-all-issues-fields.dto';
 
 @Injectable()
 export class AtlassianUseCases {
     public constructor(
         private readonly logger: LoggerService,
         private readonly _atlassianFactoryService: AtlassianFactoryService,
-    ) {}
+    ) { }
     public async getIssues(cloudId: string, userEmail: string, query?: string) {
         const urlGetIssues = !!query
             ? `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search${query}`
@@ -73,11 +74,23 @@ export class AtlassianUseCases {
 
     @ValidateSchema(SearchFieldByNameDto)
     public async searchByFieldName({ cloudId, userEmail, fieldName }: SearchFieldByNameDto) {
-        const urlSearchField = `${generateBasicAtlassianUrl(cloudId)}/field/search?query=${fieldName}`;
+        const urlSearchField = `${generateBasicAtlassianUrl(cloudId)}/field`;
 
         this.logger.info('Searching by field ' + urlSearchField);
 
-        return this._atlassianFactoryService.genericAtlassianCall<PaginatedResponse<AtlassianCustomType>>(
+        return this._atlassianFactoryService.genericAtlassianCall<AtlassianCustomType[]>(
+            urlSearchField,
+            userEmail,
+        );
+    }
+
+    @ValidateSchema(SearchFieldByNameDto)
+    public async getAllIssuesFields({ cloudId, userEmail }: GetAllIssuesFieldsDto) {
+        const urlSearchField = `${generateBasicAtlassianUrl(cloudId)}/field`;
+
+        this.logger.info('Searching all fields for cloudId ' + cloudId);
+
+        return this._atlassianFactoryService.genericAtlassianCall<AtlassianCustomType[]>(
             urlSearchField,
             userEmail,
         );
