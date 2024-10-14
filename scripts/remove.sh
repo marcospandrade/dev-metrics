@@ -1,5 +1,3 @@
-cd orchestrator && rm -rf node_modules/ &&
+#!/bin/bash
 
-cd ../microservice-1 && rm -rf node_modules/ && 
-
-cd ../microservice-2 && rm -rf node_modules/
+cd server && rm -rf node_modules/ && cd client && rm -rf node_modules/
