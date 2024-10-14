@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { cookies } from 'next/headers'
-import { getUser } from '../lib/auth'
 import { User } from '@/models/User.model'
 
 export interface GenericHttpResponse<T> {
