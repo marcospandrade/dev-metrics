@@ -51,6 +51,14 @@ export class Project extends Base {
     isSynced: boolean;
 
     @ApiProperty({
+        type: Boolean,
+        description: 'custom fields were already selected',
+    })
+    @IsBoolean()
+    @Column({ type: 'boolean', default: false })
+    isCustomFieldSelected: boolean;
+
+    @ApiProperty({
         type: String,
         description: 'integration server id',
     })
