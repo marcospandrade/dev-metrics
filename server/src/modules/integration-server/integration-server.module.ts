@@ -17,7 +17,6 @@ import { Project } from './entities/project.entity';
 import { UpsertProjectsCommandHandler } from './commands/upsert-projects/upsert-projects.handler';
 import { CustomFieldsUseCases } from './use-cases/custom-fields.use-cases.service';
 import { SearchCustomFieldQueryHandler } from './queries/search-custom-field/search-custom-field.handler';
-import { CustomFieldsSaga } from './sagas/custom-fields.saga';
 import { RegisterCustomFieldsHandler } from './commands/register-custom-fields/register-custom-fields.handler';
 import { CustomFields } from './entities/custom-fields.entity';
 import { ProjectsController } from './projects.controller';
@@ -33,7 +32,7 @@ const CommandHandlers = [
 
 const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler, GetAllIssuesFieldsQueryHandler];
 
-const Sagas = [IntegrationServerSaga, ProjectSaga, CustomFieldsSaga];
+const Sagas = [IntegrationServerSaga, ProjectSaga];
 
 const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCases];
 
