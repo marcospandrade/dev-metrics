@@ -1,11 +1,11 @@
-import { Hero } from '@/components/LandingPage/Hero'
-import { Services } from '@/components/LandingPage/Services'
-import { Featured } from '@/components/LandingPage/Featured'
+import { Hero } from '@/components/landingPage/Hero'
+import { Services } from '@/components/landingPage/Services'
+import { Featured } from '@/components/landingPage/Featured'
 // import { Team } from '@/components/LandingPage/Team'
 // import { Finisher } from '@/components/LandingPage/Finisher'
-import { Contact } from '@/components/LandingPage/Contact'
-import { Navbar } from '@/components/LandingPage/Navbar'
-import { Footer } from '@/components/LandingPage/Footer'
+import { Contact } from '@/components/landingPage/Contact'
+import { Navbar } from '@/components/landingPage/Navbar'
+import { Footer } from '@/components/landingPage/Footer'
 
 const IndexPage = () => (
   <>

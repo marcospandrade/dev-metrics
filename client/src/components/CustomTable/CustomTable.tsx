@@ -6,6 +6,7 @@ import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Pagination } from '@mui/material'
 import { LibIcons } from '@/lib/icons'
 import { useDebounce } from 'use-debounce'
+import { SearchInput } from '../common/SearchInput'
 
 export type TableFields<T extends object> = {
   fieldDefinition: keyof T
@@ -24,7 +25,14 @@ interface CustomTableProps<T extends object> {
 }
 const ITEMS_PER_PAGE = 10
 
-export function CustomTable<T extends object>({ tableTitle, searchInputPlaceholder, headings, identifierTableId, tableInfoFields, getData }: Readonly<CustomTableProps<T>>) {
+export function CustomTable<T extends object>({
+  tableTitle,
+  searchInputPlaceholder,
+  headings,
+  identifierTableId,
+  tableInfoFields,
+  getData,
+}: Readonly<CustomTableProps<T>>) {
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<GenericWithId<T>[] | null>(null)
   const [maxCount, setMaxCount] = useState<number>(0)
@@ -41,10 +49,10 @@ export function CustomTable<T extends object>({ tableTitle, searchInputPlacehold
     return new Intl.DateTimeFormat('pt-br', { dateStyle: 'medium' }).format(new Date(date))
   }
 
-  function updateData(){
-    getData(identifierTableId, currentPage, ITEMS_PER_PAGE, debouncedText).then(result => {
-        setData(result.data)
-        setMaxCount(result.count)
+  function updateData() {
+    getData(identifierTableId, currentPage, ITEMS_PER_PAGE, debouncedText).then((result) => {
+      setData(result.data)
+      setMaxCount(result.count)
     })
   }
 
@@ -64,16 +72,7 @@ export function CustomTable<T extends object>({ tableTitle, searchInputPlacehold
         </div>
         <div className="ml-3">
           <div className="w-full max-w-sm min-w-[300px] relative">
-            <div className="relative">
-              <input
-                className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-                placeholder={searchInputPlaceholder ?? 'Search here...'}
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-              <button className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded " type="button">
-                <LibIcons.SearchIcon />
-              </button>
-            </div>
+            <SearchInput searchInputPlaceholder={searchInputPlaceholder ?? 'Search here...'} onChangeSearchInput={setSearchString} />
           </div>
         </div>
       </div>

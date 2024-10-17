@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios'
 
 import { Project } from '@/models/Project.model'
-import { api, GenericHttpResponse } from './api'
+import { api, GenericHttpResponse } from '../api'
+import { AtlassianCustomField } from './dto/get-all-custom-fields.dto'
 
 async function getProjects(integrationServerId: string) {
   try {
@@ -35,8 +36,20 @@ async function syncProject(projectId: string){
   }
 }
 
+async function getAllCustomFields(projectId: string){
+  try { 
+    const { data } = await api.get<GenericHttpResponse<AtlassianCustomField[]>>(`/integration-server/get-all-issue-fields/${projectId}`)
+
+    return data.response;
+  } catch(error: AxiosError | any) {
+    console.log(error)
+    throw new Error(error.response.data ?? 'Error trying to get custom fields')
+  }
+}
+
 export default {
   getProjects,
   getProjectWithDetails,
+  getAllCustomFields,
   syncProject
 }

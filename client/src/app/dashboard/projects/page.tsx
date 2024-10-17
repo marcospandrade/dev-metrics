@@ -5,7 +5,7 @@ import { Tab, TabPanel, Tabs, TabsBody, TabsHeader, Typography } from '@material
 
 import { useAuth } from '@/hooks/useAuth'
 import { Project } from '@/models/Project.model'
-import projectsService from '@/services/projects.service'
+import projectsService from '@/services/projects/projects.service'
 
 import { SelectProjects } from './components/SelectProjects'
 import { IssuesTable } from './components/tabs/IssuesTable'
@@ -13,6 +13,7 @@ import { IssuesTable } from './components/tabs/IssuesTable'
 import { ProjectPageTabsEnum, tabsData } from './constants/tabs'
 import { ProjectInfo } from './components/tabs/ProjectInfo'
 import { useLoading } from '@/hooks/useLoading'
+import { CustomFieldsTab } from './components/tabs/CustomFieldsTab'
 
 export default function IssuesPage() {
   const { getUserDetails } = useAuth()
@@ -72,6 +73,9 @@ export default function IssuesPage() {
                 </TabPanel>
                 <TabPanel value={ProjectPageTabsEnum.ISSUES} className="px-0">
                   <IssuesTable activeTab={activeTab} selectedProjectId={selectedProjectId}></IssuesTable>
+                </TabPanel>
+                <TabPanel value={ProjectPageTabsEnum.CUSTOM_FIELDS} className="px-0">
+                  <CustomFieldsTab selectedProjectId={selectedProjectId}></CustomFieldsTab>
                 </TabPanel>
               </TabsBody>
             </Tabs>

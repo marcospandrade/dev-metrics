@@ -25,7 +25,7 @@ export class IntegrationServerController {
         private readonly commandBus: CommandBus,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
         private readonly projectsUseCases: ProjectUseCases,
-    ) { }
+    ) {}
 
     @Get('/project-tickets/:projectId')
     getProjectTickets(@Param('projectId') projectId: string, @CurrentUser() user: User) {
@@ -83,7 +83,9 @@ export class IntegrationServerController {
 
     @Get('/get-all-issue-fields/:projectId')
     getAllIssueFields(@Param('projectId') projectId: string, @CurrentUser() user: IUser) {
-        return this.queryBus.execute(SchemaValidator.toInstance({ projectId, userEmail: user.email }, GetAllIssuesFieldsQuery));
+        return this.queryBus.execute(
+            SchemaValidator.toInstance({ projectId, userEmail: user.email }, GetAllIssuesFieldsQuery),
+        );
     }
 
     // TEST Event stack
