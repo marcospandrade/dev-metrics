@@ -3,6 +3,7 @@ import { AxiosError } from 'axios'
 import { Project } from '@/models/Project.model'
 import { api, GenericHttpResponse } from '../api'
 import { AtlassianCustomField } from './dto/get-all-custom-fields.dto'
+import { RegisterCustomFieldsDto } from './dto/register-custom-fields.dto'
 
 async function getProjects(integrationServerId: string) {
   try {
@@ -47,9 +48,20 @@ async function getAllCustomFields(projectId: string){
   }
 }
 
+async function registerCustomFields(payload: RegisterCustomFieldsDto){
+  try {
+    const { data } = await api.post<GenericHttpResponse<any>>('integration-server/register-custom-fields', payload)
+
+    return data;
+  } catch (error: AxiosError | any) {
+    throw new Error(error.response.data ?? 'Error trying to register custom fields')
+  }
+}
+
 export default {
   getProjects,
   getProjectWithDetails,
   getAllCustomFields,
-  syncProject
+  syncProject,
+  registerCustomFields
 }

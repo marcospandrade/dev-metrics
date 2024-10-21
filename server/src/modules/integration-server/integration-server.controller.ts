@@ -13,8 +13,14 @@ import { ProjectUseCases } from './use-cases/projects.use-cases.service';
 import { SearchFieldByNameDto } from '@lib/atlassian/dto/search-field-by-name.dto';
 import { GetAllIssuesFieldsQuery } from './queries/get-all-issues-fields/get-all-issues-fields.query';
 import { IUser } from '@modules/auth/dto/user.dto';
-import { RegisterCustomFieldsCommand, RegisterCustomFieldsWithoutEmailCommand } from './commands/register-custom-fields/register-custom-fields.command';
-import { SyncIntegrationProjectCommand, SyncIntegrationProjectWithoutEmailCommand } from './commands/sync-integration-project/sync-integration-project.command';
+import {
+    RegisterCustomFieldsCommand,
+    RegisterCustomFieldsWithoutEmailCommand,
+} from './commands/register-custom-fields/register-custom-fields.command';
+import {
+    SyncIntegrationProjectCommand,
+    SyncIntegrationProjectWithoutEmailCommand,
+} from './commands/sync-integration-project/sync-integration-project.command';
 
 @Controller('integration-server')
 @UseGuards(JwtAuthGuard)
@@ -96,18 +102,16 @@ export class IntegrationServerController {
 
     @Post('/register-custom-fields')
     registerCustomFields(@Body() body: RegisterCustomFieldsWithoutEmailCommand, @CurrentUser() user: IUser) {
-        return this.commandBus.execute(SchemaValidator.toInstance(
-            { ...body, userEmail: user.email },
-            RegisterCustomFieldsCommand
-        ));
+        return this.commandBus.execute(
+            SchemaValidator.toInstance({ ...body, userEmail: user.email }, RegisterCustomFieldsCommand),
+        );
     }
 
     @Post('/re-sync-project')
     reSyncProject(@Body() body: SyncIntegrationProjectWithoutEmailCommand, @CurrentUser() user: IUser) {
-        this.commandBus.execute(SchemaValidator.toInstance(
-            { ...body, userEmail: user.email },
-            SyncIntegrationProjectCommand
-        ));
+        this.commandBus.execute(
+            SchemaValidator.toInstance({ ...body, userEmail: user.email }, SyncIntegrationProjectCommand),
+        );
 
         return 'OK';
     }

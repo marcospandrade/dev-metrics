@@ -2,7 +2,6 @@ import { CreateTeamDto } from '@/app/dashboard/teams/create-team/dto/create-team
 import { api, GenericHttpResponse } from './api'
 import { AxiosError } from 'axios'
 import { CreateTeamResponseDto } from '@/app/dashboard/teams/create-team/dto/create-team-response.dto'
-import { Team } from '@/models/Team.model'
 import { GetTeamsResponseDto } from '@/app/dashboard/teams/create-team/dto/get-teams-response.dto'
 
 async function createTeam(teamInfo: CreateTeamDto) {

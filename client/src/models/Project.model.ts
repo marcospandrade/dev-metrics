@@ -10,4 +10,5 @@ export type Project = {
   isSynced: boolean
   integrationServerId?: string
   integrationUUID?: string
+  isCustomFieldSelected: boolean
 }
