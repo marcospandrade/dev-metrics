@@ -10,6 +10,7 @@ import { GenericQueryDto } from '@shared/helpers/pagination/query';
 import { PaginationService } from '@shared/helpers/pagination/pagination.service';
 import { SchemaValidator } from '@core/utils';
 import { IssueSearch, ISSUES_SEARCH_FIELDS } from '../helpers/issue-search';
+import { SetIssueSprintDto } from '../dto/set-issue-sprint.dto';
 
 @Injectable()
 export class IssueUseCases extends PaginationService {
@@ -71,5 +72,18 @@ export class IssueUseCases extends PaginationService {
             issues: data,
             count,
         };
+    }
+
+    public setIssuesSprint(payload: SetIssueSprintDto[]): Promise<Issue[]> {
+        return new Promise(async resolve => {
+            await this.issueRepository.manager.transaction(async manager => {
+                for (const issue of payload) {
+                    await manager.update(Issue, issue.id, { sprintId: issue.sprintId });
+                }
+
+                const updatedIssues = await manager.findBy(Issue, { id: In(payload.map(i => i.id)) });
+                resolve(updatedIssues);
+            })
+        })
     }
 }

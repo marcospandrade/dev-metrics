@@ -7,6 +7,7 @@ import { Base } from '@core/database/entities/base.entity';
 import { User } from '@modules/auth/entities/user.entity';
 import { Participant } from './participant.entity';
 import { Type } from 'class-transformer';
+import { Sprint } from '@modules/sprints/entities/sprint.entity';
 
 @Entity({ name: 'teams' })
 export class Team extends Base {
@@ -34,4 +35,10 @@ export class Team extends Base {
 
     @ManyToOne(() => User, user => user.projects)
     createdBy?: User;
+
+    @OneToMany(() => Sprint, sprint => sprint.teamId)
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => Sprint)
+    sprints?: Sprint[];
 }
