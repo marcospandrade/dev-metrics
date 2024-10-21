@@ -27,9 +27,10 @@ async function getProjectWithDetails(projectId: string) {
 }
 
 async function syncProject(projectId: string){
-  return;
   try {
-    const { data } = await api.post<GenericHttpResponse<any>>(`/projects/${projectId}/sync`)
+    const { data } = await api.post<GenericHttpResponse<void>>(`/integration-server/re-sync-project`, {
+      projectId
+    })
 
     return data
   } catch (error: AxiosError | any) {
@@ -50,7 +51,7 @@ async function getAllCustomFields(projectId: string){
 
 async function registerCustomFields(payload: RegisterCustomFieldsDto){
   try {
-    const { data } = await api.post<GenericHttpResponse<any>>('integration-server/register-custom-fields', payload)
+    const { data } = await api.post<GenericHttpResponse<void>>('integration-server/register-custom-fields', payload)
 
     return data;
   } catch (error: AxiosError | any) {
