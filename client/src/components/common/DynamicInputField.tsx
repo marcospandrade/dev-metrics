@@ -9,7 +9,7 @@ type DynamicInputFieldProps = {
   onChangeData: (data: Record<string, any>[]) => void
 }
 
-export function DynamicInputField({ title, fieldLabel, inputs, onAddInput, onChangeData, propertyName }: DynamicInputFieldProps) {
+export function DynamicInputField({ title, fieldLabel, inputs, onAddInput, onChangeData, propertyName }: Readonly<DynamicInputFieldProps>) {
   const handleChange = (event: any, index: number) => {
     let { name, value } = event.target
     let onChangeValue = [...inputs]

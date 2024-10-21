@@ -1,6 +1,17 @@
 import { OmitType } from '@nestjs/mapped-types';
-import { IsArray, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsBoolean, IsString } from 'class-validator';
 
+class FieldToRegisterDto {
+    @IsString()
+    atlassianId: string;
+    @IsString()
+    fieldName: string;
+    @IsString()
+    fieldType: string;
+    @IsBoolean()
+    isStoryPointField: boolean;
+}
 export class RegisterCustomFieldsCommand {
     @IsString()
     projectId: string;
@@ -9,12 +20,8 @@ export class RegisterCustomFieldsCommand {
     userEmail: string;
 
     @IsArray()
-    fieldsToRegister: {
-        atlassianId: string;
-        fieldName: string;
-        fieldType: string;
-        isStoryPointField: boolean;
-    }[]
+    @Type(() => FieldToRegisterDto)
+    fieldsToRegister: FieldToRegisterDto[];
 }
 
-export class RegisterCustomFieldsWithoutEmailCommand extends OmitType(RegisterCustomFieldsCommand, ['userEmail']) { }
+export class RegisterCustomFieldsWithoutEmailCommand extends OmitType(RegisterCustomFieldsCommand, ['userEmail']) {}

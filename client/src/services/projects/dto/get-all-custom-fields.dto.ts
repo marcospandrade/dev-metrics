@@ -1,10 +1,4 @@
-type SchemaCustomField = {
-    type: string;
-    custom: string;
-    customId: number;
-};
-
-export type AtlassianCustomType = {
+export type AtlassianCustomField = {
     id: string;
     key: string;
     name: string;

@@ -17,6 +17,9 @@ import {
   DialogBody,
   DialogHeader,
   DialogFooter,
+  Card,
+  CardBody,
+  CardFooter
 } from '@material-tailwind/react'
 
 export {
@@ -36,4 +39,7 @@ export {
   DialogBody,
   DialogHeader,
   DialogFooter,
+  Card,
+  CardBody,
+  CardFooter
 }

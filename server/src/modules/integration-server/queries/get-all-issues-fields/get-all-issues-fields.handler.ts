@@ -8,19 +8,21 @@ import { IntegrationServerUseCases } from '@modules/integration-server/use-cases
 import { GetAllIssuesFieldsDto } from '@lib/atlassian/dto/get-all-issues-fields.dto';
 
 @QueryHandler(GetAllIssuesFieldsQuery)
-export class GetAllIssuesFieldsQueryHandler
-    implements IQueryHandler<GetAllIssuesFieldsQuery, AtlassianCustomType[]> {
+export class GetAllIssuesFieldsQueryHandler implements IQueryHandler<GetAllIssuesFieldsQuery, AtlassianCustomType[]> {
     public constructor(
         private readonly atlassianUseCases: AtlassianUseCases,
         private readonly service: IntegrationServerUseCases,
         private readonly logger: LoggerService,
-    ) { }
+    ) {}
 
     async execute(query: GetAllIssuesFieldsQuery) {
         this.logger.info(`Search all fields into Atlassian Server for project ${query.projectId}`);
         const integrationServer = await this.service.getServerByProjectId(query.projectId);
         const fields = await this.atlassianUseCases.getAllIssuesFields(
-            SchemaValidator.toInstance({ cloudId: integrationServer.jiraId, userEmail: query.userEmail }, GetAllIssuesFieldsDto),
+            SchemaValidator.toInstance(
+                { cloudId: integrationServer.jiraId, userEmail: query.userEmail },
+                GetAllIssuesFieldsDto,
+            ),
         );
         return fields;
     }
