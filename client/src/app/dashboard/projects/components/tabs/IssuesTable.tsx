@@ -1,8 +1,10 @@
 import querystring from 'querystring'
 import issuesService from '@/services/issues.service'
-import { CustomTable } from '@/components/CustomTable/CustomTable'
+import { CustomTable, SearchOptions } from '@/components/CustomTable/CustomTable'
 import { ProjectPageTabsEnum } from '../../constants/tabs'
 import { ISSUES_TABLE_DEFINITIONS, ISSUES_TABLE_HEADINGS } from '../../constants/table'
+import { Issue } from '@/models/Issue.model'
+import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 
 interface IssueTableProps {
   selectedProjectId: string
@@ -10,13 +12,15 @@ interface IssueTableProps {
 }
 
 export function IssuesTable({ selectedProjectId, activeTab }: Readonly<IssueTableProps>) {
-  async function fetchTicketsFromProject(selectedProjectId: string, page: number, pageSize: number, searchText?: string) {
+  async function fetchTicketsFromProject(selectedProjectId?: string, searchObject?: SearchOptions): Promise<PaginatedData<GenericWithId<Issue>> | undefined> {
+    if (!selectedProjectId || !searchObject) return
+
     const searchObjects = {
-      page,
-      pageSize,
-      searchText: searchText ?? '',
+      page: searchObject.page,
+      pageSize: searchObject.pageSize,
+      searchText: searchObject?.searchText ?? '',
     }
-  
+
     const searchString = querystring.stringify(searchObjects)
     return issuesService.getPaginatedIssues(selectedProjectId, searchString)
   }
@@ -25,8 +29,8 @@ export function IssuesTable({ selectedProjectId, activeTab }: Readonly<IssueTabl
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-indigo-100">
       <CustomTable
-        tableTitle='List of Issues'
-        searchInputPlaceholder='Search for issues or key here...'
+        tableTitle="List of Issues"
+        searchInputPlaceholder="Search for issues or key here..."
         getData={fetchTicketsFromProject}
         headings={ISSUES_TABLE_HEADINGS}
         tableInfoFields={ISSUES_TABLE_DEFINITIONS}

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Pagination } from '@mui/material'
-import { LibIcons } from '@/lib/icons'
 import { useDebounce } from 'use-debounce'
 import { SearchInput } from '../common/SearchInput'
 
@@ -15,13 +14,19 @@ export type TableFields<T extends object> = {
   isDate?: boolean
 }
 
+export type SearchOptions = {
+  page: number
+  pageSize: number
+  searchText?: string
+}
+
 interface CustomTableProps<T extends object> {
   tableTitle: string
   searchInputPlaceholder?: string
   headings: string[]
-  identifierTableId: string
+  identifierTableId?: string
   tableInfoFields: TableFields<T>[]
-  getData: (id: string, page: number, pageSize: number, searchText: string) => Promise<PaginatedData<GenericWithId<T>>>
+  getData: (id?: string, searchOption?: SearchOptions) => Promise<PaginatedData<GenericWithId<T>> | undefined>
 }
 const ITEMS_PER_PAGE = 10
 
@@ -50,7 +55,9 @@ export function CustomTable<T extends object>({
   }
 
   function updateData() {
-    getData(identifierTableId, currentPage, ITEMS_PER_PAGE, debouncedText).then((result) => {
+    getData(identifierTableId, { page: currentPage, pageSize: ITEMS_PER_PAGE, searchText: debouncedText }).then((result) => {
+      if(!result) return
+
       setData(result.data)
       setMaxCount(result.count)
     })
