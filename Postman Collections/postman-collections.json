@@ -656,7 +656,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Sprint Copy",
+							"name": "Update Sprint",
 							"event": [
 								{
 									"listen": "test",
@@ -675,7 +675,7 @@
 								"disableCookies": false
 							},
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "User-Agent",
@@ -684,7 +684,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Será q vai?\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"Fazer rodar\",\n    \"teamId\": \"bedc3b43-e698-4f9f-9759-caf472f21b5b\",\n    \"projectId\": \"b1f495f5-64f1-48ea-acf7-f6cec863d010\",\n    \"issuesList\": [\n        {\n            \"id\": \"b373ec27-42c5-46b1-8cf6-9bc95664f9fe\"\n        },\n        {\n            \"id\": \"fd710bef-c3f9-4bd1-a1cb-63a861cecfe7\"\n        },\n        {\n            \"id\": \"3696e464-dd19-4b70-b49b-1899ed420e82\"\n        }\n    ]\n}",
+									"raw": "{\n    \"name\": \"Será q vai? test\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"test\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
