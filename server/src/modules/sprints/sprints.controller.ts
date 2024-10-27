@@ -10,6 +10,7 @@ import { GenericQueryDto } from '@shared/helpers/pagination/query';
 import { SprintSearch } from './helpers/sprint-search';
 import { RemoveSprintIssuesCommand, RemoveSprintIssuesWithoutSprintCommand } from '../sprint-issues/commands/remove-sprint-issues/remove-sprint-issues.command';
 import { CreateSprintIssuesCommand, CreateSprintIssueWithoutSprintCommand } from '@modules/sprint-issues/commands/create-sprint-issues/create-sprint-issues.command';
+import { UpdateSprintCommand, UpdateSprintWithoutUserCommand } from './commands/update-sprint/update-sprint.command';
 
 @Controller('sprints')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -25,6 +26,14 @@ export class SprintsController {
     return this.commandBus.execute(SchemaValidator.toInstance(
       { ...payload, userId: user.id },
       CreateSprintCommand
+    ))
+  }
+
+  @Post(':sprintId')
+  updateSprint(@Param('sprintId') sprintId: string, @Body() payload: UpdateSprintWithoutUserCommand) {
+    return this.commandBus.execute(SchemaValidator.toInstance(
+      { ...payload, id: sprintId },
+      UpdateSprintCommand
     ))
   }
 

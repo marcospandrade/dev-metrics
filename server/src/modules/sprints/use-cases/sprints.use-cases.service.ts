@@ -13,6 +13,7 @@ import { CreateSprintIssuesCommand } from '@modules/sprint-issues/commands/creat
 import { CreateSprintIssueDto } from '@modules/sprint-issues/dto/create-sprint-issue.dto';
 import { RemoveSprintIssuesCommand } from '@modules/sprint-issues/commands/remove-sprint-issues/remove-sprint-issues.command';
 import { RemoveSprintIssueDto } from '../../sprint-issues/dto/remove-sprint-issue.dto';
+import { UpdateSprintDto } from '../dtos/update-sprint.dto';
 
 @Injectable()
 export class SprintsUseCasesService extends PaginationService {
@@ -88,5 +89,9 @@ export class SprintsUseCasesService extends PaginationService {
             issuesList,
             RemoveSprintIssuesCommand,
         ));
+    }
+
+    public async updateSprint(id: string, payload: UpdateSprintDto) {
+        return this.sprintRepository.update({ id }, payload);
     }
 }
