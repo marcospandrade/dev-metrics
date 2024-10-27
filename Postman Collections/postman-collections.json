@@ -642,7 +642,7 @@
 										"value": "Insomnia/2023.5.7"
 									}
 								],
-								"url": "{{ _.base_url }}api/sprint/test"
+								"url": "{{base_url}}api/sprint/test"
 							},
 							"response": []
 						}
