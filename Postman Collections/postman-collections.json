@@ -644,7 +644,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Será q vai?\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"Fazer rodar\",\n    \"teamId\": \"66b6a802-998b-4d90-b544-ea9d5dda4943\",\n    \"projectId\": \"aea9961c-7ccf-442a-88c9-4834358f1240\",\n    \"issuesList\": [\n        {\n            \"id\": \"0b89a995-f709-4098-8998-b20618289662\"\n        },\n        {\n            \"id\": \"e3d7a4b8-2a17-4dd1-831b-59f3520530c3\"\n        },\n        {\n            \"id\": \"62faeada-8f57-4ee9-8d5c-c8d67ced2490\"\n        }\n    ]\n}",
+									"raw": "{\n    \"name\": \"Será q vai?\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"Fazer rodar\",\n    \"teamId\": \"66b6a802-998b-4d90-b544-ea9d5dda4943\",\n    \"projectId\": \"aea9961c-7ccf-442a-88c9-4834358f1240\",\n    \"issuesList\": [\n        {\n            \"id\": \"135ab26d-d249-4698-994d-7dc9e4a4bbde\"\n        },\n        {\n            \"id\": \"6402501f-649a-4e70-b12f-8927cd3c94d9\"\n        },\n        {\n            \"id\": \"050af125-a0dc-42a7-913c-642667951001\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
