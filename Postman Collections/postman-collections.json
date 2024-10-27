@@ -746,14 +746,14 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"issuesList\": [\n        {\n            \"id\": \"135ab26d-d249-4698-994d-7dc9e4a4bbde\"\n        }\n    ]\n}",
+									"raw": "{\n    \"issuesList\": [\n        {\n            \"id\": \"b373ec27-42c5-46b1-8cf6-9bc95664f9fe\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{base_url}}/sprints/bd41bff9-abcd-4c28-99ca-546067c10ac7/add-issues"
+								"url": "{{base_url}}/sprints/d9928057-32bb-4f79-860b-d66d53cb34ce/add-issues"
 							},
 							"response": []
 						},
