@@ -694,6 +694,46 @@
 								"url": "{{base_url}}/sprints/bd41bff9-abcd-4c28-99ca-546067c10ac7/add-issues"
 							},
 							"response": []
+						},
+						{
+							"name": "Remove Sprint Issue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d"
+									}
+								}
+							],
+							"id": "40eb7461-c67b-45eb-831c-ab98bb2028c2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "Insomnia/2023.5.7"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"issuesList\": [\n        {\n            \"id\": \"135ab26d-d249-4698-994d-7dc9e4a4bbde\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/sprints/bd41bff9-abcd-4c28-99ca-546067c10ac7/add-issues"
+							},
+							"response": []
 						}
 					],
 					"id": "baeb46e6-eec1-4e97-9e50-b042a17b7e4e"
