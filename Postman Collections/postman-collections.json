@@ -616,7 +616,7 @@
 					"name": "Sprint",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "Create Sprint",
 							"event": [
 								{
 									"listen": "test",
