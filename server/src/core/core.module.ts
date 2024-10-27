@@ -1,4 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 
 import { LoggerService } from './logger/logger.service';
 import { CoreService } from './core.service';
@@ -33,6 +34,7 @@ export class CoreModule {
         return {
             global: true,
             module: CoreModule,
+            imports: [CqrsModule.forRoot()],
             providers: [
                 CoreService,
                 {
