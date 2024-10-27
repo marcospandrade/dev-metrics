@@ -16,10 +16,22 @@ export default function CreateSprint() {
   const router = useRouter()
   const [activeStep, setActiveStep] = useState(0)
 
-  //Step 2 props
+  //NOTE: Step 2 props
   const [selectedProject, setSelectedProject] = useState<Project>({} as Project)
   const [selectedTeamId, setSelectedTeamId] = useState<string | undefined>(undefined)
 
+  //NOTE: Step 3 props
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  function onSelectCheckbox(recordId: string) {
+    selectedItems.some((id) => id === recordId)
+      ? setSelectedItems(selectedItems.filter((id) => id !== recordId))
+      : setSelectedItems((state) => [...state, recordId])
+  }
+  function validateIsChecked(itemId: string) {
+    return selectedItems?.some((id) => id === itemId)
+  }
+
+  //NOTE: Stepper props
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
@@ -34,9 +46,9 @@ export default function CreateSprint() {
   async function onCreateSprint() {}
 
   async function onSelectProject(project?: Project) {
-    if (!project) return;
+    if (!project) return
     //NOTE: we'll need to change that condition after fixing the issue
-    if(project.isCustomFieldSelected) {
+    if (project.isCustomFieldSelected) {
       toast.error(`Project ${project.name} doesn't have the required custom field selected`)
       setTimeout(() => {
         router.push(`/dashboard/projects/${project.id}/setup`)
@@ -63,7 +75,14 @@ export default function CreateSprint() {
       <div className="flex px-16 mt-8">
         {activeStep === 0 && <FirstStep />}
         {activeStep === 1 && <SecondStep onSelectProject={onSelectProject} onSelectTeam={onSelectTeam} />}
-        {activeStep === 2 && <ThirdStep />}
+        {activeStep === 2 && (
+          <ThirdStep
+            selectedProjectId={selectedProject.id}
+            onSelectCheckbox={onSelectCheckbox}
+            selectedItemsLength={selectedItems.length}
+            validateIsChecked={validateIsChecked}
+          />
+        )}
         {activeStep === 3 && <FourthStep />}
       </div>
 

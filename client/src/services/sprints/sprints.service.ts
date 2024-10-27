@@ -4,7 +4,7 @@ import { GetSprintDto } from './dto/get-sprint.dto';
 
 async function getPaginatedSprints(queryString: string, projectId?: string) {
   try {
-    const { data } = await api.get<GenericHttpResponse<GetSprintDto>>(`/issues/${projectId}?${queryString}`)
+    const { data } = await api.get<GenericHttpResponse<GetSprintDto>>(`//${projectId}?${queryString}`)
 
     return {
         data: data.response.sprints ?? '',

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
+import { Checkbox, Typography } from '@/lib/material'
 import { Pagination } from '@mui/material'
 import { useDebounce } from 'use-debounce'
 import { SearchInput } from '../Common/SearchInput'
@@ -27,6 +28,10 @@ interface CustomTableProps<T extends object> {
   identifierTableId?: string
   tableInfoFields: TableFields<T>[]
   getData: (id?: string, searchOption?: SearchOptions) => Promise<PaginatedData<GenericWithId<T>> | undefined>
+  useCheckbox?: boolean
+  onSelectCheckbox?: (id: string) => void
+  validateIsChecked?: (id: string) => boolean
+  selectedItemsLength?: number
 }
 const ITEMS_PER_PAGE = 10
 
@@ -37,13 +42,17 @@ export function CustomTable<T extends object>({
   identifierTableId,
   tableInfoFields,
   getData,
+  useCheckbox = false,
+  onSelectCheckbox,
+  validateIsChecked,
+  selectedItemsLength = 0
 }: Readonly<CustomTableProps<T>>) {
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<GenericWithId<T>[] | null>(null)
   const [maxCount, setMaxCount] = useState<number>(0)
   const [searchString, setSearchString] = useState('')
   const [debouncedText] = useDebounce(searchString, 500)
-
+  
   const numberOfPages = Math.ceil(maxCount / ITEMS_PER_PAGE)
 
   function changePage(page: number) {
@@ -56,7 +65,7 @@ export function CustomTable<T extends object>({
 
   function updateData() {
     getData(identifierTableId, { page: currentPage, pageSize: ITEMS_PER_PAGE, searchText: debouncedText }).then((result) => {
-      if(!result) return
+      if (!result) return
 
       setData(result.data)
       setMaxCount(result.count)
@@ -76,6 +85,7 @@ export function CustomTable<T extends object>({
       <div className="w-full flex justify-between items-center mb-3 mt-1 px-3 py-2">
         <div>
           <h3 className="text-lg font-semibold text-slate-800">{tableTitle}</h3>
+          {useCheckbox && selectedItemsLength > 0 && <Typography variant="paragraph"> Selected ({selectedItemsLength})</Typography>}
         </div>
         <div className="ml-3">
           <div className="w-full max-w-sm min-w-[300px] relative">
@@ -86,6 +96,7 @@ export function CustomTable<T extends object>({
       <table className="w-full text-sm table-auto text-left rtl:text-right text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-indigo-50">
           <tr>
+            {useCheckbox && <th scope="col" className="px-6 py-3"></th>}
             {headings.map((head) => (
               <th scope="col" key={head} className="px-6 py-3">
                 {head}
@@ -96,6 +107,11 @@ export function CustomTable<T extends object>({
         <tbody>
           {data.map((record) => (
             <tr key={record.id} className="odd:bg-white even:bg-indigo-50 border-b">
+              {useCheckbox && onSelectCheckbox && validateIsChecked && (
+                <td className="p-4">
+                  <Checkbox onClick={() => onSelectCheckbox(record.id)} defaultChecked={validateIsChecked(record.id)} />
+                </td>
+              )}
               {tableInfoFields.map((field) => (
                 <td key={field.fieldDefinition as string} className="p-4">
                   <p className={`text-sm ${field.isBold ? 'font-semibold' : ''}`}>

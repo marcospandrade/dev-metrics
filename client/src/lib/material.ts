@@ -23,7 +23,8 @@ import {
   Step,
   Stepper,
   Select,
-  Option
+  Option,
+  Checkbox
 } from '@material-tailwind/react'
 
 export {
@@ -49,5 +50,6 @@ export {
   Step,
   Stepper,
   Select,
-  Option
+  Option,
+  Checkbox
 }
