@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Pagination } from '@mui/material'
 import { useDebounce } from 'use-debounce'
-import { SearchInput } from '../common/SearchInput'
+import { SearchInput } from '../Common/SearchInput'
 
 export type TableFields<T extends object> = {
   fieldDefinition: keyof T
