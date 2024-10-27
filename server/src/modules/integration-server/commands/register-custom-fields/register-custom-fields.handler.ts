@@ -6,12 +6,14 @@ import { CustomFieldsUseCases } from '@modules/integration-server/use-cases/cust
 import { UpsertCustomFieldDto } from '@modules/integration-server/dto/upsert-custom-field.dto';
 import { IntegrationServerUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
 import { CheckSyncProjectEvent } from '@modules/integration-server/events/check-sync-project.event';
+import { ProjectUseCases } from '@modules/integration-server/use-cases/projects.use-cases.service';
 
 @CommandHandler(RegisterCustomFieldsCommand)
 export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCustomFieldsCommand> {
     public constructor(
         private readonly eventBus: EventBus,
         private readonly customFieldUseCases: CustomFieldsUseCases,
+        private readonly projectsUseCases: ProjectUseCases,
         private readonly service: IntegrationServerUseCases,
     ) { }
 
@@ -28,6 +30,9 @@ export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCust
         })
 
         await this.customFieldUseCases.upsertCustomField(fieldsToRegister);
+        await this.projectsUseCases.updateOne(command.projectId, {
+            isCustomFieldSelected: true,
+        });
 
         return this.eventBus.publish<CheckSyncProjectEvent, void>(SchemaValidator.toInstance(
             { projectId: command.projectId, userEmail: command.userEmail },

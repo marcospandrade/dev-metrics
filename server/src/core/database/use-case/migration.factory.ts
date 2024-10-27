@@ -8,6 +8,7 @@ import { LoggerService } from '../../logger/logger.service';
 
 import { QueryRunnerWithModuleRef } from '../types/query-runner-with-module-ref';
 import { DatabaseMigration, MigrationConstructable, RanMigration } from '../types/database-migration';
+import { existsSync } from 'fs';
 
 @Injectable()
 export class MigrationFactory {
@@ -15,7 +16,7 @@ export class MigrationFactory {
         private readonly dataSource: DataSource,
         private readonly logger: LoggerService,
         private readonly moduleRef: ModuleRef,
-    ) {}
+    ) { }
 
     /**
      * Runs the initial migrations required for the application to function properly.
@@ -304,6 +305,9 @@ export class MigrationFactory {
      */
     private async scanDiskForMigrationNames() {
         const migrationsFolderPath = path.resolve(__dirname, '..', 'migrations');
+        if (!existsSync(migrationsFolderPath)) {
+            return [];
+        }
         const migrations = await readdir(migrationsFolderPath);
 
         return migrations

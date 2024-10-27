@@ -11,10 +11,10 @@ export class FormatResponseFactory {
     constructor(
         private logger: LoggerService,
         private reflector: Reflector,
-    ) {}
+    ) { }
 
     mountGenericResponse<T>(data: T, context: ExecutionContext): GenericHttpResponse<T> {
-        if (!data) {
+        if (!data && typeof data !== 'string' && typeof data !== 'number') {
             return {
                 // TODO: check if this is the best way to handle this
                 response: null,
