@@ -92,6 +92,7 @@ export class SprintsUseCasesService extends PaginationService {
     }
 
     public async updateSprint(id: string, payload: UpdateSprintDto) {
-        return this.sprintRepository.update({ id }, payload);
+        await this.sprintRepository.update({ id }, payload);
+        return this.sprintRepository.findOne({ where: { id } });
     }
 }

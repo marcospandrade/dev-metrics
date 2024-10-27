@@ -7,8 +7,16 @@ export class UpdateSprintCommand extends OmitType(CreateSprintDto, ['userId']) {
   id: string;
 }
 
-export class UpdateSprintWithoutUserCommand extends OmitType(CreateSprintDto, ['userId']) {
+export class UpdateSprintWithoutUserCommand extends OmitType(CreateSprintDto, ['userId', 'projectId', 'teamId']) {
   @IsUUID()
   @IsOptional()
   id?: string;
+
+  @IsUUID()
+  @IsOptional()
+  projectId?: string;
+
+  @IsUUID()
+  @IsOptional()
+  teamId?: string;
 }

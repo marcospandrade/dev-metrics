@@ -1,5 +1,5 @@
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { SprintsUseCasesService } from './use-cases/sprints.use-cases.service';
 import { CreateSprintCommand, CreateSprintWithoutUserCommand } from './commands/create-sprint/create-sprint.command';
 import { CommandBus } from '@nestjs/cqrs';
@@ -29,7 +29,7 @@ export class SprintsController {
     ))
   }
 
-  @Post(':sprintId')
+  @Put(':sprintId')
   updateSprint(@Param('sprintId') sprintId: string, @Body() payload: UpdateSprintWithoutUserCommand) {
     return this.commandBus.execute(SchemaValidator.toInstance(
       { ...payload, id: sprintId },
