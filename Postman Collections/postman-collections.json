@@ -642,7 +642,16 @@
 										"value": "Insomnia/2023.5.7"
 									}
 								],
-								"url": "{{base_url}}api/sprint/test"
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"projectId\": \"b3182b75-ceff-4cde-93ad-a69de127990f\",\n    \"issuesList\": [\n        {\n            \"id\": \"99380af4-46b2-4cb1-b12e-789df5162ed9\"\n        },\n        {\n            \"id\": \"c6c31277-6dd9-4fa7-91b3-903ab933aa36\"\n        },\n        {\n            \"id\": \"8a613638-6efb-4c29-9e79-f14875a621d5\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/sprints"
 							},
 							"response": []
 						}
