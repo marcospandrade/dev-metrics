@@ -9,6 +9,5 @@ export class RemoveSprintIssueDto {
   @IsArray()
   @Type(() => BaseUUID)
   @ValidateNested({ each: true })
-  @IsOptional()
-  issuesList?: BaseUUID[];
+  issuesList: BaseUUID[];
 }

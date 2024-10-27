@@ -9,7 +9,10 @@ import { SprintSearch } from '../helpers/sprint-search';
 import { SchemaValidator } from '@core/utils';
 import { CreateSprintDto } from '../dtos/create-sprint.dto';
 import { CommandBus } from '@nestjs/cqrs';
-import { SetIssueSprintCommand } from '@modules/issues/commands/set-issue-sprint/set-issue-sprint.command';
+import { CreateSprintIssuesCommand } from '@modules/sprint-issues/commands/create-sprint-issues/create-sprint-issues.command';
+import { CreateSprintIssueDto } from '@modules/sprint-issues/dto/create-sprint-issue.dto';
+import { RemoveSprintIssuesCommand } from '@modules/sprint-issues/commands/remove-sprint-issues/remove-sprint-issues.command';
+import { RemoveSprintIssueDto } from '../../sprint-issues/dto/remove-sprint-issue.dto';
 
 @Injectable()
 export class SprintsUseCasesService extends PaginationService {
@@ -51,7 +54,11 @@ export class SprintsUseCasesService extends PaginationService {
             where: {
                 id,
             },
-            relations: ['issues']
+            relations: {
+                issuesList: {
+                    issue: true,
+                }
+            }
         });
     }
 
@@ -60,14 +67,26 @@ export class SprintsUseCasesService extends PaginationService {
         const createdSprint = await this.sprintRepository.save(sprint);
 
         if (issuesList.length > 0) {
-            const updatedIssues = await this.commandBus.execute(SchemaValidator.toInstance(
-                { issues: issuesList.map(({ id }) => ({ id, sprintId: createdSprint.id })) },
-                SetIssueSprintCommand,
-            ));
-
+            const updatedIssues = await this.addSprintIssues(
+                issuesList.map(({ id: issueId }) => ({ sprintId: createdSprint.id, issueId }))
+            );
             createdSprint.issuesList = updatedIssues;
         }
 
         return createdSprint;
+    }
+
+    public async addSprintIssues(issuesList: CreateSprintIssueDto[]) {
+        return this.commandBus.execute(SchemaValidator.toInstance(
+            { issuesList },
+            CreateSprintIssuesCommand,
+        ));
+    }
+
+    public async removeSprintIssues(issuesList: RemoveSprintIssueDto) {
+        return this.commandBus.execute(SchemaValidator.toInstance(
+            issuesList,
+            RemoveSprintIssuesCommand,
+        ));
     }
 }

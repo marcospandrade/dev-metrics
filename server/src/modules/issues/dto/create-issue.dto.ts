@@ -7,11 +7,11 @@ export class CreateIssueDto extends OmitType(Issue, [
     'updatedAt',
     'deletedAt',
     'project',
-    'sprint',
+    'sprints',
     'hasId',
     'recover',
     'reload',
     'remove',
     'save',
     'softRemove',
-]) {}
+]) { }

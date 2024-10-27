@@ -12,13 +12,11 @@ import { JwtStrategy } from './strategies/jwt-bearer/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { ServerAppConfig } from 'src/app.module';
-import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([User]),
         AtlassianModule,
-        CqrsModule,
         JwtModule.registerAsync({
             useFactory: (configService: ConfigService<ServerAppConfig>) => {
                 const secret = configService.get('JWT_KEY');
@@ -46,4 +44,4 @@ import { CqrsModule } from '@nestjs/cqrs';
     providers: [AuthUseCase, AuthFactoryService, JwtService, ConfigService, JwtStrategy],
     exports: [AuthUseCase, JwtService],
 })
-export class AuthModule {}
+export class AuthModule { }

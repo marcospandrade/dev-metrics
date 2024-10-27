@@ -16,6 +16,7 @@ import { TeamsModule } from './modules/teams/teams.module';
 import { IssuesModule } from './modules/issues/issues.module';
 import { IntegrationProjectModule } from './modules/integration-server/integration-server.module';
 import { SprintsModule } from './modules/sprints/sprints.module';
+import { SprintIssuesModule } from './modules/sprint-issues/sprint-issues.module';
 
 dotenv.config({
     debug: true,
@@ -38,6 +39,7 @@ export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) 
         IssuesModule,
         IntegrationProjectModule,
         SprintsModule,
+        SprintIssuesModule,
     ],
 })
 export class AppModule { }

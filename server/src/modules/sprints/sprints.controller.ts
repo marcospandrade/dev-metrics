@@ -1,5 +1,5 @@
 import { JwtAuthGuard } from '@modules/auth/strategies/jwt-bearer/jwt-auth.guard';
-import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { SprintsUseCasesService } from './use-cases/sprints.use-cases.service';
 import { CreateSprintCommand, CreateSprintWithoutUserCommand } from './commands/create-sprint/create-sprint.command';
 import { CommandBus } from '@nestjs/cqrs';
@@ -8,8 +8,8 @@ import { CurrentUser } from '@core/decorators/current-user.decorator';
 import { User } from '@modules/auth/entities/user.entity';
 import { GenericQueryDto } from '@shared/helpers/pagination/query';
 import { SprintSearch } from './helpers/sprint-search';
-import { AddSprintIssuesCommand, AddSprintIssuesWithoutSprintCommand } from './commands/add-sprint-issues/add-sprint-issues.command';
-import { RemoveSprintIssuesCommand, RemoveSprintIssuesWithoutSprintCommand } from './commands/remove-sprint-issues/remove-sprint-issues.command';
+import { RemoveSprintIssuesCommand, RemoveSprintIssuesWithoutSprintCommand } from '../sprint-issues/commands/remove-sprint-issues/remove-sprint-issues.command';
+import { CreateSprintIssuesCommand, CreateSprintIssueWithoutSprintCommand } from '@modules/sprint-issues/commands/create-sprint-issues/create-sprint-issues.command';
 
 @Controller('sprints')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,19 +29,21 @@ export class SprintsController {
   }
 
   @Post(':sprintId/add-issues')
-  addSprintIssues(@Param('sprintId') sprintId: string, @Body() payload: AddSprintIssuesWithoutSprintCommand) {
+  addSprintIssues(@Param('sprintId') sprintId: string, @Body() payload: CreateSprintIssueWithoutSprintCommand) {
     return this.commandBus.execute(SchemaValidator.toInstance(
-      { ...payload, sprintId },
-      AddSprintIssuesCommand
+      { issuesList: payload.issuesList.map(({ id: issueId }) => ({ sprintId, issueId })) },
+      CreateSprintIssuesCommand
     ))
   }
 
-  @Post(':sprintId/remove-issues')
+  @Delete(':sprintId')
   removeSprintIssues(@Param('sprintId') sprintId: string, @Body() payload: RemoveSprintIssuesWithoutSprintCommand) {
     return this.commandBus.execute(SchemaValidator.toInstance(
       { ...payload, sprintId },
       RemoveSprintIssuesCommand
-    ))
+    )).then(r => {
+      return r;
+    })
   }
 
   @Get()
@@ -53,7 +55,7 @@ export class SprintsController {
   }
 
   @Get(':id')
-  getSprintById(@Param('id') sprintId) {
+  getSprintById(@Param('id') sprintId: string) {
     return this.sprintUseCase.findById(sprintId);
   }
 }

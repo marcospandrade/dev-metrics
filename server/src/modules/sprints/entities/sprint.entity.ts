@@ -1,13 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsArray, IsDate, IsString, IsUUID, ValidateNested } from 'class-validator';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
 import { User } from '@modules/auth/entities/user.entity';
 import { Issue } from '@modules/issues/entities/issue.entity';
 import { Team } from '@modules/teams/entities/team.entity';
 import { Type } from 'class-transformer';
+import { SprintIssue } from '@modules/sprint-issues/entities/sprint-issue.entity';
 
 @Entity({ name: 'sprints' })
 export class Sprint extends Base {
@@ -57,9 +58,8 @@ export class Sprint extends Base {
     @Type(() => Team)
     team?: Team;
 
-    // TODO: add many-to-many relation with issues, since we are going to need the same issue in multiple sprints (which can be nullable as well)
-    @OneToMany(() => Issue, issue => issue.id)
-    issuesList?: Issue[];
+    @OneToMany(() => SprintIssue, issue => issue.sprint, { onDelete: 'CASCADE', onUpdate: 'NO ACTION' })
+    issuesList?: SprintIssue[];
 
     @ManyToOne(() => User, user => user.projects)
     user?: User;

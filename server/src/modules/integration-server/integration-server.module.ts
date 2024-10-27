@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CqrsModule } from '@nestjs/cqrs';
 
 import { IntegrationServerUseCases } from './use-cases/integration-server.use-cases.service';
 import { IntegrationServer } from './entities/integration-server.entity';
@@ -38,7 +37,7 @@ const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCas
 
 @Module({
     controllers: [IntegrationServerController, ProjectsController],
-    imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), CqrsModule, AtlassianModule],
+    imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), AtlassianModule],
     providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
 export class IntegrationProjectModule { }

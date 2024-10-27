@@ -1,4 +1,4 @@
-import { RemoveSprintIssueDto } from "@modules/sprints/dtos/remove-sprint-issue.dto";
+import { RemoveSprintIssueDto } from "@modules/sprint-issues/dto/remove-sprint-issue.dto";
 import { OmitType } from "@nestjs/mapped-types";
 
 export class RemoveSprintIssuesCommand extends RemoveSprintIssueDto { }
