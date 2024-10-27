@@ -656,6 +656,68 @@
 							"response": []
 						},
 						{
+							"name": "Get Sprints",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d"
+									}
+								}
+							],
+							"id": "0d396ff6-abc5-450e-b034-c41394d60494",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "Insomnia/2023.5.7"
+									}
+								],
+								"url": "{{base_url}}/sprints"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Sprint by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [],
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d"
+									}
+								}
+							],
+							"id": "7c200928-21e9-40e5-ab69-6ce1b4ee8802",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "Insomnia/2023.5.7"
+									}
+								],
+								"url": "{{base_url}}/sprints/bd41bff9-abcd-4c28-99ca-546067c10ac7"
+							},
+							"response": []
+						},
+						{
 							"name": "Add Sprint Issue",
 							"event": [
 								{
