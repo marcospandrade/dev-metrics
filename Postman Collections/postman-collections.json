@@ -644,7 +644,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Será q vai?\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"Fazer rodar\",\n    \"teamId\": \"fdc2092a-fe4a-4d6a-8fea-31d8029a2d1c\",\n    \"projectId\": \"b1f495f5-64f1-48ea-acf7-f6cec863d010\",\n    \"issuesList\": [\n        {\n            \"id\": \"a1b7be4d-6ad0-4760-8e6a-5e82e411a67d\"\n        }\n    ]\n}",
+									"raw": "{\n    \"name\": \"Será q vai?\",\n    \"startDate\": \"2024-10-27T18:55:42.206Z\",\n    \"endDate\": \"2024-12-27T18:55:24.526Z\",\n    \"goals\": \"Fazer rodar\",\n    \"teamId\": \"fdc2092a-fe4a-4d6a-8fea-31d8029a2d1c\",\n    \"issuesList\": [\n        {\n            \"id\": \"a1b7be4d-6ad0-4760-8e6a-5e82e411a67d\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
