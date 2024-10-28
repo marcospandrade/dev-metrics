@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsArray, IsDate, IsString, IsUUID, ValidateNested } from 'class-validator';
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Base } from '@core/database/entities/base.entity';
 import { User } from '@modules/auth/entities/user.entity';
-import { Issue } from '@modules/issues/entities/issue.entity';
 import { Team } from '@modules/teams/entities/team.entity';
 import { Type } from 'class-transformer';
 import { SprintIssue } from '@modules/sprint-issues/entities/sprint-issue.entity';
