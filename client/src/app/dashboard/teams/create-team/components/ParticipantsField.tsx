@@ -1,6 +1,4 @@
-import { DynamicInputField } from '@/components/common/DynamicInputField'
-import { InputProps, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { DynamicInputField } from '@/components/Common/DynamicInputField'
 import { CreateParticipantDto } from '../dto/create-team.dto'
 
 type ParticipantsFieldProps = {
@@ -8,7 +6,7 @@ type ParticipantsFieldProps = {
   handleChangeInputs: (inputs: CreateParticipantDto[]) => void
 }
 
-export function ParticipantsField({ inputs, handleChangeInputs }: ParticipantsFieldProps) {
+export function ParticipantsField({ inputs, handleChangeInputs }: Readonly<ParticipantsFieldProps>) {
   function handleOnChangeInputs(values: Record<string, any>[]) {
     const updateInputs = values
       .map((value) => {
