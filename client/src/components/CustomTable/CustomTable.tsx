@@ -29,7 +29,7 @@ interface CustomTableProps<T extends object> {
   tableInfoFields: TableFields<T>[]
   getData: (id?: string, searchOption?: SearchOptions) => Promise<PaginatedData<GenericWithId<T>> | undefined>
   useCheckbox?: boolean
-  onSelectCheckbox?: (id: string) => void
+  onSelectCheckbox?: (item: T) => void
   validateIsChecked?: (id: string) => boolean
   selectedItemsLength?: number
 }
@@ -109,7 +109,7 @@ export function CustomTable<T extends object>({
             <tr key={record.id} className="odd:bg-white even:bg-indigo-50 border-b">
               {useCheckbox && onSelectCheckbox && validateIsChecked && (
                 <td className="p-4">
-                  <Checkbox onClick={() => onSelectCheckbox(record.id)} defaultChecked={validateIsChecked(record.id)} />
+                  <Checkbox onClick={() => onSelectCheckbox(record)} defaultChecked={validateIsChecked(record.id)} />
                 </td>
               )}
               {tableInfoFields.map((field) => (

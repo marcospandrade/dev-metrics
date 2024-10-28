@@ -1,7 +1,7 @@
 import querystring from 'querystring'
 import { ISSUES_TABLE_DEFINITIONS, ISSUES_TABLE_HEADINGS } from '@/app/dashboard/projects/constants/table'
 import { CustomTable, SearchOptions } from '@/components/CustomTable/CustomTable'
-import { Card, CardBody, Typography } from '@/lib/material'
+import { Card, CardBody } from '@/lib/material'
 import issuesService from '@/services/issues.service'
 import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Issue } from '@/models/Issue.model'
@@ -9,7 +9,7 @@ import { Issue } from '@/models/Issue.model'
 interface ThirdStepProps {
   selectedProjectId: string
   validateIsChecked: (id: string) => boolean
-  onSelectCheckbox: (id: string) => void
+  onSelectCheckbox: (item: Issue) => void
   selectedItemsLength: number
 }
 
