@@ -32,7 +32,7 @@ export default function Sprints() {
       <Card className="my-8">
         <CardBody className="flex flex-1 justify-between">
           <div>
-            <Typography variant="h5">List of Sprints</Typography>
+            <Typography variant="h5">Sprints</Typography>
             <Typography variant="paragraph">Here you can select a sprint to check the details and after generate estimates for it</Typography>
           </div>
           <div>
@@ -42,7 +42,7 @@ export default function Sprints() {
       </Card>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-indigo-100">
         <CustomTable
-          tableTitle="List of Issues"
+          tableTitle="List of Sprints"
           searchInputPlaceholder="Search for issues or key here..."
           getData={fetchSprints}
           headings={SPRINTS_TABLE_HEADINGS}

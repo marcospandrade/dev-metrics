@@ -1,4 +1,6 @@
+import { Sprint } from "@/models/Sprint.model"
+
 export class GetSprintDto {
-  sprints: any
+  sprints!: Sprint[]
   count!: number
 }

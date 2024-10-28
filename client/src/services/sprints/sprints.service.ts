@@ -6,7 +6,7 @@ import { Sprint } from '@/models/Sprint.model';
 
 async function getPaginatedSprints(queryString: string, projectId?: string) {
   try {
-    const { data } = await api.get<GenericHttpResponse<GetSprintDto>>(`//${projectId}?${queryString}`)
+    const { data } = await api.get<GenericHttpResponse<GetSprintDto>>(`/sprints`)
 
     return {
         data: data.response.sprints ?? '',

@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 import { Issue } from '@/models/Issue.model'
 import sprintsService from '@/services/sprints/sprints.service'
 import { CreateSprintDto } from '@/services/sprints/dto/create-sprint.dto'
-import { addDays, differenceInDays, isAfter, isPast } from 'date-fns'
+import { addDays, isAfter, isPast } from 'date-fns'
 
 export default function CreateSprint() {
   const router = useRouter()
@@ -91,8 +91,7 @@ export default function CreateSprint() {
 
   async function onSelectProject(project?: Project) {
     if (!project) return
-    //NOTE: we'll need to change that condition after fixing the issue
-    if (project.isCustomFieldSelected) {
+    if (!project.isCustomFieldSelected) {
       toast.error(`Project ${project.name} doesn't have the required custom field selected`)
       setTimeout(() => {
         router.push(`/dashboard/projects/${project.id}/setup`)
