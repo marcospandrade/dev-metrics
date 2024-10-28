@@ -21,4 +21,4 @@ import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.comm
         TeamSaga,
     ],
 })
-export class TeamsModule { }
+export class TeamsModule {}

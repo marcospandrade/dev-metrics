@@ -6,15 +6,12 @@ import { Sprint } from './entities/sprint.entity';
 import { CreateSprintCommandHandler } from './commands/create-sprint/create-sprint.handler';
 import { UpdateSprintCommandHandler } from './commands/update-sprint/update-sprint.handler';
 
-const CommandHandlers = [
-  CreateSprintCommandHandler,
-  UpdateSprintCommandHandler,
-]
+const CommandHandlers = [CreateSprintCommandHandler, UpdateSprintCommandHandler];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sprint])],
-  controllers: [SprintsController],
-  providers: [SprintsUseCasesService, ...CommandHandlers],
-  exports: [SprintsUseCasesService],
+    imports: [TypeOrmModule.forFeature([Sprint])],
+    controllers: [SprintsController],
+    providers: [SprintsUseCasesService, ...CommandHandlers],
+    exports: [SprintsUseCasesService],
 })
-export class SprintsModule { }
+export class SprintsModule {}

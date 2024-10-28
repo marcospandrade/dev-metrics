@@ -6,4 +6,4 @@ import { CqrsErrorHandlerService } from './cqrs-error-handler.service';
     providers: [CqrsErrorHandlerService],
     exports: [CqrsErrorHandlerService],
 })
-export class CqrsErrorHandlerModule { }
+export class CqrsErrorHandlerModule {}

@@ -12,4 +12,4 @@ import { Issue } from './entities/issue.entity';
     controllers: [IssuesController],
     providers: [IssueUseCases, IssueSaga, SyncIssuesCommandHandler],
 })
-export class IssuesModule { }
+export class IssuesModule {}

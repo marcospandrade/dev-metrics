@@ -20,4 +20,4 @@ const CommandHandlers = [QueuePublishEventHandler];
     providers: [QueueService, ...CommandHandlers],
     exports: [QueueService, EventEmitterModule],
 })
-export class QueueModule { }
+export class QueueModule {}

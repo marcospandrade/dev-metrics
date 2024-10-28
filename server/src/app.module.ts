@@ -24,7 +24,7 @@ dotenv.config({
     path: path.resolve(process.cwd(), '.env'),
 });
 
-export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) { }
+export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) {}
 
 @Module({
     imports: [
@@ -42,4 +42,4 @@ export class ServerAppConfig extends IntersectionType(BaseAppConfig, OrmConfig) 
         SprintIssuesModule,
     ],
 })
-export class AppModule { }
+export class AppModule {}

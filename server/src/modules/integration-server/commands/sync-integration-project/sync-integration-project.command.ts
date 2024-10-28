@@ -9,4 +9,4 @@ export class SyncIntegrationProjectCommand {
     userEmail: string;
 }
 
-export class SyncIntegrationProjectWithoutEmailCommand extends OmitType(SyncIntegrationProjectCommand, ['userEmail']) { }
+export class SyncIntegrationProjectWithoutEmailCommand extends OmitType(SyncIntegrationProjectCommand, ['userEmail']) {}

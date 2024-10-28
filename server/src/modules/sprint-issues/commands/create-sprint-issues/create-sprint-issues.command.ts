@@ -4,15 +4,14 @@ import { Type } from 'class-transformer';
 import { IsArray, ValidateNested } from 'class-validator';
 
 export class CreateSprintIssuesCommand {
-  @IsArray()
-  @Type(() => CreateSprintIssueDto)
-  issuesList: CreateSprintIssueDto[]
+    @IsArray()
+    @Type(() => CreateSprintIssueDto)
+    issuesList: CreateSprintIssueDto[];
 }
 
-
 export class CreateSprintIssueWithoutSprintCommand {
-  @IsArray()
-  @Type(() => BaseUUID)
-  @ValidateNested({ each: true })
-  issuesList: BaseUUID[];
+    @IsArray()
+    @Type(() => BaseUUID)
+    @ValidateNested({ each: true })
+    issuesList: BaseUUID[];
 }

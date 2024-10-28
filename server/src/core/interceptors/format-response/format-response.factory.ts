@@ -11,7 +11,7 @@ export class FormatResponseFactory {
     constructor(
         private logger: LoggerService,
         private reflector: Reflector,
-    ) { }
+    ) {}
 
     mountGenericResponse<T>(data: T, context: ExecutionContext): GenericHttpResponse<T> {
         if (!data && typeof data !== 'string' && typeof data !== 'number') {

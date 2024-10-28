@@ -7,4 +7,4 @@ export class CreateSprintIssueDto extends OmitType(SprintIssue, [
 
     ...ORM_ENTITY_METHODS,
     ...ORM_ENTITY_TIMESTAMPS,
-]) { }
+]) {}

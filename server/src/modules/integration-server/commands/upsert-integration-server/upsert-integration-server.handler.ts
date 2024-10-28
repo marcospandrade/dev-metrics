@@ -16,7 +16,7 @@ export class UpsertIntegrationServerCommandHandler implements ICommandHandler<Up
         private readonly configService: ConfigService,
         private readonly logger: LoggerService,
         private readonly eventBus: EventBus,
-    ) { }
+    ) {}
 
     @ValidateSchema(UpsertIntegrationServerCommand)
     public async execute(command: UpsertIntegrationServerCommand) {
