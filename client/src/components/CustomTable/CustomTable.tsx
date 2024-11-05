@@ -1,18 +1,28 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Checkbox, Typography } from '@/lib/material'
 import { Pagination } from '@mui/material'
 import { useDebounce } from 'use-debounce'
 import { SearchInput } from '../Common/SearchInput'
+import { TableAction } from './TableAction'
+import { colors } from '@material-tailwind/react/types/generic'
+
+export type ActionItem = {
+  label: string
+  icon?: ReactNode
+  color: colors
+  onClick: (identifier: string) => void
+}
 
 export type TableFields<T extends object> = {
-  fieldDefinition: keyof T
+  fieldDefinition: keyof T | null
   fieldName: string
   isBold?: boolean
   isDate?: boolean
+  isActions?: boolean
 }
 
 export type SearchOptions = {
@@ -32,6 +42,7 @@ interface CustomTableProps<T extends object> {
   onSelectCheckbox?: (item: T) => void
   validateIsChecked?: (id: string) => boolean
   selectedItemsLength?: number
+  actionsList?: ActionItem[]
 }
 const ITEMS_PER_PAGE = 10
 
@@ -45,14 +56,15 @@ export function CustomTable<T extends object>({
   useCheckbox = false,
   onSelectCheckbox,
   validateIsChecked,
-  selectedItemsLength = 0
+  selectedItemsLength = 0,
+  actionsList,
 }: Readonly<CustomTableProps<T>>) {
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<GenericWithId<T>[] | null>(null)
   const [maxCount, setMaxCount] = useState<number>(0)
   const [searchString, setSearchString] = useState('')
   const [debouncedText] = useDebounce(searchString, 500)
-  
+
   const numberOfPages = Math.ceil(maxCount / ITEMS_PER_PAGE)
 
   function changePage(page: number) {
@@ -105,6 +117,11 @@ export function CustomTable<T extends object>({
           </tr>
         </thead>
         <tbody>
+          {data.length === 0 && (
+            <td colSpan={tableInfoFields.length}>
+              <Typography className="flex justify-center text-black mt-6" variant='h5'> No data to show </Typography>
+            </td>
+          )}
           {data.map((record) => (
             <tr key={record.id} className="odd:bg-white even:bg-indigo-50 border-b">
               {useCheckbox && onSelectCheckbox && validateIsChecked && (
@@ -114,8 +131,12 @@ export function CustomTable<T extends object>({
               )}
               {tableInfoFields.map((field) => (
                 <td key={field.fieldDefinition as string} className="p-4">
-                  <p className={`text-sm ${field.isBold ? 'font-semibold' : ''}`}>
-                    {field.isDate ? formatDate(String(record[field.fieldDefinition])) : String(record[field.fieldDefinition])}
+                  <p className={`text-sm flex flex-row ${field.isBold ? 'font-semibold' : ''}`}>
+                    {field.isActions && !!actionsList
+                      ? actionsList.map((actionItemConfig) => <TableAction identifier={record.id} actionItemConfig={actionItemConfig} />)
+                      : field.isDate
+                        ? formatDate(String(record[field.fieldDefinition!]))
+                        : String(record[field.fieldDefinition!])}
                   </p>
                 </td>
               ))}
