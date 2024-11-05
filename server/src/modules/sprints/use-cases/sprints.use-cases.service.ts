@@ -55,7 +55,26 @@ export class SprintsUseCasesService extends PaginationService {
             },
             relations: {
                 issuesList: {
-                    issue: true,
+                    issue: {
+                        project: {
+                            customFields: true,
+                        },
+                    },
+                },
+            },
+            select: {
+                issuesList: {
+                    id: true,
+                    issue: {
+                        id: true,
+                        customFields: true as any,
+                        summary: true,
+                        jiraIssueKey: true,
+                        project: {
+                            id: true,
+                            customFields: true,
+                        },
+                    },
                 },
             },
         });

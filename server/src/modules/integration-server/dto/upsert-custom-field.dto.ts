@@ -11,8 +11,5 @@ export class UpsertCustomFieldDto {
     type: string;
 
     @IsString()
-    integrationServerId: string;
-
-    @IsBoolean()
-    isStoryPointField: boolean;
+    projectId: string;
 }

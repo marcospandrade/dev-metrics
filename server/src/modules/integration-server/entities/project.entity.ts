@@ -7,6 +7,7 @@ import { Type } from 'class-transformer';
 import { IntegrationServer } from './integration-server.entity';
 import { Base } from '@core/database/entities/base.entity';
 import { Issue } from '@modules/issues/entities/issue.entity';
+import { CustomFields } from './custom-fields.entity';
 
 @Entity('projects')
 export class Project extends Base {
@@ -77,6 +78,10 @@ export class Project extends Base {
     @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.projects)
     @Type(() => IntegrationServer)
     integrationServer: IntegrationServer;
+
+    @OneToMany(() => CustomFields, customFields => customFields.project)
+    @Type(() => CustomFields)
+    customFields: CustomFields[];
 
     @OneToMany(() => Issue, issue => issue.projectId)
     @Type(() => Issue)
