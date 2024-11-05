@@ -15,28 +15,34 @@ export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCust
         private readonly customFieldUseCases: CustomFieldsUseCases,
         private readonly projectsUseCases: ProjectUseCases,
         private readonly service: IntegrationServerUseCases,
-    ) { }
+    ) {}
 
     async execute(command: RegisterCustomFieldsCommand): Promise<void> {
         const integrationServer = await this.service.getServerByProjectId(command.projectId);
 
         const fieldsToRegister: UpsertCustomFieldDto[] = command.fieldsToRegister.map(field => {
-            return SchemaValidator.toInstance({
-                atlassianId: field.atlassianId,
-                integrationServerId: integrationServer.id,
-                name: field.fieldName,
-                type: field.fieldType,
-            }, UpsertCustomFieldDto);
-        })
+            return SchemaValidator.toInstance(
+                {
+                    atlassianId: field.atlassianId,
+                    integrationServerId: integrationServer.id,
+                    name: field.fieldName,
+                    type: field.fieldType,
+                    isStoryPointField: field.isStoryPointField,
+                },
+                UpsertCustomFieldDto,
+            );
+        });
 
         await this.customFieldUseCases.upsertCustomField(fieldsToRegister);
         await this.projectsUseCases.updateOne(command.projectId, {
             isCustomFieldSelected: true,
         });
 
-        return this.eventBus.publish<CheckSyncProjectEvent, void>(SchemaValidator.toInstance(
-            { projectId: command.projectId, userEmail: command.userEmail },
-            CheckSyncProjectEvent
-        ));
+        return this.eventBus.publish<CheckSyncProjectEvent, void>(
+            SchemaValidator.toInstance(
+                { projectId: command.projectId, userEmail: command.userEmail },
+                CheckSyncProjectEvent,
+            ),
+        );
     }
 }

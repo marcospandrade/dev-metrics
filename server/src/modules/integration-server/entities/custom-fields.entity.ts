@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Type } from 'class-transformer';
 
@@ -37,6 +37,14 @@ export class CustomFields extends Base {
     @IsString()
     @Column({ nullable: false })
     integrationServerId: string;
+
+    @ApiProperty({
+        type: Boolean,
+        description: 'isStoryPointFiled',
+    })
+    @IsBoolean()
+    @Column({ default: false })
+    isStoryPointField: boolean;
 
     @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.customFields)
     @Type(() => IntegrationServer)

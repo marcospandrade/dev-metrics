@@ -8,5 +8,5 @@ export type Issue = {
   description?: string
   projectId: string
   sprintId?: string
-  customFields?: object
+  customFields?: Record<string, any>
 }
