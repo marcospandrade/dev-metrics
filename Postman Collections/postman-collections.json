@@ -870,16 +870,7 @@
 										"value": "Insomnia/2023.5.7"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"issuesList\": [\n        {\n            \"id\": \"b373ec27-42c5-46b1-8cf6-9bc95664f9fe\"\n        }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/sprints/sprint-issue/d9928057-32bb-4f79-860b-d66d53cb34ce"
+								"url": "{{base_url}}/sprints/d9928057-32bb-4f79-860b-d66d53cb34ce"
 							},
 							"response": []
 						}
