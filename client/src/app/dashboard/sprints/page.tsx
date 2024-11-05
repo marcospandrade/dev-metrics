@@ -46,7 +46,6 @@ export default function Sprints() {
   async function handleDeleteSprint(sprintId: string) {
     handleModal(false)
     await sprintsService.deleteSprint(sprintId)
-    //NOTE: not refreshing the table
     setShouldUpdateTable(!shouldUpdateTable)
     toast.success('Sprint deleted successfully')
   }

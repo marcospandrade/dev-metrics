@@ -1,3 +1,8 @@
+type CustomField = {
+  key: string
+  value: string
+}
+
 export type Issue = {
   id: string
   createdAt: Date
