@@ -58,7 +58,4 @@ export class IntegrationServer extends Base {
 
     @OneToMany(() => Project, project => project.integrationServer)
     projects: Project[];
-
-    @OneToMany(() => CustomFields, customField => customField.integrationServer)
-    customFields: CustomFields[];
 }

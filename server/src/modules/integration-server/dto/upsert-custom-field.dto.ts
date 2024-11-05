@@ -11,5 +11,5 @@ export class UpsertCustomFieldDto {
     type: string;
 
     @IsString()
-    integrationServerId: string;
+    projectId: string;
 }

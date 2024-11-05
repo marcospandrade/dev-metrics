@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Type } from 'class-transformer';
 
-import { IntegrationServer } from './integration-server.entity';
 import { Base } from '@core/database/entities/base.entity';
+import { Project } from './project.entity';
 
 @Entity('customFields')
 export class CustomFields extends Base {
@@ -32,13 +32,13 @@ export class CustomFields extends Base {
 
     @ApiProperty({
         type: String,
-        description: 'integration server id',
+        description: 'project id',
     })
-    @IsString()
+    @IsUUID()
     @Column({ nullable: false })
-    integrationServerId: string;
+    projectId: string;
 
-    @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.customFields)
-    @Type(() => IntegrationServer)
-    integrationServer: IntegrationServer;
+    @ManyToOne(() => Project, project => project.customFields)
+    @Type(() => Project)
+    project: Project;
 }

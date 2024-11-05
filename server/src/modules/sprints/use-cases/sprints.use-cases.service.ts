@@ -27,9 +27,7 @@ export class SprintsUseCasesService extends PaginationService {
 
     public async findAllPaginated(userId: string, query: GenericQueryDto & SprintSearch) {
         const { page, pageSize, sortOrder, orderBy } = query;
-        const qb = this.sprintRepository
-            .createQueryBuilder('sprint')
-            .where('sprint.userId = :userId', { userId });
+        const qb = this.sprintRepository.createQueryBuilder('sprint').where('sprint.userId = :userId', { userId });
 
         const { data, count } = await this.paginate(
             qb,
@@ -57,9 +55,28 @@ export class SprintsUseCasesService extends PaginationService {
             },
             relations: {
                 issuesList: {
-                    issue: true,
-                }
-            }
+                    issue: {
+                        project: {
+                            customFields: true,
+                        },
+                    },
+                },
+            },
+            select: {
+                issuesList: {
+                    id: true,
+                    issue: {
+                        id: true,
+                        customFields: true as any,
+                        summary: true,
+                        jiraIssueKey: true,
+                        project: {
+                            id: true,
+                            customFields: true,
+                        },
+                    },
+                },
+            },
         });
     }
 
@@ -69,7 +86,7 @@ export class SprintsUseCasesService extends PaginationService {
 
         if (issuesList.length > 0) {
             const updatedIssues = await this.addSprintIssues(
-                issuesList.map(({ id: issueId }) => ({ sprintId: createdSprint.id, issueId }))
+                issuesList.map(({ id: issueId }) => ({ sprintId: createdSprint.id, issueId })),
             );
             createdSprint.issuesList = updatedIssues;
         }
@@ -78,17 +95,11 @@ export class SprintsUseCasesService extends PaginationService {
     }
 
     public async addSprintIssues(issuesList: CreateSprintIssueDto[]) {
-        return this.commandBus.execute(SchemaValidator.toInstance(
-            { issuesList },
-            CreateSprintIssuesCommand,
-        ));
+        return this.commandBus.execute(SchemaValidator.toInstance({ issuesList }, CreateSprintIssuesCommand));
     }
 
     public async removeSprintIssues(issuesList: RemoveSprintIssueDto) {
-        return this.commandBus.execute(SchemaValidator.toInstance(
-            issuesList,
-            RemoveSprintIssuesCommand,
-        ));
+        return this.commandBus.execute(SchemaValidator.toInstance(issuesList, RemoveSprintIssuesCommand));
     }
 
     public async updateSprint(id: string, payload: UpdateSprintDto) {

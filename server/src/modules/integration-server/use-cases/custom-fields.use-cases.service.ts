@@ -21,7 +21,9 @@ export class CustomFieldsUseCases {
     async getCustomFieldIds(internalServerId: string) {
         return this.customFieldRepository.find({
             where: {
-                integrationServerId: internalServerId,
+                project: {
+                    integrationServerId: internalServerId,
+                },
             },
         });
     }
