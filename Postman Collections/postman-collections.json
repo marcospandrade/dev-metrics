@@ -803,9 +803,12 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d",
+										"exec": [
+											""
+										],
 										"type": "text/javascript",
-										"exec": [],
-										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d"
+										"packages": {}
 									}
 								}
 							],
@@ -833,7 +836,50 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/sprints/d9928057-32bb-4f79-860b-d66d53cb34ce"
+								"url": "{{base_url}}/sprints/sprint-issue/d9928057-32bb-4f79-860b-d66d53cb34ce"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Sprint",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c60e3eb6-f0df-4ca2-87d2-bd2078bcbc2d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "de96f1fb-c83f-4943-a062-0be8a03499a0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": false,
+								"followRedirects": true,
+								"disableUrlEncoding": false,
+								"disableCookies": false
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "Insomnia/2023.5.7"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"issuesList\": [\n        {\n            \"id\": \"b373ec27-42c5-46b1-8cf6-9bc95664f9fe\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/sprints/sprint-issue/d9928057-32bb-4f79-860b-d66d53cb34ce"
 							},
 							"response": []
 						}
