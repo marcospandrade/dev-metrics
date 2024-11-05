@@ -9,7 +9,7 @@ async function getPaginatedSprints(queryString: string, projectId?: string) {
     const { data } = await api.get<GenericHttpResponse<GetSprintDto>>(`/sprints`)
 
     return {
-        data: data.response.sprints ?? '',
+        data: data.response.sprints ?? [],
         count: data.response.count
       };
   } catch (error: AxiosError | any) {
@@ -29,7 +29,31 @@ async function createSprint(payload: CreateSprintDto){
   }
 }
 
+async function deleteSprint(sprintId: string){
+  try {
+    const { data } = await api.delete<GenericHttpResponse<void>>(`/sprints/${sprintId}`)
+
+    return data;
+  }catch (error: AxiosError | any){
+    console.error(error)
+    throw new Error(error.message ?? 'Error trying to delete sprint')
+  }
+}
+
+async function getSprintById(sprintId: string){
+  try {
+    const { data } = await api.get<GenericHttpResponse<Sprint>>(`/sprints/${sprintId}`)
+
+    return data.response;
+  }catch (error: AxiosError | any){
+    console.error(error)
+    throw new Error(error.message ?? 'Error trying to get sprint details')
+  }
+}
+
 export default {
   getPaginatedSprints,
-  createSprint
+  createSprint,
+  deleteSprint,
+  getSprintById,
 }

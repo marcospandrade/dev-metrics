@@ -43,6 +43,7 @@ interface CustomTableProps<T extends object> {
   validateIsChecked?: (id: string) => boolean
   selectedItemsLength?: number
   actionsList?: ActionItem[]
+  shouldUpdateTable?: boolean
 }
 const ITEMS_PER_PAGE = 10
 
@@ -58,6 +59,7 @@ export function CustomTable<T extends object>({
   validateIsChecked,
   selectedItemsLength = 0,
   actionsList,
+  shouldUpdateTable = false
 }: Readonly<CustomTableProps<T>>) {
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<GenericWithId<T>[] | null>(null)
@@ -83,6 +85,11 @@ export function CustomTable<T extends object>({
       setMaxCount(result.count)
     })
   }
+
+  useEffect(() => {
+    console.log('should update', shouldUpdateTable)
+    updateData()
+  }, [shouldUpdateTable])
 
   useEffect(() => {
     updateData()
