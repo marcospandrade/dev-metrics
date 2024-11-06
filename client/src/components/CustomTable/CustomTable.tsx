@@ -140,7 +140,7 @@ export function CustomTable<T extends object>({
                 <td key={field.fieldDefinition as string} className="p-4">
                   <p className={`text-sm flex flex-row ${field.isBold ? 'font-semibold' : ''}`}>
                     {field.isActions && !!actionsList
-                      ? actionsList.map((actionItemConfig) => <TableAction identifier={record.id} actionItemConfig={actionItemConfig} />)
+                      ? actionsList.map((actionItemConfig) => <TableAction key={actionItemConfig.label} identifier={record.id} actionItemConfig={actionItemConfig} />)
                       : field.isDate
                         ? formatDate(String(record[field.fieldDefinition!]))
                         : String(record[field.fieldDefinition!])}

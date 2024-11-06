@@ -12,4 +12,7 @@ export class UpsertCustomFieldDto {
 
     @IsString()
     projectId: string;
+
+    @IsBoolean()
+    isStoryPointField: boolean;
 }

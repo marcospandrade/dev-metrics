@@ -1,3 +1,4 @@
+import { Issue } from '@/models/Issue.model'
 import { SprintIssue } from '@/models/SprintIssue.model'
 import { Typography } from '@material-tailwind/react'
 
@@ -8,7 +9,13 @@ interface SprintIssueListProps {
 const TABLE_HEAD = ['Jira Key', 'Issue', 'Story Point', 'Suggested Estimate']
 
 export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
+  function extractStoryPointField(issue: Issue){
+    const storyPointField = issue.project.customFields.find(customField => Boolean(customField.isStoryPointField))
+    return storyPointField?.name
+  }
+
   if (!sprintIssues) return null
+
   return (
     <table className="w-full min-w-max table-auto text-left">
       <thead>
@@ -37,12 +44,12 @@ export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
             </td>
             <td className="p-4">
               <Typography variant="small" color="blue-gray" className="flex items-center gap-2 font-normal leading-none opacity-70">
-                {JSON.stringify(sprintIssue.issue.customFields) ?? 'N/A'}
+                {sprintIssue.issue.customFields?.[extractStoryPointField(sprintIssue.issue) ?? ''] ?? 'N/A'}
               </Typography>
             </td>
             <td className="p-4">
               <Typography variant="small" color="blue-gray" className="flex items-center gap-2 font-normal leading-none opacity-70">
-                {JSON.stringify(sprintIssue.issue.customFields) ?? 'N/A'}
+                {'Not generated'}
               </Typography>
             </td>
           </tr>

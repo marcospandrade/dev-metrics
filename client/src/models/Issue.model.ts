@@ -1,7 +1,4 @@
-type CustomField = {
-  key: string
-  value: string
-}
+import { Project } from "./Project.model"
 
 export type Issue = {
   id: string
@@ -14,4 +11,5 @@ export type Issue = {
   projectId: string
   sprintId?: string
   customFields?: Record<string, any>
+  project: Project
 }

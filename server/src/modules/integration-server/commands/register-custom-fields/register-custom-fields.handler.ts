@@ -27,6 +27,7 @@ export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCust
                     projectId: command.projectId,
                     name: field.fieldName,
                     type: field.fieldType,
+                    isStoryPointField: field.isStoryPointField,
                 },
                 UpsertCustomFieldDto,
             );
