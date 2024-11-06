@@ -58,7 +58,4 @@ export class Base extends BaseEntity {
     deletedAt?: Date;
 }
 
-export class BaseUUID extends OmitType(Base, [
-    ...ORM_ENTITY_TIMESTAMPS,
-    ...ORM_ENTITY_METHODS,
-] as const) { }
+export class BaseUUID extends OmitType(Base, [...ORM_ENTITY_TIMESTAMPS, ...ORM_ENTITY_METHODS] as const) {}

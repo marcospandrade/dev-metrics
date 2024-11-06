@@ -9,12 +9,11 @@ import { AtlassianCustomType } from '@lib/atlassian/types/atlassian-custom-field
 import { NotFoundException } from '@nestjs/common';
 
 @QueryHandler(SearchCustomFieldQuery)
-export class SearchCustomFieldQueryHandler
-    implements IQueryHandler<SearchCustomFieldQuery, AtlassianCustomType> {
+export class SearchCustomFieldQueryHandler implements IQueryHandler<SearchCustomFieldQuery, AtlassianCustomType> {
     public constructor(
         private readonly atlassianUseCases: AtlassianUseCases,
         private readonly logger: LoggerService,
-    ) { }
+    ) {}
 
     async execute(query: SearchCustomFieldQuery) {
         this.logger.info(`Search field ${query.fieldName} into Atlassian Server`);

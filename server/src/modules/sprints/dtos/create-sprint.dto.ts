@@ -7,9 +7,9 @@ import { BaseUUID } from '@core/database/entities/base.entity';
 
 const FIELDS_TO_OMIT = ['id', 'issuesList', 'user', 'team', ...ORM_ENTITY_METHODS, ...ORM_ENTITY_TIMESTAMPS] as const;
 export class CreateSprintDto extends OmitType(Sprint, FIELDS_TO_OMIT) {
-  @IsArray()
-  @Type(() => BaseUUID)
-  @ValidateNested({ each: true })
-  @IsOptional()
-  issuesList?: BaseUUID[];
+    @IsArray()
+    @Type(() => BaseUUID)
+    @ValidateNested({ each: true })
+    @IsOptional()
+    issuesList?: BaseUUID[];
 }

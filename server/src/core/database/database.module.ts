@@ -47,4 +47,4 @@ import { DataSource } from 'typeorm';
     controllers: [MigrationController],
     providers: [MigrationFactory, MigrationsService],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

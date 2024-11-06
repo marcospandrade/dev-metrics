@@ -3,11 +3,11 @@ import { Type } from 'class-transformer';
 import { BaseUUID } from '@core/database/entities/base.entity';
 
 export class RemoveSprintIssueDto {
-  @IsUUID()
-  sprintId: string;
+    @IsUUID()
+    sprintId: string;
 
-  @IsArray()
-  @Type(() => BaseUUID)
-  @ValidateNested({ each: true })
-  issuesList: BaseUUID[];
+    @IsArray()
+    @Type(() => BaseUUID)
+    @ValidateNested({ each: true })
+    issuesList: BaseUUID[];
 }

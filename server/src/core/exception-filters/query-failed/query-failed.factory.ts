@@ -6,9 +6,12 @@ import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class QueryFailedFactory {
-    constructor(private logger: LoggerService) { }
+    constructor(private logger: LoggerService) {}
 
-    buildErrorResponse(error: QueryFailedError, request: Request): { response: ErrorResponse, status: number, customMessage: string } {
+    buildErrorResponse(
+        error: QueryFailedError,
+        request: Request,
+    ): { response: ErrorResponse; status: number; customMessage: string } {
         const errorResponse: ErrorResponse = {
             requestId: request['id'] as string,
             path: request.url,

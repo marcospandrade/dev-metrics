@@ -44,4 +44,4 @@ import { ServerAppConfig } from 'src/app.module';
     providers: [AuthUseCase, AuthFactoryService, JwtService, ConfigService, JwtStrategy],
     exports: [AuthUseCase, JwtService],
 })
-export class AuthModule { }
+export class AuthModule {}
