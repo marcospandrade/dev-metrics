@@ -29,6 +29,7 @@ import {
     CreateSprintIssueWithoutSprintCommand,
 } from '@modules/sprint-issues/commands/create-sprint-issues/create-sprint-issues.command';
 import { UpdateSprintCommand, UpdateSprintWithoutUserCommand } from './commands/update-sprint/update-sprint.command';
+import { DeleteSprintCommand } from './commands/delete-sprint/delete-sprint.command';
 
 @Controller('sprints')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -62,6 +63,13 @@ export class SprintsController {
     }
 
     @Delete(':sprintId')
+    removeSprint(@Param('sprintId') sprintId: string) {
+        return this.commandBus.execute(SchemaValidator.toInstance({ sprintId }, DeleteSprintCommand)).then(r => {
+            return r;
+        });
+    }
+
+    @Delete('/sprint-issue/:sprintId')
     removeSprintIssues(@Param('sprintId') sprintId: string, @Body() payload: RemoveSprintIssuesWithoutSprintCommand) {
         return this.commandBus
             .execute(SchemaValidator.toInstance({ ...payload, sprintId }, RemoveSprintIssuesCommand))

@@ -5,8 +5,9 @@ import { SprintsUseCasesService } from './use-cases/sprints.use-cases.service';
 import { Sprint } from './entities/sprint.entity';
 import { CreateSprintCommandHandler } from './commands/create-sprint/create-sprint.handler';
 import { UpdateSprintCommandHandler } from './commands/update-sprint/update-sprint.handler';
+import { DeleteSprintCommandHandler } from './commands/delete-sprint/delete-sprint.handler';
 
-const CommandHandlers = [CreateSprintCommandHandler, UpdateSprintCommandHandler];
+const CommandHandlers = [CreateSprintCommandHandler, UpdateSprintCommandHandler, DeleteSprintCommandHandler];
 
 @Module({
     imports: [TypeOrmModule.forFeature([Sprint])],

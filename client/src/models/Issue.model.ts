@@ -1,3 +1,5 @@
+import { Project } from "./Project.model"
+
 export type Issue = {
   id: string
   createdAt: Date
@@ -8,5 +10,6 @@ export type Issue = {
   description?: string
   projectId: string
   sprintId?: string
-  customFields?: object
+  customFields?: Record<string, any>
+  project: Project
 }

@@ -24,9 +24,10 @@ export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCust
             return SchemaValidator.toInstance(
                 {
                     atlassianId: field.atlassianId,
-                    integrationServerId: integrationServer.id,
+                    projectId: command.projectId,
                     name: field.fieldName,
                     type: field.fieldType,
+                    isStoryPointField: field.isStoryPointField,
                 },
                 UpsertCustomFieldDto,
             );

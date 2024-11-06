@@ -1,9 +1,10 @@
-import { IsArray } from 'class-validator';
+import { IsArray, ValidateNested } from 'class-validator';
 import { CreateIssueDto } from '../../dto/create-issue.dto';
 import { Type } from 'class-transformer';
 
 export class SyncIssuesCommand {
-    @IsArray({ each: true })
+    @IsArray()
     @Type(() => CreateIssueDto)
+    @ValidateNested({ each: true })
     issues: CreateIssueDto[];
 }

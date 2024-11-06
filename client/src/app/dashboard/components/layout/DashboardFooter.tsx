@@ -1,12 +1,9 @@
 import { Typography } from '@/lib/material'
 
 const defaultProps = {
-  brandName: 'EstimAi',
-  brandLink: 'https://github.com/marcospandrade/estimai-web',
-  routes: [
-    { name: 'Home', path: 'https://localhost:3000/dashboard' },
-    { name: 'Repo', path: 'https://github.com/marcospandrade/estimai-web' },
-  ],
+  brandName: 'DevMetrics',
+  brandLink: 'https://github.com/marcospandrade/dev-metrics',
+  routes: [{ name: 'Repo', path: 'https://github.com/marcospandrade/dev-metrics' }],
 }
 
 interface Route {
