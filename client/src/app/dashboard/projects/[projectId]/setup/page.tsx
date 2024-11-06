@@ -47,9 +47,8 @@ export default function SetupProject() {
       projectId,
       fieldsToRegister
     }
-
-    const registeredCustomFields = await projectsService.registerCustomFields(payloadRegisterCustomFields);
-    console.log('return register custom field', registeredCustomFields)
+    await projectsService.registerCustomFields(payloadRegisterCustomFields);
+    
     toast.success(`Custom fields registered successfully!`)
     return router.push('/dashboard/projects')
   }

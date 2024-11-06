@@ -40,4 +40,4 @@ const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCas
     imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), AtlassianModule],
     providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
-export class IntegrationProjectModule { }
+export class IntegrationProjectModule {}

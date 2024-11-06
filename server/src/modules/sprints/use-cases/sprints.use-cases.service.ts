@@ -94,6 +94,10 @@ export class SprintsUseCasesService extends PaginationService {
         return createdSprint;
     }
 
+    public async deleteSprint(id: string) {
+        return this.sprintRepository.softDelete({ id });
+    }
+
     public async addSprintIssues(issuesList: CreateSprintIssueDto[]) {
         return this.commandBus.execute(SchemaValidator.toInstance({ issuesList }, CreateSprintIssuesCommand));
     }

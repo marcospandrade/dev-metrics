@@ -1,3 +1,5 @@
+import { SprintIssue } from "./SprintIssue.model";
+
 export type Sprint = {
     createdAt: Date;
     goals: string;
@@ -8,4 +10,5 @@ export type Sprint = {
     teamId: string;
     updatedAt: string;
     userId: string;
+    issuesList?: SprintIssue[];
 }
