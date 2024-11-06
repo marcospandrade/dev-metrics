@@ -31,6 +31,10 @@ export class UpsertProjectDto {
 
     @IsString()
     @IsOptional()
+    isCustomFieldSelected?: boolean;
+
+    @IsString()
+    @IsOptional()
     integrationUUID?: string;
 
     @IsString()

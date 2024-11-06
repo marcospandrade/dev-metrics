@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class UpsertCustomFieldDto {
     @IsString()
@@ -11,5 +11,8 @@ export class UpsertCustomFieldDto {
     type: string;
 
     @IsString()
-    integrationServerId: string;
+    projectId: string;
+
+    @IsBoolean()
+    isStoryPointField: boolean;
 }

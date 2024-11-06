@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 
+import { TypeORMCustomNamingStrategy } from '@core/database/helpers/typeorm-custom-naming-strategy';
 import { ServerAppConfig } from '../../app.module';
 import { MigrationController } from './migration.controller';
 import { MigrationsService } from './use-case/migrations.service';
@@ -12,7 +13,7 @@ import { DataSource } from 'typeorm';
     imports: [
         TypeOrmModule.forRootAsync({
             dataSourceFactory: (dataSource: any) => new DataSource(dataSource).initialize(),
-            useFactory: async (configService: ConfigService<ServerAppConfig>) => {
+            useFactory: async (configService: ConfigService<ServerAppConfig>): Promise<TypeOrmModuleOptions> => {
                 const host = configService.get('DB_HOST');
                 const port = configService.get('DB_PORT');
                 const username = configService.get('DB_USER');
@@ -24,7 +25,7 @@ import { DataSource } from 'typeorm';
                 const migrationsTableName = configService.get('migrationsTableName');
                 const type = configService.get('DB_TYPE');
 
-                const config = {
+                const config: TypeOrmModuleOptions = {
                     type,
                     host,
                     port,
@@ -35,6 +36,7 @@ import { DataSource } from 'typeorm';
                     logging,
                     entities,
                     migrationsTableName,
+                    namingStrategy: new TypeORMCustomNamingStrategy(),
                 };
 
                 return config;
@@ -45,4 +47,4 @@ import { DataSource } from 'typeorm';
     controllers: [MigrationController],
     providers: [MigrationFactory, MigrationsService],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

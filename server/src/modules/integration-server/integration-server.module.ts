@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CqrsModule } from '@nestjs/cqrs';
 
 import { IntegrationServerUseCases } from './use-cases/integration-server.use-cases.service';
 import { IntegrationServer } from './entities/integration-server.entity';
@@ -17,10 +16,10 @@ import { Project } from './entities/project.entity';
 import { UpsertProjectsCommandHandler } from './commands/upsert-projects/upsert-projects.handler';
 import { CustomFieldsUseCases } from './use-cases/custom-fields.use-cases.service';
 import { SearchCustomFieldQueryHandler } from './queries/search-custom-field/search-custom-field.handler';
-import { CustomFieldsSaga } from './sagas/custom-fields.saga';
 import { RegisterCustomFieldsHandler } from './commands/register-custom-fields/register-custom-fields.handler';
 import { CustomFields } from './entities/custom-fields.entity';
 import { ProjectsController } from './projects.controller';
+import { GetAllIssuesFieldsQueryHandler } from './queries/get-all-issues-fields/get-all-issues-fields.handler';
 
 const CommandHandlers = [
     UpsertIntegrationServerCommandHandler,
@@ -30,15 +29,15 @@ const CommandHandlers = [
     RegisterCustomFieldsHandler,
 ];
 
-const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler];
+const QueryHandlers = [GetProjectSyncStatusQueryHandler, SearchCustomFieldQueryHandler, GetAllIssuesFieldsQueryHandler];
 
-const Sagas = [IntegrationServerSaga, ProjectSaga, CustomFieldsSaga];
+const Sagas = [IntegrationServerSaga, ProjectSaga];
 
 const UseCases = [IntegrationServerUseCases, ProjectUseCases, CustomFieldsUseCases];
 
 @Module({
     controllers: [IntegrationServerController, ProjectsController],
-    imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), CqrsModule, AtlassianModule],
+    imports: [TypeOrmModule.forFeature([IntegrationServer, Project, CustomFields]), AtlassianModule],
     providers: [...UseCases, ...Sagas, ...CommandHandlers, ...QueryHandlers],
 })
 export class IntegrationProjectModule {}

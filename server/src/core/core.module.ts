@@ -1,4 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 
 import { LoggerService } from './logger/logger.service';
 import { CoreService } from './core.service';
@@ -12,6 +13,9 @@ import { AxiosFactoryProvider } from './exception-filters/axios/axios.provider';
 
 import { FormatResponseFactoryProvider } from './interceptors/format-response/format-response.provider';
 import { UnhandledExceptionFactoryProvider } from './exception-filters/unhandled-exception/unhandled-exception.provider';
+import { QueryFailedFilter } from './exception-filters/query-failed/query-failed.filter';
+import { QueryFailedFactory } from './exception-filters/query-failed/query-failed.factory';
+import { QueryFailedFactoryProvider } from './exception-filters/query-failed/query-failed.provider';
 
 /**
  * This module is the main module that bootstraps the Nest application.
@@ -33,6 +37,7 @@ export class CoreModule {
         return {
             global: true,
             module: CoreModule,
+            imports: [CqrsModule.forRoot()],
             providers: [
                 CoreService,
                 {
@@ -54,6 +59,15 @@ export class CoreModule {
                     inject: [LoggerService, AxiosFactory],
                 },
                 {
+                    provide: APP_FILTER,
+                    useFactory: (logger: LoggerService, factory: QueryFailedFactory) => {
+                        logger.info('Registering QueryFailedFilter');
+
+                        return new QueryFailedFilter(logger, factory);
+                    },
+                    inject: [LoggerService, QueryFailedFactory],
+                },
+                {
                     provide: APP_INTERCEPTOR,
                     useFactory: (logger: LoggerService, factory: FormatResponseFactory) => {
                         logger.info('Registering FormatResponseInterceptor');
@@ -69,12 +83,14 @@ export class CoreModule {
                 UnhandledExceptionFactoryProvider,
                 FormatResponseFactoryProvider,
                 AxiosFactoryProvider,
+                QueryFailedFactoryProvider,
             ],
             exports: [
                 CoreService,
                 UnhandledExceptionFactoryProvider,
                 FormatResponseFactoryProvider,
                 AxiosFactoryProvider,
+                QueryFailedFactoryProvider,
             ],
         };
     }

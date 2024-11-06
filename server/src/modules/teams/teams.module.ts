@@ -1,5 +1,4 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CqrsModule } from '@nestjs/cqrs';
 import { Module } from '@nestjs/common';
 
 import { CreateTeamCommandHandler } from './commands/createTeam/create-team.command-handler';
@@ -12,7 +11,7 @@ import { AddTeamParticipantCommandHandler } from './commands/addTeamParticipants
 import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.command-handler';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Team, Participant]), CqrsModule],
+    imports: [TypeOrmModule.forFeature([Team, Participant])],
     controllers: [TeamController],
     providers: [
         TeamUseCases,
@@ -22,4 +21,4 @@ import { UpdateTeamCommandHandler } from './commands/updateTeam/update-team.comm
         TeamSaga,
     ],
 })
-export class TeamsModule {}
+export class TeamsModule { }

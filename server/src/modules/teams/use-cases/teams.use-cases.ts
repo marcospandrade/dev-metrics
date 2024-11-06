@@ -81,6 +81,6 @@ export class TeamUseCases {
     }
 
     public async deleteTeamById(teamId: string) {
-        await this.teamRepository.softDelete({ id: teamId });
+        return this.teamRepository.softDelete({ id: teamId });
     }
 }

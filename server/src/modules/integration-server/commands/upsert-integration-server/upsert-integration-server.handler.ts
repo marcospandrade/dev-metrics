@@ -7,7 +7,7 @@ import { IntegrationServerUseCases } from '../../use-cases/integration-server.us
 import { UpsertIntegrationServerDto } from '../../dto/create-integration-server.dto';
 import { UpsertIntegrationServerCommand } from './upsert-integration-server.command';
 import { ConfigService } from '@nestjs/config';
-import { SyncRelevantCustomFieldsEvent } from '@modules/integration-server/events/sync-relevant-custom-fields.event';
+import { UpsertRawProjectsEvent } from '@modules/integration-server/events/upsert-raw-projects.event';
 
 @CommandHandler(UpsertIntegrationServerCommand)
 export class UpsertIntegrationServerCommandHandler implements ICommandHandler<UpsertIntegrationServerCommand> {
@@ -16,7 +16,7 @@ export class UpsertIntegrationServerCommandHandler implements ICommandHandler<Up
         private readonly configService: ConfigService,
         private readonly logger: LoggerService,
         private readonly eventBus: EventBus,
-    ) {}
+    ) { }
 
     @ValidateSchema(UpsertIntegrationServerCommand)
     public async execute(command: UpsertIntegrationServerCommand) {
@@ -26,14 +26,14 @@ export class UpsertIntegrationServerCommandHandler implements ICommandHandler<Up
 
         this.logger.info({ server }, 'Integration server created successfully');
 
-        return this.eventBus.publish(
+        this.eventBus.publish(
             SchemaValidator.toInstance(
                 {
                     serverExternalId: server.jiraId,
                     serverInternalId: server.id,
                     userEmail: server.user.email,
                 },
-                SyncRelevantCustomFieldsEvent,
+                UpsertRawProjectsEvent,
             ),
         );
     }

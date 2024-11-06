@@ -20,18 +20,18 @@ services:
     container_name: ${DB_CONTAINER_NAME}
     hostname: ${DB_CONTAINER_NAME}
     environment:
-        PGDATABASE: $DB_NAME
-        PGUSER: $DB_USER
-        PGPASSWORD: $DB_PASSWORD
-        PGPORT: $DB_PORT
-        POSTGRES_PASSWORD: $DB_PASSWORD
-        POSTGRES_USER: $DB_USER
-        POSTGRES_DB: $DB_NAME
+      PGDATABASE: $DB_NAME
+      PGUSER: $DB_USER
+      PGPASSWORD: $DB_PASSWORD
+      PGPORT: $DB_PORT
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_USER: $DB_USER
+      POSTGRES_DB: $DB_NAME
     ports:
-        - $DB_PORT:$DB_PORT
+      - $DB_PORT:$DB_PORT
     volumes:
-        - postgres:/var/folders/postgres:/data/postgres
-        - postgres_data:/var/lib/postgresql/data
+      - postgres:/var/folders/postgres:/data/postgres
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./server/.env
     networks:
@@ -61,8 +61,9 @@ volumes:
   postgres:
   postgres_data:
   dev-metrics-server-modules:
-    
+
+
 networks:
   api:
-    name: vendors_api
+    name: devmetrics_api
     driver: bridge

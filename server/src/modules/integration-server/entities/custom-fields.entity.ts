@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString, IsUUID } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Type } from 'class-transformer';
 
-import { IntegrationServer } from './integration-server.entity';
 import { Base } from '@core/database/entities/base.entity';
+import { Project } from './project.entity';
 
 @Entity('customFields')
 export class CustomFields extends Base {
@@ -31,14 +31,22 @@ export class CustomFields extends Base {
     type: string;
 
     @ApiProperty({
-        type: String,
-        description: 'integration server id',
+        type: Boolean,
+        description: 'isStoryPointFiled',
     })
-    @IsString()
-    @Column({ nullable: false })
-    integrationServerId: string;
+    @IsBoolean()
+    @Column({ default: false })
+    isStoryPointField: boolean;
 
-    @ManyToOne(() => IntegrationServer, integrationServer => integrationServer.customFields)
-    @Type(() => IntegrationServer)
-    integrationServer: IntegrationServer;
+    @ApiProperty({
+        type: String,
+        description: 'project id',
+    })
+    @IsUUID()
+    @Column({ nullable: false })
+    projectId: string;
+
+    @ManyToOne(() => Project, project => project.customFields)
+    @Type(() => Project)
+    project: Project;
 }

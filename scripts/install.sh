@@ -1,5 +1,3 @@
-cd orchestrator && npm i &&
+#!/bin/bash
 
-cd ../microservice-1 && npm i && 
-
-cd ../microservice-2 && npm i
+cd server && npm i && cd ../client && npm i

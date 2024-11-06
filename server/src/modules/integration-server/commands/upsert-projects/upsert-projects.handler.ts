@@ -15,7 +15,7 @@ export class UpsertProjectsCommandHandler implements ICommandHandler<UpsertProje
         private readonly eventBus: EventBus,
         private readonly integrationServerUseCases: IntegrationServerUseCases,
         private readonly projectUseCases: ProjectUseCases,
-    ) {}
+    ) { }
     public async execute(command: UpsertProjectsCommand): Promise<any> {
         this.logger.info({ integrationServerId: command.serverInternalId }, 'Upserting projects for server: ');
 
@@ -51,6 +51,7 @@ export class UpsertProjectsCommandHandler implements ICommandHandler<UpsertProje
             atlassianId: project.id,
             integrationServerId: integrationServerId,
             isSynced: false,
+            isCustomFieldSelected: false,
         }));
     }
 }

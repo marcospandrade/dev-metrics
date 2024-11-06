@@ -1,7 +1,7 @@
 'use client'
 
 import React, { ReactElement } from 'react'
-import { FabIcon } from '../common/FabButton'
+import { FabIcon } from '../Common/FabButton'
 
 export function Footer(): ReactElement {
   return (

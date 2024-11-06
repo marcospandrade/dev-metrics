@@ -1,4 +1,4 @@
-import { TableFields } from "@/components/Table/CustomTable"
+import { TableFields } from "@/components/CustomTable/CustomTable"
 import { Issue } from "@/models/Issue.model"
 
 export const ISSUES_TABLE_HEADINGS: string[] = ['Jira Issue ID', 'Title']

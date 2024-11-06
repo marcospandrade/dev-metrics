@@ -17,6 +17,15 @@ import {
   DialogBody,
   DialogHeader,
   DialogFooter,
+  Card,
+  CardBody,
+  CardFooter,
+  Step,
+  Stepper,
+  Select,
+  Option,
+  Checkbox,
+  Tooltip
 } from '@material-tailwind/react'
 
 export {
@@ -36,4 +45,13 @@ export {
   DialogBody,
   DialogHeader,
   DialogFooter,
+  Card,
+  CardBody,
+  CardFooter,
+  Step,
+  Stepper,
+  Select,
+  Option,
+  Checkbox,
+  Tooltip
 }

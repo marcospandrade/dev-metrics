@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <AuthContextProvider>
         <div className="bg-gray-50">
           <div className="min-h-screen bg-blue-gray-50/50">
-            <Sidenav brandImg={'../../public/img/logo-ct.png'} brandName="EstimAi" />
+            <Sidenav brandImg={'../../public/img/logo-ct.png'} brandName="Dev Metrics" />
             <div className="p-4 xl:ml-80 min-h-screen flex flex-col justify-between">
               <DashboardNavbar />
               <div className="mb-auto">{children}</div>

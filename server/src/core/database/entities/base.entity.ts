@@ -1,4 +1,6 @@
+import { OmitType } from '@nestjs/mapped-types';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ORM_ENTITY_METHODS, ORM_ENTITY_TIMESTAMPS } from '@shared/helpers/orm-entity-methods';
 import { Exclude, Expose } from 'class-transformer';
 import { IsDate, IsOptional, IsUUID } from 'class-validator';
 import {
@@ -55,3 +57,8 @@ export class Base extends BaseEntity {
     @IsOptional()
     deletedAt?: Date;
 }
+
+export class BaseUUID extends OmitType(Base, [
+    ...ORM_ENTITY_TIMESTAMPS,
+    ...ORM_ENTITY_METHODS,
+] as const) { }

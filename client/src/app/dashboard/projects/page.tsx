@@ -5,10 +5,10 @@ import { Tab, TabPanel, Tabs, TabsBody, TabsHeader, Typography } from '@material
 
 import { useAuth } from '@/hooks/useAuth'
 import { Project } from '@/models/Project.model'
-import projectsService from '@/services/projects.service'
+import projectsService from '@/services/projects/projects.service'
 
 import { SelectProjects } from './components/SelectProjects'
-import { IssuesTable } from './components/IssuesTable'
+import { IssuesTable } from './components/tabs/IssuesTable'
 
 import { ProjectPageTabsEnum, tabsData } from './constants/tabs'
 import { ProjectInfo } from './components/tabs/ProjectInfo'

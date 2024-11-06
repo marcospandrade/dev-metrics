@@ -13,4 +13,5 @@ export class CreateProjectDto extends OmitType(Project, [
     'softRemove',
     'recover',
     'reload',
+    'customFields',
 ]) {}

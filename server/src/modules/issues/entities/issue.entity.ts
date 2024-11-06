@@ -1,12 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { IsJSON, IsOptional, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { IsArray, IsJSON, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Expose, Transform, Type } from 'class-transformer';
 
 import { Sprint } from '@modules/sprints/entities/sprint.entity';
 import { Base } from '@core/database/entities/base.entity';
 import { Project } from '@modules/integration-server/entities/project.entity';
+import { SprintIssue } from '@modules/sprint-issues/entities/sprint-issue.entity';
 
 @Entity({ name: 'issues' })
 export class Issue extends Base {
@@ -51,25 +52,52 @@ export class Issue extends Base {
     @Column()
     projectId: string;
 
+    @ApiProperty({
+        type: String,
+        description: 'issueText',
+    })
+    @Column({ nullable: true })
+    @Expose()
+    @IsString()
+    @IsOptional()
+    @Transform(({ obj, value }) => {
+        if (!!value || !obj.description || obj.description === 'null') return value;
+
+        return Issue.traverseIssueDescription(obj.description);
+    })
+    issueText?: string;
+
     @IsJSON()
     @IsOptional()
     @Column('jsonb', { nullable: false, default: {} })
     customFields: object;
 
-    @ApiProperty({
-        type: String,
-        description: 'sprintId',
-    })
-    @IsString()
-    @IsOptional()
-    @Column({ nullable: true })
-    sprintId?: string;
-
     @ManyToOne(() => Project, project => project.issuesList)
     @Type(() => Project)
     project: Project;
 
-    @ManyToOne(() => Sprint, sprint => sprint.issuesList)
-    @Type(() => Sprint)
-    sprint: Sprint;
+    @OneToMany(() => SprintIssue, sprint => sprint.issueId, {})
+    @IsArray()
+    @IsOptional()
+    sprints?: SprintIssue[];
+
+    private static traverseIssueDescription(issueDescription: Issue['description'], issueText = '') {
+        const parsedIssueDescription =
+            typeof issueDescription === 'string' ? JSON.parse(issueDescription) : issueDescription;
+
+        if ('content' in parsedIssueDescription) {
+            return parsedIssueDescription.content.reduce(
+                (acc, item) => acc + this.traverseIssueDescription(item, issueText),
+                '',
+            );
+        }
+
+        if ('type' in parsedIssueDescription && parsedIssueDescription.type === 'text') {
+            return issueText + ' ' + parsedIssueDescription.text;
+        } else if ('attrs' in parsedIssueDescription && parsedIssueDescription.attrs.url) {
+            return issueText + ' ' + parsedIssueDescription.attrs.url;
+        }
+
+        return issueText;
+    }
 }

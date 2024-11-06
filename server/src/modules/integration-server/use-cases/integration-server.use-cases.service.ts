@@ -24,7 +24,7 @@ export class IntegrationServerUseCases {
         @InjectRepository(IntegrationServer)
         private readonly integrationServerRepository: Repository<IntegrationServer>,
         private readonly atlassianUseCases: AtlassianUseCases,
-    ) {}
+    ) { }
 
     public async upsert(payload: UpsertIntegrationServerDto): Promise<IntegrationServer> {
         this.logger.info({ payload }, 'Upserting integration project on the database with the title:');
@@ -98,5 +98,9 @@ export class IntegrationServerUseCases {
 
     public async searchFieldIdByName(payload: SearchFieldByNameDto) {
         return this.atlassianUseCases.searchByFieldName(SchemaValidator.toInstance(payload, SearchFieldByNameDto));
+    }
+
+    public async getServerByProjectId(projectId: string) {
+        return this.integrationServerRepository.findOne({ where: { projects: { id: projectId } } });
     }
 }

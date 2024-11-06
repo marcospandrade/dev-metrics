@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
-import { Loading } from '@/components/common/Loading'
+import { Loading } from '@/components/Common/Loading'
 
 interface LoadingContextData {
   statusLoading: boolean

@@ -1,3 +1,4 @@
+import { OmitType } from '@nestjs/mapped-types';
 import { IsString } from 'class-validator';
 
 export class SyncIntegrationProjectCommand {
@@ -7,3 +8,5 @@ export class SyncIntegrationProjectCommand {
     @IsString()
     userEmail: string;
 }
+
+export class SyncIntegrationProjectWithoutEmailCommand extends OmitType(SyncIntegrationProjectCommand, ['userEmail']) { }

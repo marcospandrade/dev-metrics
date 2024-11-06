@@ -1,3 +1,5 @@
+import { CustomField } from "./CustomField.model"
+
 export type Project = {
   id: string
   createdAt: Date
@@ -10,4 +12,6 @@ export type Project = {
   isSynced: boolean
   integrationServerId?: string
   integrationUUID?: string
+  isCustomFieldSelected: boolean
+  customFields: CustomField[]
 }

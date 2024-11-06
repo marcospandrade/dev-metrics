@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
-import { CustomModal } from '@/components/common/CustomModal'
+import { CustomModal } from '@/components/Common/CustomModal'
 
 export interface ModalProps {
   title: string

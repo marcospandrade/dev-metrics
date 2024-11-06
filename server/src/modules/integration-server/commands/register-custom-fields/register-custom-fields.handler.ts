@@ -1,59 +1,48 @@
-import { CommandHandler, EventBus, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { ConfigService } from '@nestjs/config';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 
 import { RegisterCustomFieldsCommand } from './register-custom-fields.command';
 import { SchemaValidator } from '@core/utils';
-import { SearchCustomFieldQuery } from '@modules/integration-server/queries/search-custom-field/search-custom-field.query';
 import { CustomFieldsUseCases } from '@modules/integration-server/use-cases/custom-fields.use-cases.service';
-import { AtlassianCustomType } from '@lib/atlassian/types/atlassian-custom-field.type';
-import { PaginatedResponse } from '@lib/atlassian/types/paginated-response.type';
 import { UpsertCustomFieldDto } from '@modules/integration-server/dto/upsert-custom-field.dto';
-import { UpsertRawProjectsEvent } from '@modules/integration-server/events/upsert-raw-projects.event';
+import { IntegrationServerUseCases } from '@modules/integration-server/use-cases/integration-server.use-cases.service';
+import { CheckSyncProjectEvent } from '@modules/integration-server/events/check-sync-project.event';
+import { ProjectUseCases } from '@modules/integration-server/use-cases/projects.use-cases.service';
 
 @CommandHandler(RegisterCustomFieldsCommand)
 export class RegisterCustomFieldsHandler implements ICommandHandler<RegisterCustomFieldsCommand> {
     public constructor(
-        private readonly configService: ConfigService,
         private readonly eventBus: EventBus,
-        private readonly queryBus: QueryBus,
         private readonly customFieldUseCases: CustomFieldsUseCases,
+        private readonly projectsUseCases: ProjectUseCases,
+        private readonly service: IntegrationServerUseCases,
     ) {}
 
     async execute(command: RegisterCustomFieldsCommand): Promise<void> {
-        const relevantFields = this.configService.get<string>('RELEVANT_FIELDS').split(',');
+        const integrationServer = await this.service.getServerByProjectId(command.projectId);
 
-        const promisesAtlassianFields = relevantFields.map(field => {
-            return this.queryBus.execute<SearchCustomFieldQuery, PaginatedResponse<AtlassianCustomType>>(
-                SchemaValidator.toInstance(
-                    { cloudId: command.serverExternalId, userEmail: command.userEmail, fieldName: field },
-                    SearchCustomFieldQuery,
-                ),
+        const fieldsToRegister: UpsertCustomFieldDto[] = command.fieldsToRegister.map(field => {
+            return SchemaValidator.toInstance(
+                {
+                    atlassianId: field.atlassianId,
+                    projectId: command.projectId,
+                    name: field.fieldName,
+                    type: field.fieldType,
+                    isStoryPointField: field.isStoryPointField,
+                },
+                UpsertCustomFieldDto,
             );
         });
 
-        const queriedAtlassianFields = await Promise.all(promisesAtlassianFields);
-
-        await this.customFieldUseCases.upsertCustomField(
-            this.mountUpsertCustomFieldPayload(queriedAtlassianFields, command.serverInternalId),
-        );
-
-        return this.eventBus.publish<UpsertRawProjectsEvent, void>(
-            SchemaValidator.toInstance(command, UpsertRawProjectsEvent),
-        );
-    }
-
-    private mountUpsertCustomFieldPayload(
-        payload: PaginatedResponse<AtlassianCustomType>[],
-        internalIntegrationServerId: string,
-    ): UpsertCustomFieldDto[] {
-        return payload.map(obj => {
-            const value = obj.values[0];
-            return {
-                atlassianId: value.id,
-                integrationServerId: internalIntegrationServerId,
-                name: value.name,
-                type: value.schema.type,
-            };
+        await this.customFieldUseCases.upsertCustomField(fieldsToRegister);
+        await this.projectsUseCases.updateOne(command.projectId, {
+            isCustomFieldSelected: true,
         });
+
+        return this.eventBus.publish<CheckSyncProjectEvent, void>(
+            SchemaValidator.toInstance(
+                { projectId: command.projectId, userEmail: command.userEmail },
+                CheckSyncProjectEvent,
+            ),
+        );
     }
 }
