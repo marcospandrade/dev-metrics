@@ -4,10 +4,11 @@ import { Sprint } from '@/models/Sprint.model'
 import sprintsService from '@/services/sprints/sprints.service'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Card, CardBody, Typography } from '@/lib/material'
+import { Card, CardBody, Typography, Button } from '@/lib/material'
 import { ItemDetail } from './ItemDetail'
 import { Divider } from '@mui/material'
 import { SprintIssueList } from './SprintIssueList'
+import { toast } from 'react-toastify'
 
 export default function SprintDetails() {
   const { sprintId } = useParams<{ sprintId: string }>()
@@ -15,6 +16,11 @@ export default function SprintDetails() {
 
   async function fetchSprintDetails() {
     return sprintsService.getSprintById(sprintId)
+  }
+
+  async function startGenerateEstimates() {
+    await sprintsService.startGenerateEstimates(sprintId);
+    toast.success('Estimates generation started...');
   }
 
   useEffect(() => {
@@ -34,13 +40,19 @@ export default function SprintDetails() {
     <div>
       <Card>
         <CardBody>
-          <div className="flex flex-col mb-4 gap-y-4">
-            <ItemDetail title={'Sprint name'} text={sprintDetails.name} />
-            <ItemDetail title={'Goals'} text={sprintDetails.goals} />
+          <div className='flex flex-row justify-between'>
+            <div className="flex flex-col mb-4 gap-y-4">
+              <ItemDetail title={'Sprint name'} text={sprintDetails.name} />
+              <ItemDetail title={'Goals'} text={sprintDetails.goals} />
+            </div>
+
+            <div className="flex items-center">
+              <Button variant='filled' color='indigo' onClick={() => startGenerateEstimates()}>Generate Estimates</Button>
+            </div>
           </div>
-          
+
           <Divider />
-          
+
           <div className='mt-4'>
             <Typography variant='h5' className='mb-6'>Selected issues</Typography>
             <SprintIssueList sprintIssues={sprintDetails.issuesList} />
