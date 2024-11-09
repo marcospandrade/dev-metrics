@@ -1,19 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsBoolean, IsString, IsUUID } from 'class-validator';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Type } from 'class-transformer';
 
 import { Base } from '@core/database/entities/base.entity';
 import { Project } from './project.entity';
 
 @Entity('customFields')
+@Index(['atlassianId', 'projectId'], { unique: true })
 export class CustomFields extends Base {
     @ApiProperty({
         type: 'string',
     })
     @IsString()
-    @Column({ unique: true })
+    @Column()
     atlassianId: string;
 
     @ApiProperty({
