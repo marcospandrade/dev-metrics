@@ -1,15 +1,15 @@
 import { ofType, Saga } from '@nestjs/cqrs';
 import { map, Observable } from 'rxjs';
-import { StartGeneratingEstimativesEvent } from '../events/start-generating-estimatives.event';
+import { StartGeneratingEstimatesEvent } from '../events/start-generating-estimates.event';
 import { SchemaValidator } from '@core/utils';
-import { GenerateSprintEstimativesCommand } from '../commands/generate-sprint-estimatives/generate-sprint-estimatives.command';
+import { GenerateSprintEstimatesCommand } from '../commands/generate-sprint-estimates/generate-sprint-estimates.command';
 
 export class SprintSaga {
     @Saga()
     startGeneratingSprintEstimatives($: Observable<any>) {
         return $.pipe(
-            ofType(StartGeneratingEstimativesEvent),
-            map(ev => SchemaValidator.toInstance(ev, GenerateSprintEstimativesCommand)),
+            ofType(StartGeneratingEstimatesEvent),
+            map(ev => SchemaValidator.toInstance(ev, GenerateSprintEstimatesCommand)),
         );
     }
 }

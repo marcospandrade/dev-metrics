@@ -1,3 +1,3 @@
-import { CalculateIssueEstimativesCommand } from '../commands/calculate-issue-estimatives/calculate-issue-estimatives.command';
+import { CalculateIssueEstimatesCommand } from '../commands/calculate-issue-estimates/calculate-issue-estimates.command';
 
-export class StartCalculateIssueEstimativesEvent extends CalculateIssueEstimativesCommand {}
+export class StartCalculateIssueEstimativesEvent extends CalculateIssueEstimatesCommand {}

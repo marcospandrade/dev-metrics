@@ -6,7 +6,7 @@ import { Sprint } from './entities/sprint.entity';
 import { CreateSprintCommandHandler } from './commands/create-sprint/create-sprint.handler';
 import { UpdateSprintCommandHandler } from './commands/update-sprint/update-sprint.handler';
 import { DeleteSprintCommandHandler } from './commands/delete-sprint/delete-sprint.handler';
-import { GenerateSprintEstimativesCommandHandler } from './commands/generate-sprint-estimatives/generate-sprint-estimatives.handler';
+import { GenerateSprintEstimativesCommandHandler } from './commands/generate-sprint-estimates/generate-sprint-estimates.handler';
 import { SprintSaga } from './sagas/sprint.saga';
 
 const CommandHandlers = [

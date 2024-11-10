@@ -3,7 +3,7 @@ import { Saga, ofType } from '@nestjs/cqrs';
 import { Observable, map } from 'rxjs';
 
 import { SchemaValidator } from '@core/utils';
-import { CalculateIssueEstimativesCommand } from '../commands/calculate-issue-estimatives/calculate-issue-estimatives.command';
+import { CalculateIssueEstimatesCommand } from '../commands/calculate-issue-estimates/calculate-issue-estimates.command';
 import { StartCalculateIssueEstimativesEvent } from '../events/start-calculate-issue-estimatives';
 import { SyncIssuesCommand } from '../commands/sync-issues/sync-issues.command';
 import { StartSyncIssuesEvent } from '../events/start-sync-issues.event';
@@ -21,7 +21,7 @@ export class IssueSaga {
     startCalculateIssueEstimatives($: Observable<any>) {
         return $.pipe(
             ofType(StartCalculateIssueEstimativesEvent),
-            map(ev => SchemaValidator.toInstance(ev, CalculateIssueEstimativesCommand)),
+            map(ev => SchemaValidator.toInstance(ev, CalculateIssueEstimatesCommand)),
         );
     }
 }

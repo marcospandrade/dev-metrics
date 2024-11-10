@@ -3,21 +3,21 @@ import { IssueUseCases } from '@modules/issues/use-cases/issues.use-cases.servic
 import { UpdateIssueDto } from '@modules/issues/dto/update-issue.dto';
 import { LoggerService } from '@core/logger/logger.service';
 import { SchemaValidator } from '@core/utils';
-import { CalculateIssueEstimativesCommand } from './calculate-issue-estimatives.command';
+import { CalculateIssueEstimatesCommand } from './calculate-issue-estimates.command';
 import { PolynomialRegression } from 'ml-regression-polynomial';
 import regression from 'regression';
 import { linearRegression, linearRegressionLine } from 'simple-statistics';
 
 export const ACCEPTABLE_SIMILARITY = 0.15;
 export const PREDICT_COMPLEXITY = 0.25;
-@CommandHandler(CalculateIssueEstimativesCommand)
-export class CalculateIssueEstimativesCommandHandler implements ICommandHandler<CalculateIssueEstimativesCommand> {
+@CommandHandler(CalculateIssueEstimatesCommand)
+export class CalculateIssueEstimativesCommandHandler implements ICommandHandler<CalculateIssueEstimatesCommand> {
     public constructor(
         private readonly logger: LoggerService,
         private readonly issueUseCases: IssueUseCases,
     ) {}
 
-    public async execute(command: CalculateIssueEstimativesCommand): Promise<any> {
+    public async execute(command: CalculateIssueEstimatesCommand): Promise<any> {
         this.logger.info({ command }, 'Starting to calculate estimatives...');
 
         const similarities = await this.issueUseCases.calculateSimilarity(command.srcIssue, command.issuesPool);

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CalculateIssueEstimativesCommandHandler } from './commands/calculate-issue-estimatives/calculate-issue-estimatives.handler';
+import { CalculateIssueEstimativesCommandHandler } from './commands/calculate-issue-estimates/calculate-issue-estimates.handler';
 import { FindAllIssuesQueryHandler } from './queries/find-all-issues/find-all-issues.query.handler';
 import { SyncIssuesCommandHandler } from './commands/sync-issues/sync-issues.handler';
 import { IssueUseCases } from './use-cases/issues.use-cases.service';

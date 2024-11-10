@@ -70,6 +70,7 @@ export class SprintsUseCasesService extends PaginationService {
                         customFields: true as any,
                         summary: true,
                         jiraIssueKey: true,
+                        estimatedStoryPoints: true,
                         project: {
                             id: true,
                             customFields: true,

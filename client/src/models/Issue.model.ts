@@ -11,5 +11,6 @@ export type Issue = {
   projectId: string
   sprintId?: string
   customFields?: Record<string, any>
+  estimatedStoryPoints?: number
   project: Project
 }

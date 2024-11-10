@@ -1,6 +1,6 @@
 import { IsUUID } from 'class-validator';
 
-export class GenerateSprintEstimativesCommand {
+export class StartGeneratingEstimatesEvent {
     @IsUUID()
     sprintId: string;
 }

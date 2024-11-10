@@ -10,7 +10,7 @@ import { GenericQueryDto } from '@shared/helpers/pagination/query';
 import { PaginationService } from '@shared/helpers/pagination/pagination.service';
 import { SchemaValidator } from '@core/utils';
 import { IssueSearch, ISSUES_SEARCH_FIELDS } from '../helpers/issue-search';
-import { GenerateEstimativeIssueDto } from '../dto/generate-estimative-issue.dto';
+import { GenerateEstimateIssueDto } from '../dto/generate-estimate-issue.dto';
 import { UpdateIssueDto } from '../dto/update-issue.dto';
 
 @Injectable()
@@ -86,10 +86,7 @@ export class IssueUseCases extends PaginationService {
         };
     }
 
-    public async calculateSimilarity(
-        sourceIssue: GenerateEstimativeIssueDto,
-        issuesPool: GenerateEstimativeIssueDto[],
-    ) {
+    public async calculateSimilarity(sourceIssue: GenerateEstimateIssueDto, issuesPool: GenerateEstimateIssueDto[]) {
         if (issuesPool.length === 0) {
             throw new NotFoundException('No issues found');
         } else if (!sourceIssue) {

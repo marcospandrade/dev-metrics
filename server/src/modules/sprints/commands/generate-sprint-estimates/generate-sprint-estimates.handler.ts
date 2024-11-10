@@ -1,21 +1,21 @@
 import { QueryBus, CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
-import { GenerateSprintEstimativesCommand } from './generate-sprint-estimatives.command';
+import { GenerateSprintEstimatesCommand } from './generate-sprint-estimates.command';
 import { SprintsUseCasesService } from '@modules/sprints/use-cases/sprints.use-cases.service';
 import { Issue } from '@modules/issues/entities/issue.entity';
 import { NotFoundException } from '@nestjs/common';
 import { SchemaValidator } from '@core/utils';
 import { FindAllIssuesQuery } from '@modules/issues/queries/find-all-issues/find-all-issues.query';
-import { GenerateEstimativeIssueDto } from '@modules/issues/dto/generate-estimative-issue.dto';
+import { GenerateEstimateIssueDto } from '@modules/issues/dto/generate-estimate-issue.dto';
 import { StartCalculateIssueEstimativesEvent } from '@modules/issues/events/start-calculate-issue-estimatives';
 
-@CommandHandler(GenerateSprintEstimativesCommand)
+@CommandHandler(GenerateSprintEstimatesCommand)
 export class GenerateSprintEstimativesCommandHandler implements ICommandHandler {
     public constructor(
         private readonly sprintUseCase: SprintsUseCasesService,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
     ) {}
-    async execute(payload: GenerateSprintEstimativesCommand) {
+    async execute(payload: GenerateSprintEstimatesCommand) {
         const sprint = await this.sprintUseCase.findById(payload.sprintId);
         const storyPointFieldName = this.extractStoryPointField(sprint.issuesList[0].issue);
 
@@ -28,7 +28,7 @@ export class GenerateSprintEstimativesCommandHandler implements ICommandHandler 
             ),
         );
 
-        const sprintIssues = new Set<GenerateEstimativeIssueDto>();
+        const sprintIssues = new Set<GenerateEstimateIssueDto>();
         const poolOfIssuesWithStoryPoint = allIssues.map(issue => {
             const storyPointValue = issue.customFields[storyPointFieldName];
             const issueWithStoryPoint = {

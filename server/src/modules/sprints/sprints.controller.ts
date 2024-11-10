@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { SprintsUseCasesService } from './use-cases/sprints.use-cases.service';
 import { CreateSprintCommand, CreateSprintWithoutUserCommand } from './commands/create-sprint/create-sprint.command';
-import { StartGeneratingEstimativesEvent } from './events/start-generating-estimatives.event';
+import { StartGeneratingEstimatesEvent } from './events/start-generating-estimates.event';
 import { CommandBus, EventBus } from '@nestjs/cqrs';
 import { SchemaValidator } from '@core/utils';
 import { CurrentUser } from '@core/decorators/current-user.decorator';
@@ -60,8 +60,8 @@ export class SprintsController {
     }
 
     @Post('/generate-estimates')
-    generateSprintEstimatives(@Body() payload: StartGeneratingEstimativesEvent) {
-        this.eventBus.publish(SchemaValidator.toInstance(payload, StartGeneratingEstimativesEvent));
+    generateSprintEstimatives(@Body() payload: StartGeneratingEstimatesEvent) {
+        this.eventBus.publish(SchemaValidator.toInstance(payload, StartGeneratingEstimatesEvent));
         return true;
     }
 

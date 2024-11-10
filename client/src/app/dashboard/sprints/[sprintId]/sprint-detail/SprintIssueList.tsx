@@ -49,7 +49,7 @@ export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
             </td>
             <td className="p-4">
               <Typography variant="small" color="blue-gray" className="flex items-center gap-2 font-normal leading-none opacity-70">
-                {'Not generated'}
+                {sprintIssue.issue.estimatedStoryPoints ?? 'Not generated'}
               </Typography>
             </td>
           </tr>
