@@ -25,7 +25,6 @@ export class OrmConfig {
 
     @IsBoolean()
     @Transform(({ value }) => {
-        console.log(value);
         return value === 'true';
     })
     DB_SYNC = true;

@@ -1,8 +1,8 @@
 import { IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { GenerateEstimateIssueDto } from '@modules/issues/dto/generate-estimate-issue.dto';
+import { GenerateEstimateIssueDto } from '../dto/generate-estimate-issue.dto';
 
-export class CalculateIssueEstimatesCommand {
+export class StartCalculateIssueEstimatesEvent {
     @IsArray()
     @Type(() => GenerateEstimateIssueDto)
     @ValidateNested({ each: true })

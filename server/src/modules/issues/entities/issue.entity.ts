@@ -2,10 +2,9 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import natural from 'natural';
 
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { IsArray, IsJSON, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsDecimal, IsJSON, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Expose, Transform, Type } from 'class-transformer';
 
-import { Sprint } from '@modules/sprints/entities/sprint.entity';
 import { Base } from '@core/database/entities/base.entity';
 import { Project } from '@modules/integration-server/entities/project.entity';
 import { SprintIssue } from '@modules/sprint-issues/entities/sprint-issue.entity';
@@ -68,9 +67,10 @@ export class Issue extends Base {
     })
     issueText?: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, type: 'float' })
     @Expose()
     @IsNumber()
+    @IsDecimal()
     @IsOptional()
     estimatedStoryPoints?: number;
 
@@ -87,10 +87,6 @@ export class Issue extends Base {
     @IsArray()
     @IsOptional()
     sprints?: SprintIssue[];
-
-    public static getIssueFullText(summary: string, description?: string) {
-        return summary + ' ' + description ?? '';
-    }
 
     public static compareSimilarity(sourceString: string, destString: string) {
         const tokenizer = new natural.WordTokenizer();

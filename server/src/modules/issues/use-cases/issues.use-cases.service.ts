@@ -12,6 +12,7 @@ import { SchemaValidator } from '@core/utils';
 import { IssueSearch, ISSUES_SEARCH_FIELDS } from '../helpers/issue-search';
 import { GenerateEstimateIssueDto } from '../dto/generate-estimate-issue.dto';
 import { UpdateIssueDto } from '../dto/update-issue.dto';
+import { EstimateCalculationType } from '../queries/calculate-issue-estimates/calculate-issue-estimates.query';
 
 @Injectable()
 export class IssueUseCases extends PaginationService {
@@ -86,24 +87,23 @@ export class IssueUseCases extends PaginationService {
         };
     }
 
-    public async calculateSimilarity(sourceIssue: GenerateEstimateIssueDto, issuesPool: GenerateEstimateIssueDto[]) {
+    public async calculateSimilarity(
+        sourceIssue: GenerateEstimateIssueDto,
+        issuesPool: GenerateEstimateIssueDto[],
+        calculationType: EstimateCalculationType,
+    ) {
         if (issuesPool.length === 0) {
             throw new NotFoundException('No issues found');
         } else if (!sourceIssue) {
             throw new NotFoundException(`To calculate similarity we need a source issue, but received ${sourceIssue}`);
         }
-        this.logger.info('Generating estimatives for issue ' + sourceIssue.id);
-
-        const srcIssueFullText = Issue.getIssueFullText(sourceIssue.summary, sourceIssue.description);
+        this.logger.info('Generating estimatives for issue ' + sourceIssue.jiraIssueKey);
 
         return issuesPool
             .filter(issue => issue.id !== sourceIssue.id && !!issue.storyPoint)
             .map(dstIssue => {
                 const similarity = Number(
-                    Issue.compareSimilarity(
-                        srcIssueFullText,
-                        Issue.getIssueFullText(dstIssue.summary, dstIssue.description),
-                    ).toFixed(2),
+                    Issue.compareSimilarity(sourceIssue[calculationType], dstIssue[calculationType]).toFixed(2),
                 );
                 return { id: sourceIssue.id, similarity, storyPoint: dstIssue.storyPoint };
             })

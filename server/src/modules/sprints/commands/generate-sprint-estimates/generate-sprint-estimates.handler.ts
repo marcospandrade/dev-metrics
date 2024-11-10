@@ -6,7 +6,7 @@ import { NotFoundException } from '@nestjs/common';
 import { SchemaValidator } from '@core/utils';
 import { FindAllIssuesQuery } from '@modules/issues/queries/find-all-issues/find-all-issues.query';
 import { GenerateEstimateIssueDto } from '@modules/issues/dto/generate-estimate-issue.dto';
-import { StartCalculateIssueEstimativesEvent } from '@modules/issues/events/start-calculate-issue-estimatives';
+import { StartCalculateIssueEstimatesEvent } from '@modules/issues/events/start-calculate-issue-estimates.event';
 
 @CommandHandler(GenerateSprintEstimatesCommand)
 export class GenerateSprintEstimativesCommandHandler implements ICommandHandler {
@@ -49,7 +49,7 @@ export class GenerateSprintEstimativesCommandHandler implements ICommandHandler 
                         issuesPool: poolOfIssuesWithStoryPoint,
                         srcIssue: sprintIssue,
                     },
-                    StartCalculateIssueEstimativesEvent,
+                    StartCalculateIssueEstimatesEvent,
                 ),
             );
         });
