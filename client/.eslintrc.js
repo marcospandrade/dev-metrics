@@ -13,6 +13,11 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    // Add your custom ESLint rules here
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-require-imports': 'off',
+    'import/no-anonymous-default-export': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
   },
 };

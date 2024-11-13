@@ -166,8 +166,8 @@ export function CustomTable<T extends object>({
                           />
                         ))
                       : field.isDate
-                      ? formatDate(String(record[field.fieldDefinition!]))
-                      : String(record[field.fieldDefinition!])}
+                        ? formatDate(String(record[field.fieldDefinition!]))
+                        : String(record[field.fieldDefinition!])}
                   </p>
                 </td>
               ))}

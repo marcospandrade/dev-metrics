@@ -22,7 +22,7 @@ export function Navbar(props: Props): ReactElement {
     >
       <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
         <div className="relative flex w-full justify-between lg:static lg:block lg:w-auto lg:justify-start">
-          <a
+          <Link
             className={
               'title-lg mr-4 inline-block whitespace-nowrap py-2 font-bold uppercase leading-relaxed text-white'
             }
@@ -30,7 +30,7 @@ export function Navbar(props: Props): ReactElement {
           >
             {/* TODO: Think about create a logo to put on that place */}
             EstimAi
-          </a>
+          </Link>
           <button
             className="block cursor-pointer rounded border border-solid border-transparent bg-transparent px-3 py-1 text-xl leading-none outline-none focus:outline-none lg:hidden"
             type="button"

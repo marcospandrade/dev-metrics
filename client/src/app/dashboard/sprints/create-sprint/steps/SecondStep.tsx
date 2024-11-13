@@ -59,7 +59,7 @@ export function SecondStep({
       <CardBody>
         <Typography variant="h5">Initial Information</Typography>
         <Typography variant="paragraph">
-          You'll need to select the project that you want to create a new sprint and the related
+          You will need to select the project that you want to create a new sprint and the related
           team
         </Typography>
         <Divider className="mt-4" />

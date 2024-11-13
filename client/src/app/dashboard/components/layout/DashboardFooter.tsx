@@ -29,7 +29,12 @@ export function DashboardFooter({
       <div className="flex w-full flex-wrap items-center justify-center gap-6 px-2 md:justify-between">
         <Typography variant="small" className="font-normal text-inherit">
           &copy; {year}, made with 🖤 by{' '}
-          <a href={brandLink} target="_blank" className="transition-colors hover:text-gray-500">
+          <a
+            href={brandLink}
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-gray-500"
+          >
             {brandName}
           </a>
         </Typography>

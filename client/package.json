@@ -41,10 +41,11 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "eslint": "^8.57.1",
+    "eslint-config-next": "^15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.3.0"
   },
   "browserslist": {

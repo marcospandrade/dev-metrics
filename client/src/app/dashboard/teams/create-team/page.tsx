@@ -43,15 +43,16 @@ export default function CreateTeam() {
   async function handleSubmitForm(payload: CreateTeamDto) {
     const teamCreated = await teamService.createTeam(payload);
 
-    if (!!teamCreated.id) {
-      defineModal({
-        title: 'Success!',
-        text: "Team created successfully, you'll be redirected to the teams page",
-        handleConfirm: () => handleSuccessModal(),
-        handleCancel: () => handleSuccessModal(),
-        buttonConfirmText: 'Ok',
-      });
+    if (!teamCreated.id) {
+      return;
     }
+    defineModal({
+      title: 'Success!',
+      text: "Team created successfully, you'll be redirected to the teams page",
+      handleConfirm: () => handleSuccessModal(),
+      handleCancel: () => handleSuccessModal(),
+      buttonConfirmText: 'Ok',
+    });
   }
 
   return (

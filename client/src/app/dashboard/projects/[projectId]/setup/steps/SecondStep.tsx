@@ -73,7 +73,7 @@ export function SecondStep({
       <Card className="mt-5 flex flex-1">
         <CardBody>
           <Typography variant="paragraph" className="mb-8">
-            Click in the button to open the list of Custom Fields from Jira, then you'll need to
+            Click in the button to open the list of Custom Fields from Jira, then you will need to
             select the representative field
           </Typography>
 

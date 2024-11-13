@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@/lib/material';
 
-// TODO: Implement that
 export function MenuNotification() {
   return (
     <Menu>

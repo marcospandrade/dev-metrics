@@ -8,7 +8,7 @@ export function FirstStep() {
           Sprint Creation
         </Typography>
         <Typography variant="paragraph" className="mb-2">
-          Here you'll start the process to create sprints in DevMetrics!
+          Here you will start the process to create sprints in DevMetrics!
         </Typography>
       </CardBody>
     </Card>

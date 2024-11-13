@@ -18,8 +18,8 @@ export function DynamicInputField({
   propertyName,
 }: Readonly<DynamicInputFieldProps>) {
   const handleChange = (event: any, index: number) => {
-    let { name, value } = event.target;
-    let onChangeValue = [...inputs];
+    const { name, value } = event.target;
+    const onChangeValue = [...inputs];
     onChangeValue[index] = { [propertyName]: value };
     return onChangeData(onChangeValue);
   };
