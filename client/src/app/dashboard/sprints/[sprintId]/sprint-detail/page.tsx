@@ -1,59 +1,59 @@
-'use client'
+'use client';
 
-import { Sprint } from '@/models/Sprint.model'
-import sprintsService from '@/services/sprints/sprints.service'
-import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { Card, CardBody, Typography, Button } from '@/lib/material'
-import { ItemDetail } from './ItemDetail'
-import { Divider } from '@mui/material'
-import { SprintIssueList } from './SprintIssueList'
-import { toast } from 'react-toastify'
+import { Sprint } from '@/models/Sprint.model';
+import sprintsService from '@/services/sprints/sprints.service';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Card, CardBody, Typography, Button } from '@/lib/material';
+import { ItemDetail } from './ItemDetail';
+import { Divider } from '@mui/material';
+import { SprintIssueList } from './SprintIssueList';
+import { toast } from 'react-toastify';
 
 export default function SprintDetails() {
-  const { sprintId } = useParams<{ sprintId: string }>()
-  const [sprintDetails, setSprintDetails] = useState<Sprint | undefined>(undefined)
+  const { sprintId } = useParams<{ sprintId: string }>();
+  const [sprintDetails, setSprintDetails] = useState<Sprint | undefined>(undefined);
 
   async function fetchSprintDetails() {
-    const response = await sprintsService.getSprintById(sprintId)
-    setSprintDetails(response)
+    const response = await sprintsService.getSprintById(sprintId);
+    setSprintDetails(response);
   }
 
   async function startGenerateEstimates() {
-    await sprintsService.startGenerateEstimates(sprintId)
-    toast.success('Estimates generation started...')
+    await sprintsService.startGenerateEstimates(sprintId);
+    toast.success('Estimates generation started...');
   }
 
   async function onRefreshSprintDetails() {
-    toast.info('Refreshing sprint details...')
-    await fetchSprintDetails()
-    toast.success('Sprint details refreshed')
+    toast.info('Refreshing sprint details...');
+    await fetchSprintDetails();
+    toast.success('Sprint details refreshed');
   }
 
   useEffect(() => {
-    fetchSprintDetails()
-  }, [sprintId])
+    fetchSprintDetails();
+  }, [sprintId]);
 
   if (!sprintDetails)
     return (
-      <div className="flex flex-1 max-w-full animate-pulse">
+      <div className="flex max-w-full flex-1 animate-pulse">
         <Typography as="div" variant="h1" className="mb-4 mt-6 h-80 w-full rounded-md bg-gray-300">
           &nbsp;
         </Typography>
       </div>
-    )
+    );
 
   return (
     <div>
       <Card>
         <CardBody>
           <div className="flex flex-row justify-between">
-            <div className="flex flex-col mb-4 gap-y-4">
+            <div className="mb-4 flex flex-col gap-y-4">
               <ItemDetail title={'Sprint name'} text={sprintDetails.name} />
               <ItemDetail title={'Goals'} text={sprintDetails.goals} />
             </div>
 
-            <div className="flex items-center flex-col gap-y-4">
+            <div className="flex flex-col items-center gap-y-4">
               <Button variant="filled" color="indigo" onClick={() => startGenerateEstimates()}>
                 Generate Estimates
               </Button>
@@ -74,5 +74,5 @@ export default function SprintDetails() {
         </CardBody>
       </Card>
     </div>
-  )
+  );
 }

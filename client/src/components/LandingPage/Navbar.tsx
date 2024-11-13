@@ -1,27 +1,33 @@
-'use client'
+'use client';
 
-import React, { ReactElement, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { LoginHelper } from '@/helpers/login.helper'
-import Link from 'next/link'
+import React, { ReactElement, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { LoginHelper } from '@/helpers/login.helper';
+import Link from 'next/link';
 interface Props {
-  transparent?: boolean
+  transparent?: boolean;
 }
 
 export function Navbar(props: Props): ReactElement {
-  const [navbarOpen, setNavbarOpen] = useState(false)
-  const [url, setUrl] = useState(LoginHelper.getLoginUrl())
-  const { push } = useRouter()
+  const [navbarOpen, setNavbarOpen] = useState(false);
+  const [url, setUrl] = useState(LoginHelper.getLoginUrl());
+  const { push } = useRouter();
 
   return (
     <nav
       className={
-        (props.transparent ? 'absolute top-0 z-50 w-full' : 'relative bg-indigo-700 shadow-lg') + ' flex flex-wrap items-center justify-between px-2 py-3 '
+        (props.transparent ? 'absolute top-0 z-50 w-full' : 'relative bg-indigo-700 shadow-lg') +
+        ' flex flex-wrap items-center justify-between px-2 py-3 '
       }
     >
       <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
         <div className="relative flex w-full justify-between lg:static lg:block lg:w-auto lg:justify-start">
-          <a className={'title-lg mr-4 inline-block whitespace-nowrap py-2 font-bold uppercase leading-relaxed text-white'} href="/">
+          <a
+            className={
+              'title-lg mr-4 inline-block whitespace-nowrap py-2 font-bold uppercase leading-relaxed text-white'
+            }
+            href="/"
+          >
             {/* TODO: Think about create a logo to put on that place */}
             EstimAi
           </a>
@@ -30,17 +36,24 @@ export function Navbar(props: Props): ReactElement {
             type="button"
             onClick={() => setNavbarOpen(!navbarOpen)}
           >
-            <i className={(props.transparent ? 'text-white' : 'text-gray-100') + ' fas fa-bars'}></i>
+            <i
+              className={(props.transparent ? 'text-white' : 'text-gray-100') + ' fas fa-bars'}
+            ></i>
           </button>
         </div>
         <div
-          className={'flex-grow items-center bg-white lg:flex lg:bg-transparent lg:shadow-none' + (navbarOpen ? ' block rounded shadow-lg' : ' hidden')}
+          className={
+            'flex-grow items-center bg-white lg:flex lg:bg-transparent lg:shadow-none' +
+            (navbarOpen ? ' block rounded shadow-lg' : ' hidden')
+          }
           id="example-navbar-warning"
         >
           <ul className="flex list-none flex-col lg:ml-auto lg:flex-row">
             <li className="flex items-center">
               <a
-                className={'flex items-center px-3 py-4 text-xs font-bold uppercase text-gray-800 lg:py-2 lg:text-white lg:hover:text-gray-300'}
+                className={
+                  'flex items-center px-3 py-4 text-xs font-bold uppercase text-gray-800 lg:py-2 lg:text-white lg:hover:text-gray-300'
+                }
                 href="https://github.com/marcospandrade/estimai-web"
                 target="_blank"
                 rel="noreferrer"
@@ -54,7 +67,9 @@ export function Navbar(props: Props): ReactElement {
               <Link href={url}>
                 <button
                   className={
-                    (props.transparent ? 'bg-white text-gray-800 active:bg-gray-100' : 'bg-red-700 text-white active:bg-red-300') +
+                    (props.transparent
+                      ? 'bg-white text-gray-800 active:bg-gray-100'
+                      : 'bg-red-700 text-white active:bg-red-300') +
                     ' mb-3 ml-3 rounded px-4 py-2 text-xs font-bold uppercase shadow outline-none hover:shadow-md focus:outline-none lg:mb-0 lg:mr-1'
                   }
                   type="button"
@@ -68,5 +83,5 @@ export function Navbar(props: Props): ReactElement {
         </div>
       </div>
     </nav>
-  )
+  );
 }

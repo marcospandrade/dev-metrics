@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   ThemeProvider,
@@ -26,7 +26,7 @@ import {
   Option,
   Checkbox,
   Tooltip,
-} from '@material-tailwind/react'
+} from '@material-tailwind/react';
 
 export {
   ThemeProvider,
@@ -54,4 +54,4 @@ export {
   Option,
   Checkbox,
   Tooltip,
-}
+};

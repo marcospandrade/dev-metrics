@@ -1,8 +1,8 @@
-import { Typography } from '@material-tailwind/react'
+import { Typography } from '@material-tailwind/react';
 
 interface ItemDetailProps {
-  title: string
-  text: string
+  title: string;
+  text: string;
 }
 
 export function ItemDetail({ title, text }: ItemDetailProps) {
@@ -11,5 +11,5 @@ export function ItemDetail({ title, text }: ItemDetailProps) {
       <Typography variant="h5">{title}</Typography>
       <Typography variant="paragraph">{text}</Typography>
     </div>
-  )
+  );
 }

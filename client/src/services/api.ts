@@ -1,10 +1,10 @@
-import axios from 'axios'
-import { User } from '@/models/User.model'
+import axios from 'axios';
+import { User } from '@/models/User.model';
 
 export interface GenericHttpResponse<T> {
-  status: string
-  response: T
-  message?: string
+  status: string;
+  response: T;
+  message?: string;
 }
 
 const axiosInterceptorInstance = axios.create({
@@ -13,29 +13,29 @@ const axiosInterceptorInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
 
 export const localApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_LOCAL_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
 
 // Request interceptor
 axiosInterceptorInstance.interceptors.request.use(
   async (config) => {
-    const { data } = await localApi.get<User>('api/get-token')
+    const { data } = await localApi.get<User>('api/get-token');
 
     if (data) {
-      config.headers['Authorization'] = `Bearer ${data}`
+      config.headers['Authorization'] = `Bearer ${data}`;
     }
-    return config
+    return config;
   },
   (error) => {
     // Handle request errors here
-    return Promise.reject(new Error(error))
-  }
-)
+    return Promise.reject(new Error(error));
+  },
+);
 
-export const api = axiosInterceptorInstance
+export const api = axiosInterceptorInstance;

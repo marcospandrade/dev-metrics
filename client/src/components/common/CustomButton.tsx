@@ -1,9 +1,9 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 interface ButtonProps {
-  theme?: 'primary' | 'secondary'
-  onClick: () => void
-  children: ReactNode
+  theme?: 'primary' | 'secondary';
+  onClick: () => void;
+  children: ReactNode;
 }
 
 export function CustomButton({ onClick, children }: ButtonProps) {
@@ -16,5 +16,5 @@ export function CustomButton({ onClick, children }: ButtonProps) {
     >
       {children}
     </button>
-  )
+  );
 }

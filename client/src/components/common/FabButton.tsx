@@ -1,8 +1,8 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 interface FabIconProps {
-  children: ReactNode
-  onClick: () => void
+  children: ReactNode;
+  onClick: () => void;
 }
 
 export function FabIcon({ children, onClick }: FabIconProps) {
@@ -14,5 +14,5 @@ export function FabIcon({ children, onClick }: FabIconProps) {
     >
       {children}
     </button>
-  )
+  );
 }

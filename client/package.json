@@ -7,8 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -24,8 +24,6 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.6.4",
     "date-fns": "^4.1.0",
-    "eslint": "8.41.0",
-    "eslint-config-next": "13.4.3",
     "jwt-decode": "^3.1.2",
     "next": "^14.2.3",
     "postcss": "^8.4.38",
@@ -43,8 +41,11 @@
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.3.3",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.3.0"
   },
   "browserslist": {

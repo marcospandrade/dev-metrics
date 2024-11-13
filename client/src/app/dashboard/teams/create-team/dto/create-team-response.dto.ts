@@ -1,6 +1,6 @@
 export class CreateTeamResponseDto {
-  id!: string
-  teamName!: string
-  createdById!: string
-  participants!: string[]
+  id!: string;
+  teamName!: string;
+  createdById!: string;
+  participants!: string[];
 }

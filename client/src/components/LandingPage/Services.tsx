@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import { CustomButton } from '../../components/common/CustomButton'
+import { CustomButton } from '../../components/common/CustomButton';
 
 export function Services() {
-  const { push } = useRouter()
+  const { push } = useRouter();
 
   function navigateToLogin() {
-    return push('/login')
+    return push('/login');
   }
 
   return (
@@ -25,7 +25,8 @@ export function Services() {
                 </div>
                 <h6 className="text-xl font-semibold text-gray-800">Remove waste of time</h6>
                 <p className="mb-4 mt-2 text-gray-500">
-                  Make the estimation process easier with EstimAi, we will use the expertise of your team to make better suggestions.
+                  Make the estimation process easier with EstimAi, we will use the expertise of your
+                  team to make better suggestions.
                 </p>
               </div>
             </div>
@@ -37,9 +38,12 @@ export function Services() {
                 <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-400 p-3 text-center text-white shadow-lg">
                   <i className="fas fa-retweet"></i>
                 </div>
-                <h6 className="text-xl font-semibold text-gray-800">Review your cycles and adapt</h6>
+                <h6 className="text-xl font-semibold text-gray-800">
+                  Review your cycles and adapt
+                </h6>
                 <p className="mb-4 mt-2 text-gray-600">
-                  After any cycle, you can saw what was the pain points for your team and work on these to improve performance.
+                  After any cycle, you can saw what was the pain points for your team and work on
+                  these to improve performance.
                 </p>
               </div>
             </div>
@@ -53,7 +57,8 @@ export function Services() {
                 </div>
                 <h6 className="text-xl font-semibold text-gray-800">Open source project</h6>
                 <p className="mb-4 mt-2 text-gray-600">
-                  Made by a dev for devs. You can contribute with this project and give suggestions of improvements for the tool
+                  Made by a dev for devs. You can contribute with this project and give suggestions
+                  of improvements for the tool
                 </p>
               </div>
             </div>
@@ -65,14 +70,17 @@ export function Services() {
             <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white p-3 text-center text-gray-600 shadow-lg">
               <i className="fas fa-user-friends text-xl"></i>
             </div>
-            <h3 className="mb-2 text-3xl font-semibold leading-normal text-white">Embrace innovation to evolve your team</h3>
+            <h3 className="mb-2 text-3xl font-semibold leading-normal text-white">
+              Embrace innovation to evolve your team
+            </h3>
             <p className="mb-4 mt-4 text-lg font-light leading-relaxed text-gray-700">
-              With EstimAi, you can say goodbye to guessing and uncertainty in your estimation process. This tool uses your own team expertise to make
-              suggestions about estimations.
+              With EstimAi, you can say goodbye to guessing and uncertainty in your estimation
+              process. This tool uses your own team expertise to make suggestions about estimations.
             </p>
             <p className="mb-4 mt-0 text-lg font-light leading-relaxed text-gray-700">
-              EstimAi comes to help your team to easily understand the scrum process and have a more predictable rhythm of work. With EstimAi, you can
-              streamline your estimation process and improve your team&rsquo;s performance.
+              EstimAi comes to help your team to easily understand the scrum process and have a more
+              predictable rhythm of work. With EstimAi, you can streamline your estimation process
+              and improve your team&rsquo;s performance.
             </p>
             <CustomButton onClick={navigateToLogin}>Check EstimAi!</CustomButton>
             <Link href="/login" className="mt-8 font-bold text-gray-800"></Link>
@@ -98,11 +106,15 @@ export function Services() {
                     top: '-94px',
                   }}
                 >
-                  <polygon points="-30,95 583,95 583,65" className="fill-current text-red-400"></polygon>
+                  <polygon
+                    points="-30,95 583,95 583,65"
+                    className="fill-current text-red-400"
+                  ></polygon>
                 </svg>
                 <h4 className="text-xl font-bold text-white">Top Notch Services</h4>
                 <p className="text-md mt-2 font-light text-white">
-                  The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever happens.
+                  The Arctic Ocean freezes every winter and much of the sea-ice then thaws every
+                  summer, and that process will continue whatever happens.
                 </p>
               </blockquote>
             </div>
@@ -110,5 +122,5 @@ export function Services() {
         </div>
       </div>
     </section>
-  )
+  );
 }

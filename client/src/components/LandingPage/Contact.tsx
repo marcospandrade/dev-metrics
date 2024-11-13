@@ -7,9 +7,14 @@ export function Contact() {
             <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-red-300 shadow-lg">
               <div className="flex-auto p-5 lg:p-10">
                 <h4 className="text-2xl font-semibold text-gray-900">Want to work with us?</h4>
-                <p className="mb-4 mt-1 leading-relaxed text-gray-600">Complete this form and we will get back to you.</p>
+                <p className="mb-4 mt-1 leading-relaxed text-gray-600">
+                  Complete this form and we will get back to you.
+                </p>
                 <div className="relative mb-3 mt-8 w-full">
-                  <label className="mb-2 block text-xs font-bold uppercase text-gray-700" htmlFor="full-name">
+                  <label
+                    className="mb-2 block text-xs font-bold uppercase text-gray-700"
+                    htmlFor="full-name"
+                  >
                     Full Name
                   </label>
                   <input
@@ -21,7 +26,10 @@ export function Contact() {
                 </div>
 
                 <div className="relative mb-3 w-full">
-                  <label className="mb-2 block text-xs font-bold uppercase text-gray-700" htmlFor="email">
+                  <label
+                    className="mb-2 block text-xs font-bold uppercase text-gray-700"
+                    htmlFor="email"
+                  >
                     Email
                   </label>
                   <input
@@ -33,7 +41,10 @@ export function Contact() {
                 </div>
 
                 <div className="relative mb-3 w-full">
-                  <label className="mb-2 block text-xs font-bold uppercase text-gray-700" htmlFor="message">
+                  <label
+                    className="mb-2 block text-xs font-bold uppercase text-gray-700"
+                    htmlFor="message"
+                  >
                     Message
                   </label>
                   <textarea
@@ -58,5 +69,5 @@ export function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

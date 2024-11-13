@@ -1,26 +1,26 @@
-'use client'
+'use client';
 
-import { SelectProjects } from '@/app/dashboard/projects/components/SelectProjects'
-import DatePicker from '@/components/common/DatePicker'
-import { SelectTeam } from '@/components/SelectTeam/SelectTeam'
-import { useAuth } from '@/hooks/useAuth'
-import { useLoading } from '@/hooks/useLoading'
-import { Card, CardBody, Typography, Input } from '@/lib/material'
-import { Project } from '@/models/Project.model'
-import projectsService from '@/services/projects/projects.service'
-import { Textarea } from '@material-tailwind/react'
-import { Divider } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { SelectProjects } from '@/app/dashboard/projects/components/SelectProjects';
+import DatePicker from '@/components/common/DatePicker';
+import { SelectTeam } from '@/components/SelectTeam/SelectTeam';
+import { useAuth } from '@/hooks/useAuth';
+import { useLoading } from '@/hooks/useLoading';
+import { Card, CardBody, Typography, Input } from '@/lib/material';
+import { Project } from '@/models/Project.model';
+import projectsService from '@/services/projects/projects.service';
+import { Textarea } from '@material-tailwind/react';
+import { Divider } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 interface SecondStepPros {
-  onSelectProject: (project: Project) => void
-  onSelectTeam: (teamId: string | undefined) => void
-  onSelectSprintName: (sprintName: string) => void
-  onSetSprintGoals: (goal: string) => void
-  onChangeStartDate: (date: Date) => void
-  onChangeEndDate: (date: Date) => void
-  startDate: Date | undefined
-  endDate: Date | undefined
+  onSelectProject: (project: Project) => void;
+  onSelectTeam: (teamId: string | undefined) => void;
+  onSelectSprintName: (sprintName: string) => void;
+  onSetSprintGoals: (goal: string) => void;
+  onChangeStartDate: (date: Date) => void;
+  onChangeEndDate: (date: Date) => void;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
 }
 
 export function SecondStep({
@@ -33,40 +33,46 @@ export function SecondStep({
   startDate,
   endDate,
 }: Readonly<SecondStepPros>) {
-  const { changeLoadingStatus } = useLoading()
-  const { getUserDetails } = useAuth()
-  const [projects, setProjects] = useState<Project[]>([])
+  const { changeLoadingStatus } = useLoading();
+  const { getUserDetails } = useAuth();
+  const [projects, setProjects] = useState<Project[]>([]);
 
   function identifyProject(projectId: string | undefined) {
-    const foundProject = projects.find((p) => p.id === projectId)
-    if (foundProject) onSelectProject(foundProject)
+    const foundProject = projects.find((p) => p.id === projectId);
+    if (foundProject) onSelectProject(foundProject);
   }
 
   async function fetchProjects() {
-    changeLoadingStatus(true)
-    const user = await getUserDetails()
-    const projects = await projectsService.getProjects(user.cloudId)
-    setProjects(projects)
-    changeLoadingStatus(false)
+    changeLoadingStatus(true);
+    const user = await getUserDetails();
+    const projects = await projectsService.getProjects(user.cloudId);
+    setProjects(projects);
+    changeLoadingStatus(false);
   }
 
   useEffect(() => {
-    fetchProjects()
-  }, [])
+    fetchProjects();
+  }, []);
 
   return (
-    <Card className="flex flex-1 mt-5">
+    <Card className="mt-5 flex flex-1">
       <CardBody>
         <Typography variant="h5">Initial Information</Typography>
-        <Typography variant="paragraph">You'll need to select the project that you want to create a new sprint and the related team</Typography>
+        <Typography variant="paragraph">
+          You'll need to select the project that you want to create a new sprint and the related
+          team
+        </Typography>
         <Divider className="mt-4" />
 
-        <div className="flex flex-1 flex-col mt-4">
+        <div className="mt-4 flex flex-1 flex-col">
           <Typography variant="lead">Project information</Typography>
           <div className="flex flex-row gap-x-4">
             <div className="flex w-1/2 flex-col">
               <div className="mt-4">
-                <SelectProjects projects={projects} onSelectProject={identifyProject}></SelectProjects>
+                <SelectProjects
+                  projects={projects}
+                  onSelectProject={identifyProject}
+                ></SelectProjects>
               </div>
             </div>
             <div className="flex w-1/2 flex-col">
@@ -77,7 +83,7 @@ export function SecondStep({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-x-4 mt-4">
+        <div className="mt-4 flex flex-1 flex-col gap-x-4">
           <Typography variant="lead">Sprint information</Typography>
 
           <div className="my-4">
@@ -98,5 +104,5 @@ export function SecondStep({
         </div>
       </CardBody>
     </Card>
-  )
+  );
 }

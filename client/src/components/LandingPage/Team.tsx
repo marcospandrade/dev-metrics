@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/image';
 
 export function Team() {
   return (
@@ -8,7 +8,8 @@ export function Team() {
           <div className="w-full px-4 lg:w-6/12">
             <h2 className="text-4xl font-semibold">Here are our heroes</h2>
             <p className="m-4 text-lg leading-relaxed text-gray-600">
-              According to the National Oceanic and Atmospheric Administration, Ted, Scambos, NSIDClead scentist, puts the potentially record maximum.
+              According to the National Oceanic and Atmospheric Administration, Ted, Scambos,
+              NSIDClead scentist, puts the potentially record maximum.
             </p>
           </div>
         </div>
@@ -25,13 +26,22 @@ export function Team() {
                 <h5 className="text-xl font-bold">Ryan Tompson</h5>
                 <p className="mt-1 text-sm font-semibold uppercase text-gray-500">Web Developer</p>
                 <div className="mt-6">
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-twitter"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-600 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-600 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-facebook-f"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-pink-500 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-pink-500 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-dribbble"></i>
                   </button>
                 </div>
@@ -48,12 +58,20 @@ export function Team() {
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Romina Hadid</h5>
-                <p className="mt-1 text-sm font-semibold uppercase text-gray-500">Marketing Specialist</p>
+                <p className="mt-1 text-sm font-semibold uppercase text-gray-500">
+                  Marketing Specialist
+                </p>
                 <div className="mt-6">
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-google"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-600 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-600 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-facebook-f"></i>
                   </button>
                 </div>
@@ -72,13 +90,22 @@ export function Team() {
                 <h5 className="text-xl font-bold">Alexa Smith</h5>
                 <p className="mt-1 text-sm font-semibold uppercase text-gray-500">UI/UX Designer</p>
                 <div className="mt-6">
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-google"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-twitter"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-gray-800 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-gray-800 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-instagram"></i>
                   </button>
                 </div>
@@ -95,18 +122,32 @@ export function Team() {
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Jenna Kardi</h5>
-                <p className="mt-1 text-sm font-semibold uppercase text-gray-500">Founder and CEO</p>
+                <p className="mt-1 text-sm font-semibold uppercase text-gray-500">
+                  Founder and CEO
+                </p>
                 <div className="mt-6">
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-pink-500 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-pink-500 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-dribbble"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-red-600 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-google"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-blue-400 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-twitter"></i>
                   </button>
-                  <button className="mb-1 mr-1 h-8 w-8 rounded-full bg-gray-800 text-white outline-none focus:outline-none" type="button">
+                  <button
+                    className="mb-1 mr-1 h-8 w-8 rounded-full bg-gray-800 text-white outline-none focus:outline-none"
+                    type="button"
+                  >
                     <i className="fab fa-instagram"></i>
                   </button>
                 </div>
@@ -116,5 +157,5 @@ export function Team() {
         </div>
       </div>
     </section>
-  )
+  );
 }

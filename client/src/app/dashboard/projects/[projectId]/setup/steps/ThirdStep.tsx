@@ -1,9 +1,9 @@
-import { Card, CardBody, Typography } from '@/lib/material'
-import { RelevantCustomFieldMap } from '../../../constants/relevant-custom-fields'
-import { Divider } from '@mui/material'
+import { Card, CardBody, Typography } from '@/lib/material';
+import { RelevantCustomFieldMap } from '../../../constants/relevant-custom-fields';
+import { Divider } from '@mui/material';
 
 interface ThirdStepProps {
-  relevantCustomFields: RelevantCustomFieldMap
+  relevantCustomFields: RelevantCustomFieldMap;
 }
 
 export function ThirdStep({ relevantCustomFields }: Readonly<ThirdStepProps>) {
@@ -18,7 +18,7 @@ export function ThirdStep({ relevantCustomFields }: Readonly<ThirdStepProps>) {
           <Typography variant="paragraph" className="mt-8">
             You have selected the following fields:
           </Typography>
-          <div className="flex flex-col mt-8">
+          <div className="mt-8 flex flex-col">
             <div>
               <Typography variant="lead">
                 <b>Field Selected for Sprint: </b> {relevantCustomFields.Sprint.name}
@@ -39,5 +39,5 @@ export function ThirdStep({ relevantCustomFields }: Readonly<ThirdStepProps>) {
         </CardBody>
       </Card>
     </div>
-  )
+  );
 }

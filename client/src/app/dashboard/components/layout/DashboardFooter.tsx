@@ -1,24 +1,28 @@
-import { Typography } from '@/lib/material'
+import { Typography } from '@/lib/material';
 
 const defaultProps = {
   brandName: 'DevMetrics',
   brandLink: 'https://github.com/marcospandrade/dev-metrics',
   routes: [{ name: 'Repo', path: 'https://github.com/marcospandrade/dev-metrics' }],
-}
+};
 
 interface Route {
-  name: string
-  path: string
+  name: string;
+  path: string;
 }
 
 interface FooterProps {
-  brandName?: string
-  brandLink?: string
-  routes?: Route[]
+  brandName?: string;
+  brandLink?: string;
+  routes?: Route[];
 }
 
-export function DashboardFooter({ brandName = defaultProps.brandName, brandLink = defaultProps.brandLink, routes = defaultProps.routes }: FooterProps) {
-  const year = new Date().getFullYear()
+export function DashboardFooter({
+  brandName = defaultProps.brandName,
+  brandLink = defaultProps.brandLink,
+  routes = defaultProps.routes,
+}: FooterProps) {
+  const year = new Date().getFullYear();
 
   return (
     <footer className="py-3">
@@ -37,7 +41,7 @@ export function DashboardFooter({ brandName = defaultProps.brandName, brandLink 
                 href={path}
                 target="_blank"
                 variant="small"
-                className="py-0.5 px-1 font-normal text-inherit transition-colors hover:text-gray-500"
+                className="px-1 py-0.5 font-normal text-inherit transition-colors hover:text-gray-500"
               >
                 {name}
               </Typography>
@@ -46,5 +50,5 @@ export function DashboardFooter({ brandName = defaultProps.brandName, brandLink 
         </ul>
       </div>
     </footer>
-  )
+  );
 }

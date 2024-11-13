@@ -1,8 +1,8 @@
-import { Card, CardBody, Typography } from '@/lib/material'
+import { Card, CardBody, Typography } from '@/lib/material';
 
 export function FirstStep() {
   return (
-    <Card className="flex flex-1 mt-5">
+    <Card className="mt-5 flex flex-1">
       <CardBody>
         <Typography variant="h5" color="indigo" className="mb-2">
           Sprint Creation
@@ -12,5 +12,5 @@ export function FirstStep() {
         </Typography>
       </CardBody>
     </Card>
-  )
+  );
 }

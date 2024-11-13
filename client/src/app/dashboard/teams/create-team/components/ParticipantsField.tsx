@@ -1,26 +1,29 @@
-import { DynamicInputField } from '@/components/common/DynamicInputField'
-import { CreateParticipantDto } from '../dto/create-team.dto'
+import { DynamicInputField } from '@/components/common/DynamicInputField';
+import { CreateParticipantDto } from '../dto/create-team.dto';
 
 type ParticipantsFieldProps = {
-  inputs: CreateParticipantDto[]
-  handleChangeInputs: (inputs: CreateParticipantDto[]) => void
-}
+  inputs: CreateParticipantDto[];
+  handleChangeInputs: (inputs: CreateParticipantDto[]) => void;
+};
 
-export function ParticipantsField({ inputs, handleChangeInputs }: Readonly<ParticipantsFieldProps>) {
+export function ParticipantsField({
+  inputs,
+  handleChangeInputs,
+}: Readonly<ParticipantsFieldProps>) {
   function handleOnChangeInputs(values: Record<string, any>[]) {
     const updateInputs = values
       .map((value) => {
         if (value.name) {
-          return { name: value.name }
+          return { name: value.name };
         }
-        return { name: '' }
+        return { name: '' };
       })
-      .flat()
-    handleChangeInputs((updateInputs as CreateParticipantDto[]) ?? [])
+      .flat();
+    handleChangeInputs((updateInputs as CreateParticipantDto[]) ?? []);
   }
 
   function handleAddNewParticipant() {
-    handleChangeInputs([...inputs, { name: '' }])
+    handleChangeInputs([...inputs, { name: '' }]);
   }
 
   return (
@@ -32,5 +35,5 @@ export function ParticipantsField({ inputs, handleChangeInputs }: Readonly<Parti
       title="Participants"
       fieldLabel="Participant name"
     />
-  )
+  );
 }

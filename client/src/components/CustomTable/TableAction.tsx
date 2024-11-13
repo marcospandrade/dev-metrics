@@ -1,10 +1,10 @@
-import { LibIcons } from '@/lib/icons'
-import { ActionItem } from './CustomTable'
-import { IconButton, Tooltip } from '@/lib/material'
+import { LibIcons } from '@/lib/icons';
+import { ActionItem } from './CustomTable';
+import { IconButton, Tooltip } from '@/lib/material';
 
 interface TableActionProps {
-  identifier: string
-  actionItemConfig: ActionItem
+  identifier: string;
+  actionItemConfig: ActionItem;
 }
 
 export function TableAction({ identifier, actionItemConfig }: TableActionProps) {
@@ -27,5 +27,5 @@ export function TableAction({ identifier, actionItemConfig }: TableActionProps) 
         {actionItemConfig.icon ? actionItemConfig.icon : <LibIcons.QuestionMarkIcon />}
       </IconButton>
     </Tooltip>
-  )
+  );
 }

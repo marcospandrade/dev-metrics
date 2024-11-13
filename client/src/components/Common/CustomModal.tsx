@@ -1,16 +1,16 @@
-import { ModalProps } from '@/hooks/useModal'
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@/lib/material'
+import { ModalProps } from '@/hooks/useModal';
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@/lib/material';
 
 interface SignInModalProps {
-  isOpen: boolean
-  modalData: ModalProps
-  openModal: (value: boolean) => void
+  isOpen: boolean;
+  modalData: ModalProps;
+  openModal: (value: boolean) => void;
 }
 
 export function CustomModal({ isOpen, modalData, openModal }: SignInModalProps) {
   function handleCancelModal() {
-    modalData.handleCancel?.()
-    openModal(false)
+    modalData.handleCancel?.();
+    openModal(false);
   }
   return (
     <Dialog open={isOpen} handler={openModal} dismiss={{ enabled: false }}>
@@ -25,5 +25,5 @@ export function CustomModal({ isOpen, modalData, openModal }: SignInModalProps) 
         </Button>
       </DialogFooter>
     </Dialog>
-  )
+  );
 }

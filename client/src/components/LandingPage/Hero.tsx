@@ -19,13 +19,20 @@ export function Hero() {
         <div className="flex flex-wrap items-center">
           <div className="ml-auto mr-auto w-full px-4 text-center lg:w-10/12">
             <div className="pr-12">
-              <h1 className="text-5xl font-semibold text-white">It&rsquo;s always time to improve performance.</h1>
-              <p className="mt-4 text-lg text-gray-300">Come and see the future of estimation for activities!</p>
+              <h1 className="text-5xl font-semibold text-white">
+                It&rsquo;s always time to improve performance.
+              </h1>
+              <p className="mt-4 text-lg text-gray-300">
+                Come and see the future of estimation for activities!
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 top-auto w-full overflow-hidden" style={{ height: '70px' }}>
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 top-auto w-full overflow-hidden"
+        style={{ height: '70px' }}
+      >
         <svg
           className="absolute bottom-0 overflow-hidden"
           xmlns="http://www.w3.org/2000/svg"
@@ -35,9 +42,12 @@ export function Hero() {
           x="0"
           y="0"
         >
-          <polygon className="fill-current text-indigo-400" points="2560 0 2560 100 0 100"></polygon>
+          <polygon
+            className="fill-current text-indigo-400"
+            points="2560 0 2560 100 0 100"
+          ></polygon>
         </svg>
       </div>
     </div>
-  )
+  );
 }

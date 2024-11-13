@@ -1,17 +1,17 @@
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 
-import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode';
 
-import { User } from '@/models/User.model'
+import { User } from '@/models/User.model';
 
 export function getUser() {
-  const token = cookies().get('token')?.value
+  const token = cookies().get('token')?.value;
 
   if (!token) {
-    throw new Error('Unauthorized!')
+    throw new Error('Unauthorized!');
   }
 
-  const user: User = jwtDecode(token)
+  const user: User = jwtDecode(token);
 
-  return user
+  return user;
 }

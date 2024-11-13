@@ -10,6 +10,6 @@ const nextConfig = {
       { hostname: 'localhost' },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

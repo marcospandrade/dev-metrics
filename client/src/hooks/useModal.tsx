@@ -1,41 +1,41 @@
-'use client'
+'use client';
 
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 
-import { CustomModal } from '@/components/common/CustomModal'
+import { CustomModal } from '@/components/common/CustomModal';
 
 export interface ModalProps {
-  title: string
-  text?: string
-  buttonConfirmText?: string
-  buttonCancelText?: string
-  handleConfirm: () => void
-  handleCancel?: () => void
+  title: string;
+  text?: string;
+  buttonConfirmText?: string;
+  buttonCancelText?: string;
+  handleConfirm: () => void;
+  handleCancel?: () => void;
 }
 
 interface ModalContextData {
-  isOpen: boolean
-  defineModal: (data: ModalProps) => void
-  handleModal: (value: boolean) => void
+  isOpen: boolean;
+  defineModal: (data: ModalProps) => void;
+  handleModal: (value: boolean) => void;
 }
 
 interface ModalContextProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-const ModalContext = createContext<ModalContextData>({} as ModalContextData)
+const ModalContext = createContext<ModalContextData>({} as ModalContextData);
 
 function ModalContextProvider({ children }: ModalContextProviderProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [modalData, setModalData] = useState<ModalProps>({} as ModalProps)
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalData, setModalData] = useState<ModalProps>({} as ModalProps);
 
   function defineModal(data: ModalProps) {
-    setModalData(data)
-    setIsOpen(!isOpen)
+    setModalData(data);
+    setIsOpen(!isOpen);
   }
 
   function handleModal(value: boolean) {
-    setIsOpen(value)
+    setIsOpen(value);
   }
 
   const contextData: ModalContextData = useMemo(
@@ -44,8 +44,8 @@ function ModalContextProvider({ children }: ModalContextProviderProps) {
       defineModal,
       handleModal,
     }),
-    [isOpen, handleModal]
-  )
+    [isOpen, handleModal],
+  );
 
   return (
     <ModalContext.Provider value={contextData}>
@@ -54,13 +54,13 @@ function ModalContextProvider({ children }: ModalContextProviderProps) {
         <CustomModal isOpen={isOpen} modalData={modalData} openModal={handleModal} />
       </>
     </ModalContext.Provider>
-  )
+  );
 }
 
 function useModal() {
-  const context = useContext(ModalContext)
+  const context = useContext(ModalContext);
 
-  return context
+  return context;
 }
 
-export { ModalContextProvider, useModal }
+export { ModalContextProvider, useModal };

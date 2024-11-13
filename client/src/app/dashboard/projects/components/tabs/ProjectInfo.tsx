@@ -1,44 +1,55 @@
-'use client'
+'use client';
 
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
-import { LibIcons } from '@/lib/icons'
-import { Project } from '@/models/Project.model'
-import { Button } from '@/lib/material'
-import projectsService from '@/services/projects/projects.service'
+import { LibIcons } from '@/lib/icons';
+import { Project } from '@/models/Project.model';
+import { Button } from '@/lib/material';
+import projectsService from '@/services/projects/projects.service';
 
 interface ProjectInfoProps {
-  readonly selectedProject: Project
+  readonly selectedProject: Project;
 }
 
 export function ProjectInfo({ selectedProject }: ProjectInfoProps) {
-  const { push } = useRouter()
+  const { push } = useRouter();
   async function onSyncProject(projectId: string) {
-    await projectsService.syncProject(projectId)
-    toast.info('Sync project started...')
+    await projectsService.syncProject(projectId);
+    toast.info('Sync project started...');
   }
 
   function onClickSetupProject() {
-    push(`projects/${selectedProject.id}/setup`)
+    push(`projects/${selectedProject.id}/setup`);
   }
 
   return (
-    <div className="relative flex row mt-6 shadow-md bg-white rounded-md justify-between align-middle px-6">
+    <div className="row relative mt-6 flex justify-between rounded-md bg-white px-6 align-middle shadow-md">
       <div className="p-6">
         <h5 className="mb-2 text-xl font-semibold">{selectedProject.name}</h5>
-        <p className="text-sm leading-normal font-light">Key: {selectedProject.key}</p>
-        <p className="text-sm leading-normal font-light">Project Type: {selectedProject.projectTypeKey}</p>
-        <p className="text-sm leading-normal font-light">
-          Is the project synced: {selectedProject.isSynced ? <LibIcons.CheckCircleIcon color="success" /> : <LibIcons.ErrorIcon color="error" />}
+        <p className="text-sm font-light leading-normal">Key: {selectedProject.key}</p>
+        <p className="text-sm font-light leading-normal">
+          Project Type: {selectedProject.projectTypeKey}
         </p>
-        <p className="text-sm leading-normal font-light">
+        <p className="text-sm font-light leading-normal">
+          Is the project synced:{' '}
+          {selectedProject.isSynced ? (
+            <LibIcons.CheckCircleIcon color="success" />
+          ) : (
+            <LibIcons.ErrorIcon color="error" />
+          )}
+        </p>
+        <p className="text-sm font-light leading-normal">
           Project has the custom fields selected:{' '}
-          {selectedProject.isCustomFieldSelected ? <LibIcons.CheckCircleIcon color="success" /> : <LibIcons.ErrorIcon color="error" />}
+          {selectedProject.isCustomFieldSelected ? (
+            <LibIcons.CheckCircleIcon color="success" />
+          ) : (
+            <LibIcons.ErrorIcon color="error" />
+          )}
         </p>
       </div>
 
-      <div className="flex flex-col justify-center gap-y-4 mr-8">
+      <div className="mr-8 flex flex-col justify-center gap-y-4">
         <Button color="indigo" onClick={() => onSyncProject(selectedProject.id)}>
           Sync Project
         </Button>
@@ -47,5 +58,5 @@ export function ProjectInfo({ selectedProject }: ProjectInfoProps) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

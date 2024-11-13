@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import withMT from '@material-tailwind/react/utils/withMT'
+import withMT from '@material-tailwind/react/utils/withMT';
 
 export default withMT({
   future: {
@@ -9,7 +9,11 @@ export default withMT({
 
   purge: false,
 
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
 
   theme: {
     fontFamily: {
@@ -48,4 +52,4 @@ export default withMT({
   },
   variants: {},
   plugins: [],
-})
+});

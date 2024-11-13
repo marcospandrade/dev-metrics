@@ -1,32 +1,32 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
-import { useState } from 'react'
-import { faClose } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { routes } from '@/helpers/app.routes'
+import { useState } from 'react';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { routes } from '@/helpers/app.routes';
 
-import { Button, IconButton, Typography } from '@/lib/material'
+import { Button, IconButton, Typography } from '@/lib/material';
 
 interface SidenavProps {
-  brandImg: string
-  brandName: string
+  brandImg: string;
+  brandName: string;
 }
 
 export function Sidenav({ brandName }: Readonly<SidenavProps>) {
-  const pathName = usePathname()
-  const { push } = useRouter()
+  const pathName = usePathname();
+  const { push } = useRouter();
 
-  const [openSideNav, setOpenSideNav] = useState(true)
+  const [openSideNav, setOpenSideNav] = useState(true);
 
   function isActiveRoute(routePath: string) {
-    return pathName === routePath
+    return pathName === routePath;
   }
 
   function changeRoute(route: string) {
-    return push(route)
+    return push(route);
   }
 
   return (
@@ -36,7 +36,7 @@ export function Sidenav({ brandName }: Readonly<SidenavProps>) {
       } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
     >
       <div className="relative border-b border-white/20">
-        <Link href="/" className="flex items-center justify-center gap-4 py-6 px-8">
+        <Link href="/" className="flex items-center justify-center gap-4 px-8 py-6">
           <Typography variant="h4" color="white">
             {brandName ?? 'Dev Metrics'}
           </Typography>
@@ -55,10 +55,12 @@ export function Sidenav({ brandName }: Readonly<SidenavProps>) {
       <div className="m-4">
         <ul className="mb-4 flex flex-col gap-1">
           {routes.map((route) => (
-            <li key={route.path} className="mx-3.5 mt-4 mb-2">
+            <li key={route.path} className="mx-3.5 mb-2 mt-4">
               <Button
                 variant="text"
-                className={`flex items-center gap-4 px-4 capitalize ${isActiveRoute(route.path) ? 'bg-red-600 hover:bg-red-500' : 'bg-transparent'}`}
+                className={`flex items-center gap-4 px-4 capitalize ${
+                  isActiveRoute(route.path) ? 'bg-red-600 hover:bg-red-500' : 'bg-transparent'
+                }`}
                 fullWidth
                 onClick={() => changeRoute(route.path)}
               >
@@ -70,5 +72,5 @@ export function Sidenav({ brandName }: Readonly<SidenavProps>) {
         </ul>
       </div>
     </aside>
-  )
+  );
 }

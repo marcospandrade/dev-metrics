@@ -1,7 +1,7 @@
-import { TableFields } from '@/components/CustomTable/CustomTable'
-import { Sprint } from '@/models/Sprint.model'
+import { TableFields } from '@/components/CustomTable/CustomTable';
+import { Sprint } from '@/models/Sprint.model';
 
-export const SPRINTS_TABLE_HEADINGS: string[] = ['Sprint Name', 'Goals', 'Actions']
+export const SPRINTS_TABLE_HEADINGS: string[] = ['Sprint Name', 'Goals', 'Actions'];
 export const SPRINTS_TABLE_DEFINITIONS: TableFields<Sprint>[] = [
   {
     fieldDefinition: 'name',
@@ -17,4 +17,4 @@ export const SPRINTS_TABLE_DEFINITIONS: TableFields<Sprint>[] = [
     fieldName: 'Actions',
     isActions: true,
   },
-]
+];

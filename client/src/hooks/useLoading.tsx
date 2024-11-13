@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
-import { Loading } from '@/components/common/Loading'
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { Loading } from '@/components/common/Loading';
 
 interface LoadingContextData {
-  statusLoading: boolean
-  changeLoadingStatus: (status: boolean) => void
+  statusLoading: boolean;
+  changeLoadingStatus: (status: boolean) => void;
 }
 
 interface LoadingContextProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-const LoadingContext = createContext<LoadingContextData>({} as LoadingContextData)
+const LoadingContext = createContext<LoadingContextData>({} as LoadingContextData);
 
 function LoadingContextProvider({ children }: LoadingContextProviderProps) {
-  const [statusLoading, setStatusLoading] = useState<boolean>(false)
+  const [statusLoading, setStatusLoading] = useState<boolean>(false);
 
   function changeLoadingStatus(status: boolean) {
-    setStatusLoading(status)
+    setStatusLoading(status);
   }
 
   const loadingContextData: LoadingContextData = useMemo(
@@ -26,8 +26,8 @@ function LoadingContextProvider({ children }: LoadingContextProviderProps) {
       statusLoading,
       changeLoadingStatus,
     }),
-    [statusLoading, changeLoadingStatus]
-  )
+    [statusLoading, changeLoadingStatus],
+  );
 
   return (
     <LoadingContext.Provider value={loadingContextData}>
@@ -35,12 +35,12 @@ function LoadingContextProvider({ children }: LoadingContextProviderProps) {
       {statusLoading && <Loading />}
       {children}
     </LoadingContext.Provider>
-  )
+  );
 }
 
 function useLoading() {
-  const context = useContext(LoadingContext)
-  return context
+  const context = useContext(LoadingContext);
+  return context;
 }
 
-export { LoadingContextProvider, useLoading }
+export { LoadingContextProvider, useLoading };
