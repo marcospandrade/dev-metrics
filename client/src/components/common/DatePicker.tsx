@@ -10,7 +10,7 @@ interface DatePickerProps {
   value: Date | undefined;
 }
 
-export default function DatePicker({ label, onChange, value }: Readonly<DatePickerProps>) {
+export function DatePicker({ label, onChange, value }: Readonly<DatePickerProps>) {
   return (
     <div className="flex flex-1">
       <Popover placement="bottom">

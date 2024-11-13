@@ -18,10 +18,12 @@
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
         "paths": {
+            "@/*": ["./src/*"],
             "@core/*": ["./src/core/*"],
             "@modules/*": ["./src/modules/*"],
             "@lib/*": ["./src/lib/*"],
-            "@shared/*": ["./src/shared/*"]
+            "@shared/*": ["./src/shared/*"],
+            "@components/*": ["./src/components/*"],
         },
 
         "esModuleInterop": true,
