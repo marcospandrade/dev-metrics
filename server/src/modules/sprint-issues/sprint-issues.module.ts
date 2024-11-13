@@ -8,8 +8,8 @@ import { RemoveSprintIssuesCommandHandler } from './commands/remove-sprint-issue
 const CommandHandlers = [CreateSprintIssuesCommandHandler, RemoveSprintIssuesCommandHandler];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SprintIssue])],
-  providers: [SprintIssuesUseCasesService, ...CommandHandlers],
-  exports: [SprintIssuesUseCasesService],
+    imports: [TypeOrmModule.forFeature([SprintIssue])],
+    providers: [SprintIssuesUseCasesService, ...CommandHandlers],
+    exports: [SprintIssuesUseCasesService],
 })
-export class SprintIssuesModule { }
+export class SprintIssuesModule {}

@@ -14,7 +14,7 @@ export class CustomFieldsUseCases {
     async upsertCustomField(payload: UpsertCustomFieldDto | UpsertCustomFieldDto[]) {
         return this.customFieldRepository.upsert(payload, {
             skipUpdateIfNoValuesChanged: true,
-            conflictPaths: ['atlassianId'],
+            conflictPaths: ['atlassianId', 'projectId'],
         });
     }
 

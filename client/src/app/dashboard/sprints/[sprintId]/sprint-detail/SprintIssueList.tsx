@@ -8,7 +8,7 @@ interface SprintIssueListProps {
 
 const TABLE_HEAD = ['Jira Key', 'Issue', 'Story Point', 'Suggested Estimate']
 
-export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
+export function SprintIssueList({ sprintIssues }: Readonly<SprintIssueListProps>) {
   function extractStoryPointField(issue: Issue){
     const storyPointField = issue.project.customFields.find(customField => Boolean(customField.isStoryPointField))
     return storyPointField?.name
@@ -49,7 +49,7 @@ export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
             </td>
             <td className="p-4">
               <Typography variant="small" color="blue-gray" className="flex items-center gap-2 font-normal leading-none opacity-70">
-                {'Not generated'}
+                {sprintIssue.issue.estimatedStoryPoints ?? 'Not generated'}
               </Typography>
             </td>
           </tr>

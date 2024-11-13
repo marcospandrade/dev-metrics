@@ -10,7 +10,7 @@ export class CreateSprintIssuesCommandHandler implements ICommandHandler<CreateS
         private readonly logger: LoggerService,
         private readonly sprintIssuesUseCases: SprintIssuesUseCasesService,
         private readonly eventBus: EventBus,
-    ) { }
+    ) {}
 
     async execute(command: CreateSprintIssuesCommand): Promise<any> {
         return this.sprintIssuesUseCases.createMany(command.issuesList);

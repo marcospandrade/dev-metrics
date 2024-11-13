@@ -14,4 +14,4 @@ export class CreateIssueDto extends OmitType(Issue, [
     'remove',
     'save',
     'softRemove',
-]) { }
+]) {}

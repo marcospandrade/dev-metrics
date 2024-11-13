@@ -16,7 +16,7 @@ export class MigrationFactory {
         private readonly dataSource: DataSource,
         private readonly logger: LoggerService,
         private readonly moduleRef: ModuleRef,
-    ) { }
+    ) {}
 
     /**
      * Runs the initial migrations required for the application to function properly.

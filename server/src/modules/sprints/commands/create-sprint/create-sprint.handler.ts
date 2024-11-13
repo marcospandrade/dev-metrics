@@ -10,7 +10,7 @@ export class CreateSprintCommandHandler implements ICommandHandler<CreateSprintC
         private readonly logger: LoggerService,
         private readonly sprintUseCases: SprintsUseCasesService,
         private readonly eventBus: EventBus,
-    ) { }
+    ) {}
     async execute(command: CreateSprintCommand) {
         return await this.sprintUseCases.createSprint(command);
     }

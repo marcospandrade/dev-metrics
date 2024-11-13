@@ -1,10 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import natural from 'natural';
 
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { IsArray, IsJSON, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsDecimal, IsJSON, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Expose, Transform, Type } from 'class-transformer';
 
-import { Sprint } from '@modules/sprints/entities/sprint.entity';
 import { Base } from '@core/database/entities/base.entity';
 import { Project } from '@modules/integration-server/entities/project.entity';
 import { SprintIssue } from '@modules/sprint-issues/entities/sprint-issue.entity';
@@ -67,6 +67,13 @@ export class Issue extends Base {
     })
     issueText?: string;
 
+    @Column({ nullable: true, type: 'float' })
+    @Expose()
+    @IsNumber()
+    @IsDecimal()
+    @IsOptional()
+    estimatedStoryPoints?: number;
+
     @IsJSON()
     @IsOptional()
     @Column('jsonb', { nullable: false, default: {} })
@@ -80,6 +87,18 @@ export class Issue extends Base {
     @IsArray()
     @IsOptional()
     sprints?: SprintIssue[];
+
+    public static compareSimilarity(sourceString: string, destString: string) {
+        const tokenizer = new natural.WordTokenizer();
+
+        const sourceTokens = new Set(tokenizer.tokenize(sourceString));
+        const destTokens = new Set(tokenizer.tokenize(destString));
+        const intersection = new Set([...sourceTokens].filter(x => destTokens.has(x)));
+        const union = new Set([...sourceTokens, ...destTokens]);
+        const similarity = intersection.size / union.size;
+
+        return similarity;
+    }
 
     private static traverseIssueDescription(issueDescription: Issue['description'], issueText = '') {
         const parsedIssueDescription =

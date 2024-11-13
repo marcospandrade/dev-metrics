@@ -9,7 +9,7 @@ export class QueryFailedFilter implements ExceptionFilter {
     constructor(
         private logger: LoggerService,
         private factory: QueryFailedFactory,
-    ) { }
+    ) {}
 
     catch(exception: QueryFailedError, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
@@ -24,7 +24,12 @@ export class QueryFailedFilter implements ExceptionFilter {
         response.status(status).json(errorResponse);
     }
 
-    private async logError(exception: QueryFailedError, request: Request, originalMessage: string, customMessage: string) {
+    private async logError(
+        exception: QueryFailedError,
+        request: Request,
+        originalMessage: string,
+        customMessage: string,
+    ) {
         this.logger.warn(
             {
                 requestId: request['id'],

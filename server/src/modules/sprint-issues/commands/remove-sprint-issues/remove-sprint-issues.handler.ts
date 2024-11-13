@@ -10,7 +10,7 @@ export class RemoveSprintIssuesCommandHandler implements ICommandHandler<RemoveS
         private readonly logger: LoggerService,
         private readonly sprintIssuesUseCases: SprintIssuesUseCasesService,
         private readonly eventBus: EventBus,
-    ) { }
+    ) {}
     async execute(command: RemoveSprintIssuesCommand) {
         return this.sprintIssuesUseCases.deleteManyByIssueAndSprintIds(command);
     }
