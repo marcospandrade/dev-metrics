@@ -15,7 +15,8 @@ export default function SprintDetails() {
   const [sprintDetails, setSprintDetails] = useState<Sprint | undefined>(undefined)
 
   async function fetchSprintDetails() {
-    return sprintsService.getSprintById(sprintId)
+    const response = await sprintsService.getSprintById(sprintId)
+    setSprintDetails(response);
   }
 
   async function startGenerateEstimates() {
@@ -23,8 +24,14 @@ export default function SprintDetails() {
     toast.success('Estimates generation started...');
   }
 
+  async function onRefreshSprintDetails(){
+    toast.info('Refreshing sprint details...');
+    await fetchSprintDetails()
+    toast.success('Sprint details refreshed');
+  }
+
   useEffect(() => {
-    fetchSprintDetails().then((response) => setSprintDetails(response))
+    fetchSprintDetails()
   }, [sprintId])
 
   if (!sprintDetails)
@@ -46,8 +53,9 @@ export default function SprintDetails() {
               <ItemDetail title={'Goals'} text={sprintDetails.goals} />
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center flex-col gap-y-4">
               <Button variant='filled' color='indigo' onClick={() => startGenerateEstimates()}>Generate Estimates</Button>
+              <Button variant='filled' color='indigo' onClick={() => onRefreshSprintDetails()}>Refresh Sprint</Button>
             </div>
           </div>
 

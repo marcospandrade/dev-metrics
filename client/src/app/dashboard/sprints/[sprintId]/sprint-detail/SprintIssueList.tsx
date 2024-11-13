@@ -8,7 +8,7 @@ interface SprintIssueListProps {
 
 const TABLE_HEAD = ['Jira Key', 'Issue', 'Story Point', 'Suggested Estimate']
 
-export function SprintIssueList({ sprintIssues }: SprintIssueListProps) {
+export function SprintIssueList({ sprintIssues }: Readonly<SprintIssueListProps>) {
   function extractStoryPointField(issue: Issue){
     const storyPointField = issue.project.customFields.find(customField => Boolean(customField.isStoryPointField))
     return storyPointField?.name
