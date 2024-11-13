@@ -1,4 +1,4 @@
-import { DynamicInputField } from '@/components/Common/DynamicInputField'
+import { DynamicInputField } from '@/components/common/DynamicInputField'
 import { CreateParticipantDto } from '../dto/create-team.dto'
 
 type ParticipantsFieldProps = {

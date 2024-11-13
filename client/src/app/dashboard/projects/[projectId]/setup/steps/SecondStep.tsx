@@ -1,6 +1,6 @@
 'use client'
 
-import { SearchInput } from '@/components/Common/SearchInput'
+import { SearchInput } from '@/components/common/SearchInput'
 import { Button, Card, CardBody, Typography, Dialog, DialogBody, DialogHeader } from '@/lib/material'
 import { AtlassianCustomField } from '@/services/projects/dto/get-all-custom-fields.dto'
 import projectsService from '@/services/projects/projects.service'

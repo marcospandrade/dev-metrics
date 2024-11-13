@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 import { GenericHttpResponse, api } from '@/services/api'
 import { User } from '@/models/User.model'
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
     const state = searchParams.get('state')
 
     // redirect to the URL
-    const redirectTo = request.cookies.get('redirectTo')?.value
+    const redirectTo = cookies().get('redirectTo')?.value
 
     const { data } = await api.post<GenericHttpResponse<User>>('auth/login', {
       code,

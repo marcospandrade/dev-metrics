@@ -6,7 +6,7 @@ import { GenericWithId, PaginatedData } from '@/helpers/typescript.helper'
 import { Checkbox, Typography } from '@/lib/material'
 import { Pagination } from '@mui/material'
 import { useDebounce } from 'use-debounce'
-import { SearchInput } from '../Common/SearchInput'
+import { SearchInput } from '../common/SearchInput'
 import { TableAction } from './TableAction'
 import { colors } from '@material-tailwind/react/types/generic'
 
