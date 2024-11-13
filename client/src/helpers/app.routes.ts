@@ -1,4 +1,4 @@
-import { IconDefinition, faDashboard, faHome, faPeopleGroup, faPerson, faUser } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faHome, faPeopleGroup, faUser, faFileLines } from '@fortawesome/free-solid-svg-icons'
 
 export interface Route {
   name: string
@@ -20,16 +20,11 @@ export const routes: Route[] = [
   {
     name: 'Sprints',
     path: '/dashboard/sprints',
-    icon: faPeopleGroup,
+    icon: faFileLines,
   },
   {
     name: 'Teams',
     path: '/dashboard/teams',
     icon: faPeopleGroup,
-  },
-  // {
-  //   name: 'Profile',
-  //   path: '/dashboard/profile',
-  //   icon: faUser,
-  // },
+  }
 ]

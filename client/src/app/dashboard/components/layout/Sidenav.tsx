@@ -8,14 +8,14 @@ import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { routes } from '@/helpers/app.routes'
 
-import { Avatar, Button, IconButton, Typography } from '@/lib/material'
+import { Button, IconButton, Typography } from '@/lib/material'
 
 interface SidenavProps {
   brandImg: string
   brandName: string
 }
 
-export function Sidenav({ brandImg, brandName }: SidenavProps) {
+export function Sidenav({ brandName }: Readonly<SidenavProps>) {
   const pathName = usePathname()
   const { push } = useRouter()
 
@@ -36,8 +36,8 @@ export function Sidenav({ brandImg, brandName }: SidenavProps) {
       } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
     >
       <div className="relative border-b border-white/20">
-        <Link href="/" className="flex items-center gap-4 py-6 px-8">
-          <Typography variant="h6" color="white">
+        <Link href="/" className="flex items-center justify-center gap-4 py-6 px-8">
+          <Typography variant="h4" color="white">
             {brandName ?? 'Dev Metrics'}
           </Typography>
         </Link>
