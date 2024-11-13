@@ -3,7 +3,6 @@ module.exports = {
     'next',
     'next/core-web-vitals',
     'eslint:recommended',
-    '@rocketseat/eslint-config/react',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',

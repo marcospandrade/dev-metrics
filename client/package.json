@@ -37,7 +37,6 @@
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^1.2.0",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -45,7 +44,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0"
   },
   "browserslist": {
