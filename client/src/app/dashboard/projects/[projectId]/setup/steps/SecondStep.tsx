@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchInput } from '@/components/common/SearchInput';
+import { SearchInput } from '@/components/reusable/SearchInput';
 import {
   Button,
   Card,

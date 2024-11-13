@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { CustomButton } from '../../components/common/CustomButton';
+import { CustomButton } from '../reusable/CustomButton';
 
 export function Services() {
   const { push } = useRouter();
