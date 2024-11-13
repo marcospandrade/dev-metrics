@@ -26,10 +26,10 @@ async function getProjectWithDetails(projectId: string) {
   }
 }
 
-async function syncProject(projectId: string){
+async function syncProject(projectId: string) {
   try {
     const { data } = await api.post<GenericHttpResponse<void>>(`/integration-server/re-sync-project`, {
-      projectId
+      projectId,
     })
 
     return data
@@ -38,22 +38,22 @@ async function syncProject(projectId: string){
   }
 }
 
-async function getAllCustomFields(projectId: string){
-  try { 
+async function getAllCustomFields(projectId: string) {
+  try {
     const { data } = await api.get<GenericHttpResponse<AtlassianCustomField[]>>(`/integration-server/get-all-issue-fields/${projectId}`)
 
-    return data.response;
-  } catch(error: AxiosError | any) {
+    return data.response
+  } catch (error: AxiosError | any) {
     console.log(error)
     throw new Error(error.response.data ?? 'Error trying to get custom fields')
   }
 }
 
-async function registerCustomFields(payload: RegisterCustomFieldsDto){
+async function registerCustomFields(payload: RegisterCustomFieldsDto) {
   try {
     const { data } = await api.post<GenericHttpResponse<void>>('integration-server/register-custom-fields', payload)
 
-    return data;
+    return data
   } catch (error: AxiosError | any) {
     throw new Error(error.response.data ?? 'Error trying to register custom fields')
   }
@@ -64,5 +64,5 @@ export default {
   getProjectWithDetails,
   getAllCustomFields,
   syncProject,
-  registerCustomFields
+  registerCustomFields,
 }

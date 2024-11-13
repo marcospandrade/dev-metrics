@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react'
 import { RelevantCustomFieldMap } from '../../../constants/relevant-custom-fields'
 
 interface SecondStepProps {
-  selectedProjectId: string;
-  relevantCustomFields: RelevantCustomFieldMap;
-  handleSetRelevantCustomFields: (fieldName: string, value: AtlassianCustomField) => void;
+  selectedProjectId: string
+  relevantCustomFields: RelevantCustomFieldMap
+  handleSetRelevantCustomFields: (fieldName: string, value: AtlassianCustomField) => void
 }
 
 export function SecondStep({ selectedProjectId, relevantCustomFields, handleSetRelevantCustomFields }: Readonly<SecondStepProps>) {
@@ -46,7 +46,7 @@ export function SecondStep({ selectedProjectId, relevantCustomFields, handleSetR
     setModalIsOpen(false)
   }
 
-  function onClearSelection(fieldName: string){
+  function onClearSelection(fieldName: string) {
     handleSetRelevantCustomFields(fieldName, {} as AtlassianCustomField)
   }
 
@@ -72,7 +72,7 @@ export function SecondStep({ selectedProjectId, relevantCustomFields, handleSetR
                 </Typography>
                 <Typography variant="paragraph">{relevantCustomFields.Sprint?.id ? relevantCustomFields.Sprint.id : ''}</Typography>
               </div>
-              <Button className='mr-4' color="light-blue" onClick={() => handleOpen('Sprint')}>
+              <Button className="mr-4" color="light-blue" onClick={() => handleOpen('Sprint')}>
                 {relevantCustomFields.Sprint?.id ? `Re-Select` : 'Select field'}
               </Button>
               {!!relevantCustomFields.Sprint?.id && (
@@ -89,7 +89,7 @@ export function SecondStep({ selectedProjectId, relevantCustomFields, handleSetR
                 </Typography>
                 <Typography variant="paragraph">{relevantCustomFields['Story Point']?.id ? relevantCustomFields['Story Point'].id : ''}</Typography>
               </div>
-              <Button className='mr-4' color="light-blue" onClick={() => handleOpen('Story Point')}>
+              <Button className="mr-4" color="light-blue" onClick={() => handleOpen('Story Point')}>
                 {relevantCustomFields['Story Point']?.id ? 'Re-Select' : 'Select field'}
               </Button>
               {!!relevantCustomFields['Story Point']?.id && (

@@ -1,7 +1,7 @@
 'use client'
 
 import { SelectProjects } from '@/app/dashboard/projects/components/SelectProjects'
-import DatePicker from '@/components/Common/DatePicker'
+import DatePicker from '@/components/common/DatePicker'
 import { SelectTeam } from '@/components/SelectTeam/SelectTeam'
 import { useAuth } from '@/hooks/useAuth'
 import { useLoading } from '@/hooks/useLoading'
@@ -19,8 +19,8 @@ interface SecondStepPros {
   onSetSprintGoals: (goal: string) => void
   onChangeStartDate: (date: Date) => void
   onChangeEndDate: (date: Date) => void
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  startDate: Date | undefined
+  endDate: Date | undefined
 }
 
 export function SecondStep({
@@ -31,7 +31,7 @@ export function SecondStep({
   onChangeStartDate,
   onChangeEndDate,
   startDate,
-  endDate
+  endDate,
 }: Readonly<SecondStepPros>) {
   const { changeLoadingStatus } = useLoading()
   const { getUserDetails } = useAuth()

@@ -16,8 +16,8 @@ import { toast } from 'react-toastify'
 const steps = ['Welcome', 'Select fields', 'Confirmation']
 
 export default function SetupProject() {
-  const { projectId } = useParams<{ projectId: string }>();
-  const router = useRouter();
+  const { projectId } = useParams<{ projectId: string }>()
+  const router = useRouter()
   const [relevantCustomFields, setRelevantCustomFields] = useState<RelevantCustomFieldMap>(RELEVANT_CUSTOM_FIELDS)
   const [activeStep, setActiveStep] = useState(0)
 
@@ -34,21 +34,23 @@ export default function SetupProject() {
   }
 
   async function saveCustomFieldConfiguration() {
-    const fieldsToRegister: FieldToRegisterDto[] = Object.values(relevantCustomFields).map((field: AtlassianCustomField) => {
-      return {
-        atlassianId: field.id,
-        fieldName: field.name,
-        fieldType: field.schema?.type ?? 'string',
-        isStoryPointField: field.name.toLowerCase().includes("story") ? true : false
-      }
-    }).flat()
+    const fieldsToRegister: FieldToRegisterDto[] = Object.values(relevantCustomFields)
+      .map((field: AtlassianCustomField) => {
+        return {
+          atlassianId: field.id,
+          fieldName: field.name,
+          fieldType: field.schema?.type ?? 'string',
+          isStoryPointField: field.name.toLowerCase().includes('story') ? true : false,
+        }
+      })
+      .flat()
 
     const payloadRegisterCustomFields: RegisterCustomFieldsDto = {
       projectId,
-      fieldsToRegister
+      fieldsToRegister,
     }
-    await projectsService.registerCustomFields(payloadRegisterCustomFields);
-    
+    await projectsService.registerCustomFields(payloadRegisterCustomFields)
+
     toast.success(`Custom fields registered successfully!`)
     return router.push('/dashboard/projects')
   }

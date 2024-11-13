@@ -24,19 +24,18 @@ export default function Teams() {
 
   async function onDeleteTeamButton(teamId: string) {
     defineModal({
-      title: "Delete Team",
-      text: "Are you sure you want to delete a team?",
+      title: 'Delete Team',
+      text: 'Are you sure you want to delete a team?',
       handleConfirm: () => handleDeleteTeam(teamId),
     })
   }
 
-  async function handleDeleteTeam(teamId:string){
-    const responseDeleteTeam = await teamsService.deleteTeam(teamId);
+  async function handleDeleteTeam(teamId: string) {
+    const responseDeleteTeam = await teamsService.deleteTeam(teamId)
     handleModal(false)
     // if(responseDeleteTeam.status)
-    return fetchTeams();
+    return fetchTeams()
   }
-
 
   async function onCreateTeamButton() {
     return push('teams/create-team')
@@ -89,7 +88,11 @@ export default function Teams() {
                   {/* <Button size='sm' className="font-medium text-green-600 bg-transparent drop-shadow-lg hover:underline p-2">
                     <LibIcons.EditIcon />
                   </Button> */}
-                  <Button size='sm' className="font-medium text-red-600 bg-transparent drop-shadow-lg hover:underline p-2" onClick={() => onDeleteTeamButton(team.id)}>
+                  <Button
+                    size="sm"
+                    className="font-medium text-red-600 bg-transparent drop-shadow-lg hover:underline p-2"
+                    onClick={() => onDeleteTeamButton(team.id)}
+                  >
                     <LibIcons.DeleteIcon />
                   </Button>
                 </td>

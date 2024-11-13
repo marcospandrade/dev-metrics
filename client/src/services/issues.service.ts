@@ -19,20 +19,20 @@ async function getIssues(projectId: string) {
   }
 }
 
-async function getPaginatedIssues(projectId: string, queryString: string): Promise<PaginatedData<GenericWithId<Issue>>>{
+async function getPaginatedIssues(projectId: string, queryString: string): Promise<PaginatedData<GenericWithId<Issue>>> {
   try {
     const { data: apiData } = await api.get<GenericHttpResponse<GetIssueDto>>(`/issues/${projectId}?${queryString}`)
-    
+
     return {
       data: apiData.response.issues,
-      count: apiData.response.count
-    };
-  } catch (error: AxiosError | any){
+      count: apiData.response.count,
+    }
+  } catch (error: AxiosError | any) {
     throw new Error(error.response.data ?? 'Error trying to get projects')
   }
 }
 
 export default {
   getIssues,
-  getPaginatedIssues
+  getPaginatedIssues,
 }

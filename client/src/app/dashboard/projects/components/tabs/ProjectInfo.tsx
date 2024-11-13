@@ -30,10 +30,11 @@ export function ProjectInfo({ selectedProject }: ProjectInfoProps) {
         <p className="text-sm leading-normal font-light">Key: {selectedProject.key}</p>
         <p className="text-sm leading-normal font-light">Project Type: {selectedProject.projectTypeKey}</p>
         <p className="text-sm leading-normal font-light">
-          Is the project synced: {selectedProject.isSynced ? <LibIcons.CheckCircleIcon color='success' /> : <LibIcons.ErrorIcon color='error' />}
+          Is the project synced: {selectedProject.isSynced ? <LibIcons.CheckCircleIcon color="success" /> : <LibIcons.ErrorIcon color="error" />}
         </p>
         <p className="text-sm leading-normal font-light">
-          Project has the custom fields selected: {selectedProject.isCustomFieldSelected ? <LibIcons.CheckCircleIcon color='success' /> : <LibIcons.ErrorIcon color='error' />}
+          Project has the custom fields selected:{' '}
+          {selectedProject.isCustomFieldSelected ? <LibIcons.CheckCircleIcon color="success" /> : <LibIcons.ErrorIcon color="error" />}
         </p>
       </div>
 

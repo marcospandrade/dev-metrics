@@ -14,28 +14,28 @@ async function createTeam(teamInfo: CreateTeamDto) {
   }
 }
 
-async function getTeams(){
-    try {
-        const { data: apiData } = await api.get<GenericHttpResponse<GetTeamsResponseDto>>('team')
-    
-        return apiData.response
-    } catch (error: AxiosError | any) {
-        throw new Error(error.response.data ?? 'Error trying to get teams')
-    }
+async function getTeams() {
+  try {
+    const { data: apiData } = await api.get<GenericHttpResponse<GetTeamsResponseDto>>('team')
+
+    return apiData.response
+  } catch (error: AxiosError | any) {
+    throw new Error(error.response.data ?? 'Error trying to get teams')
+  }
 }
 
 async function deleteTeam(teamId: string) {
-    try {
-        const response = await api.delete<GenericHttpResponse<void>>(`team/${teamId}`)
-    
-        return response.data
-    } catch (error: AxiosError | any) {
-        throw new Error(error.response.data ?? 'Error trying to delete team')
-    }
+  try {
+    const response = await api.delete<GenericHttpResponse<void>>(`team/${teamId}`)
+
+    return response.data
+  } catch (error: AxiosError | any) {
+    throw new Error(error.response.data ?? 'Error trying to delete team')
+  }
 }
 
 export default {
   createTeam,
   deleteTeam,
-  getTeams
+  getTeams,
 }

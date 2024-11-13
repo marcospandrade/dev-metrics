@@ -16,18 +16,18 @@ export default function SprintDetails() {
 
   async function fetchSprintDetails() {
     const response = await sprintsService.getSprintById(sprintId)
-    setSprintDetails(response);
+    setSprintDetails(response)
   }
 
   async function startGenerateEstimates() {
-    await sprintsService.startGenerateEstimates(sprintId);
-    toast.success('Estimates generation started...');
+    await sprintsService.startGenerateEstimates(sprintId)
+    toast.success('Estimates generation started...')
   }
 
-  async function onRefreshSprintDetails(){
-    toast.info('Refreshing sprint details...');
+  async function onRefreshSprintDetails() {
+    toast.info('Refreshing sprint details...')
     await fetchSprintDetails()
-    toast.success('Sprint details refreshed');
+    toast.success('Sprint details refreshed')
   }
 
   useEffect(() => {
@@ -47,22 +47,28 @@ export default function SprintDetails() {
     <div>
       <Card>
         <CardBody>
-          <div className='flex flex-row justify-between'>
+          <div className="flex flex-row justify-between">
             <div className="flex flex-col mb-4 gap-y-4">
               <ItemDetail title={'Sprint name'} text={sprintDetails.name} />
               <ItemDetail title={'Goals'} text={sprintDetails.goals} />
             </div>
 
             <div className="flex items-center flex-col gap-y-4">
-              <Button variant='filled' color='indigo' onClick={() => startGenerateEstimates()}>Generate Estimates</Button>
-              <Button variant='filled' color='indigo' onClick={() => onRefreshSprintDetails()}>Refresh Sprint</Button>
+              <Button variant="filled" color="indigo" onClick={() => startGenerateEstimates()}>
+                Generate Estimates
+              </Button>
+              <Button variant="filled" color="indigo" onClick={() => onRefreshSprintDetails()}>
+                Refresh Sprint
+              </Button>
             </div>
           </div>
 
           <Divider />
 
-          <div className='mt-4'>
-            <Typography variant='h5' className='mb-6'>Selected issues</Typography>
+          <div className="mt-4">
+            <Typography variant="h5" className="mb-6">
+              Selected issues
+            </Typography>
             <SprintIssueList sprintIssues={sprintDetails.issuesList} />
           </div>
         </CardBody>

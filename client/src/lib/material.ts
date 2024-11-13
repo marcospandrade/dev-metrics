@@ -25,7 +25,7 @@ import {
   Select,
   Option,
   Checkbox,
-  Tooltip
+  Tooltip,
 } from '@material-tailwind/react'
 
 export {
@@ -53,5 +53,5 @@ export {
   Select,
   Option,
   Checkbox,
-  Tooltip
+  Tooltip,
 }

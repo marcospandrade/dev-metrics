@@ -26,5 +26,5 @@ export const routes: Route[] = [
     name: 'Teams',
     path: '/dashboard/teams',
     icon: faPeopleGroup,
-  }
+  },
 ]

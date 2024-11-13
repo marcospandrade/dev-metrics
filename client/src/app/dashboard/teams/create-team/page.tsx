@@ -61,14 +61,7 @@ export default function CreateTeam() {
       </Typography>
       <form className="max-w-md mt-6">
         <div className="relative z-0 w-full mb-5 group">
-          <Input
-            variant="standard"
-            color="indigo"
-            label="Team name"
-            type="text"
-            id="teamNameField"
-            {...register('teamName')}
-          />
+          <Input variant="standard" color="indigo" label="Team name" type="text" id="teamNameField" {...register('teamName')} />
         </div>
 
         <div className="mt-10">

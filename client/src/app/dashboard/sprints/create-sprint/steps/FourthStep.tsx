@@ -19,7 +19,7 @@ export function FourthStep({ project, selectedIssues, sprintName, goals }: Reado
         <Divider className="my-4" />
 
         <div className="mt-4">
-          <div className=''>
+          <div className="">
             <div className="flex flex-col mt-4">
               <Typography variant="h6">Sprint name</Typography>
               <Typography variant="paragraph">{sprintName}</Typography>

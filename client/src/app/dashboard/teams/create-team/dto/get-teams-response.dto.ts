@@ -1,6 +1,6 @@
-import { Team } from "@/models/Team.model";
+import { Team } from '@/models/Team.model'
 
 export class GetTeamsResponseDto {
-    teams!: Team[]; 
-    count!: number
+  teams!: Team[]
+  count!: number
 }

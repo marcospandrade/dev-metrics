@@ -59,7 +59,7 @@ export function CustomTable<T extends object>({
   validateIsChecked,
   selectedItemsLength = 0,
   actionsList,
-  shouldUpdateTable = false
+  shouldUpdateTable = false,
 }: Readonly<CustomTableProps<T>>) {
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<GenericWithId<T>[] | null>(null)
@@ -126,7 +126,10 @@ export function CustomTable<T extends object>({
         <tbody>
           {data.length === 0 && (
             <td colSpan={tableInfoFields.length}>
-              <Typography className="flex justify-center text-black mt-6" variant='h5'> No data to show </Typography>
+              <Typography className="flex justify-center text-black mt-6" variant="h5">
+                {' '}
+                No data to show{' '}
+              </Typography>
             </td>
           )}
           {data.map((record) => (
@@ -140,7 +143,9 @@ export function CustomTable<T extends object>({
                 <td key={field.fieldDefinition as string} className="p-4">
                   <p className={`text-sm flex flex-row ${field.isBold ? 'font-semibold' : ''}`}>
                     {field.isActions && !!actionsList
-                      ? actionsList.map((actionItemConfig) => <TableAction key={actionItemConfig.label} identifier={record.id} actionItemConfig={actionItemConfig} />)
+                      ? actionsList.map((actionItemConfig) => (
+                          <TableAction key={actionItemConfig.label} identifier={record.id} actionItemConfig={actionItemConfig} />
+                        ))
                       : field.isDate
                         ? formatDate(String(record[field.fieldDefinition!]))
                         : String(record[field.fieldDefinition!])}

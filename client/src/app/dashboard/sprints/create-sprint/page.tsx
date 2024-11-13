@@ -39,9 +39,9 @@ export default function CreateSprint() {
   }
 
   function onChangeEndDate(date: Date) {
-    if(!sprintStartDate) return;
+    if (!sprintStartDate) return
 
-    if(!isAfter(date, sprintStartDate)){
+    if (!isAfter(date, sprintStartDate)) {
       toast.warn('End date must be greater than start date')
       return
     }

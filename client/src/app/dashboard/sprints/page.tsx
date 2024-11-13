@@ -42,7 +42,7 @@ export default function Sprints() {
       buttonConfirmText: 'Delete',
     })
   }
-  
+
   async function handleDeleteSprint(sprintId: string) {
     handleModal(false)
     await sprintsService.deleteSprint(sprintId)
@@ -59,7 +59,7 @@ export default function Sprints() {
   }
 
   async function fetchSprints(userEmail?: string, searchObject?: SearchOptions) {
-    const searchString = generateSearchString(searchObject?.page, searchObject?.pageSize, searchObject?.searchText) 
+    const searchString = generateSearchString(searchObject?.page, searchObject?.pageSize, searchObject?.searchText)
     return sprintsService.getPaginatedSprints(searchString, userEmail)
   }
 

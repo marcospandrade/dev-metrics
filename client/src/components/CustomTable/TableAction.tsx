@@ -19,7 +19,7 @@ export function TableAction({ identifier, actionItemConfig }: TableActionProps) 
       <IconButton
         size="md"
         variant="gradient"
-        className='mx-2'
+        className="mx-2"
         color={actionItemConfig.color}
         onClick={() => actionItemConfig.onClick(identifier)}
         aria-label={actionItemConfig.label}

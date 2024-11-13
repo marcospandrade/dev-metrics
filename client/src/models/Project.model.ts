@@ -1,4 +1,4 @@
-import { CustomField } from "./CustomField.model"
+import { CustomField } from './CustomField.model'
 
 export type Project = {
   id: string

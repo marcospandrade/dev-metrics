@@ -1,8 +1,8 @@
-import { LibIcons } from "@/lib/icons";
+import { LibIcons } from '@/lib/icons'
 
 interface SearchInputProps {
-    searchInputPlaceholder: string;
-    onChangeSearchInput: (searchInput: string) => void;
+  searchInputPlaceholder: string
+  onChangeSearchInput: (searchInput: string) => void
 }
 
 export function SearchInput({ searchInputPlaceholder, onChangeSearchInput }: Readonly<SearchInputProps>) {
