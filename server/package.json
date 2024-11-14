@@ -18,7 +18,11 @@
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "migration:generate": "cd src/core/database/migrations && typeorm migration:create"
+        "migration:generate": "cd src/core/database/migrations && typeorm migration:create",
+        "pm2:deploy:app": "npm run build && pm2 start app.json",
+        "pm2:start:app": "pm2 start app.json",
+        "pm2:stop:app": "pm2 stop app.json",
+        "pm2:destroy:app": "pm2 delete app.json"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.552.0",
