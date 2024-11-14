@@ -1,5 +1,6 @@
 node_modules
 .env
 .env.local
+.env.prod
 # Keep environment variables out of version control
 

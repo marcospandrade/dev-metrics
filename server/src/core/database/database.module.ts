@@ -36,6 +36,7 @@ import { DataSource } from 'typeorm';
                     logging,
                     entities,
                     migrationsTableName,
+                    ssl: true,
                     namingStrategy: new TypeORMCustomNamingStrategy(),
                 };
 
