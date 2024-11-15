@@ -7,8 +7,7 @@ on:
 
 jobs:
   build:
-    # runs-on: self-hosted
-    runs-on: backend-runner
+    runs-on: self-hosted
     strategy:
       matrix:
         node-version: [20.x]
