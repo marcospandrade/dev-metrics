@@ -4,13 +4,16 @@ on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
+permissions: 
+  issues: write
+  contents: write
 
 jobs:
   build:
     runs-on: self-hosted
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
     - name: 'Cleanup build folder'
       run:  sudo rm -r ${{github.workspace}}/
