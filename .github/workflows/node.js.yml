@@ -1,0 +1,26 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    # runs-on: self-hosted
+    runs-on: backend-runner
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+    - name: 'Cleanup build folder'
+      run:  sudo rm -r ${{github.workspace}}/*
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: sudo npm install
+    - run: sudo npm run build
+    - run: pm2 start pm2.config.js 
