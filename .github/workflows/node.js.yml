@@ -29,6 +29,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: server/package-lock.json
         
-    - run: sudo npm install
-    - run: sudo npm run build
+    - run: npm install
+    - run: npm run build
     - run: pm2 start pm2.config.js 
