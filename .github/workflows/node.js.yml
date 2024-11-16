@@ -11,9 +11,13 @@ permissions:
 jobs:
   build:
     runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ${{github.workspace}}/server
     strategy:
       matrix:
         node-version: [22.x]
+  
     steps:
     - name: 'Cleanup build folder'
       run:  sudo rm -r ${{github.workspace}}/* || true
