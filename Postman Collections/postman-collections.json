@@ -17,9 +17,12 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "aabb170a-c841-4553-824d-eb2e1f149eb9",
+										"exec": [
+											""
+										],
 										"type": "text/javascript",
-										"exec": [],
-										"id": "aabb170a-c841-4553-824d-eb2e1f149eb9"
+										"packages": {}
 									}
 								}
 							],
@@ -34,7 +37,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "{{ _.token }}"
+										"token": "{{token}}"
 									}
 								},
 								"method": "GET",
@@ -44,7 +47,7 @@
 										"value": "insomnia/8.5.1"
 									}
 								],
-								"url": "{{ _.base_url }}/integration-server/user-accessible-resources"
+								"url": "{{base_url}}/api/v1/integration-server/user-accessible-resources"
 							},
 							"response": []
 						},
