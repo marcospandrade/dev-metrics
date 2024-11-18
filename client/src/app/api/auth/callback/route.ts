@@ -5,9 +5,8 @@ import { GenericHttpResponse, api } from '@/services/api';
 import { User } from '@/models/User.model';
 
 export async function GET(request: NextRequest) {
-  const searchParams  = request.nextUrl.searchParams;
+  const searchParams = request.nextUrl.searchParams;
   try {
-
     const code = searchParams.get('code');
     const state = searchParams.get('state');
 
@@ -18,9 +17,7 @@ export async function GET(request: NextRequest) {
       code,
       state,
     });
-
-    const redirectURL = redirectTo ?? new URL('/dashboard', request.nextUrl.basePath);
-
+    const redirectURL = redirectTo ?? new URL('/dashboard', request.nextUrl.origin);
     const cookieExpiresInSeconds = 60 * 60 * 24 * 30; // 30 days
 
     return NextResponse.redirect(redirectURL, {
@@ -29,7 +26,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error({ error });
     return NextResponse.redirect(new URL('/', request.nextUrl.basePath));
   }
 }

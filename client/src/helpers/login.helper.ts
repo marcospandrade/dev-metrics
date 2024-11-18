@@ -4,7 +4,9 @@ export class LoginHelper {
       process.env.NEXT_PUBLIC_JIRA_CLIENT_ID
     }&scope=${
       process.env.NEXT_PUBLIC_JIRA_SCOPES_REQUESTED
-    }&redirect_uri=${this.escapeUrl(process.env.NEXT_PUBLIC_LOCAL_URL!)}api%2Fauth%2Fcallback&state=${crypto.randomUUID()}&response_type=code&prompt=consent`;
+    }&redirect_uri=${
+      this.escapeUrl(process.env.NEXT_PUBLIC_LOCAL_URL!)
+    }api%2Fauth%2Fcallback&state=${crypto.randomUUID()}&response_type=code&prompt=consent`;
 
     return loginUrl;
   }

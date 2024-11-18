@@ -29,8 +29,6 @@ export default function CreateSprint() {
   const [sprintEndDate, setSprintEndDate] = useState<Date | undefined>(undefined);
 
   function onChangeStartDate(date: Date) {
-    console.log(`onChangeStartDate`, date);
-    console.log(isPast(date));
     if (isPast(addDays(date, 1))) {
       toast.warn('Start date must be greater than today');
       return;
