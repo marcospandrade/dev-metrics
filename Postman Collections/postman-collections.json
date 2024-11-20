@@ -44,7 +44,8 @@
 								"header": [
 									{
 										"key": "User-Agent",
-										"value": "insomnia/8.5.1"
+										"value": "insomnia/8.5.1",
+										"disabled": true
 									}
 								],
 								"url": "{{base_url}}/api/v1/integration-server/user-accessible-resources"
