@@ -122,11 +122,7 @@ export class CoreService {
 
         // app.enableShutdownHooks();
 
-        const allowedOrigins = [`http://localhost:${APP_PORT}`, 'http://localhost:3000'];
-
-        if (NODE_ENV !== 'production') {
-            allowedOrigins.push(URL_FRONT);
-        }
+        const allowedOrigins = [`http://localhost:${APP_PORT}`, 'http://localhost:3000', URL_FRONT];
 
         app.enableCors({
             origin: allowedOrigins,
