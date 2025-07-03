@@ -18,6 +18,27 @@ stop:
 down:
 	docker compose --env-file ./server/.env down
 
+dk-login: 
+	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 335995680086.dkr.ecr.us-east-1.amazonaws.com
+
+dk-build-client:
+	docker buildx build --platform linux/amd64 -t devmetrics:client-latest ./client --load
+
+dk-tag-client:
+	docker tag devmetrics:latest 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:client-latest
+
+dk-push-client:
+	docker push 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:client-latest
+
+dk-build-server:
+	docker buildx build --platform linux/amd64 -t devmetrics:latest ./server --load
+
+dk-tag-server:
+	docker tag devmetrics:latest 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:latest
+
+dk-push-server:
+	docker push 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:latest
+
 clean: down prune
 
 prune:
