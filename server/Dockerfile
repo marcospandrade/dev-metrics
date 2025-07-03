@@ -7,10 +7,14 @@ WORKDIR /usr/src/app
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY --chown=node:node package*.json ./
-COPY ./.env ./
+# COPY ./.env ./
 
 RUN npm install
 
 COPY --chown=node:node . .
 
+RUN npm run build
+
 USER node
+
+CMD ["npm", "run", "start:prod"]
