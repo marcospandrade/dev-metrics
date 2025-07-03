@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       code,
       state,
     });
-    const redirectURL = redirectTo ?? new URL('/dashboard', request.nextUrl.origin);
+    const redirectURL = redirectTo ?? new URL('/dashboard', 'https://devmetrics.com.br');
     const cookieExpiresInSeconds = 60 * 60 * 24 * 30; // 30 days
 
     return NextResponse.redirect(redirectURL, {

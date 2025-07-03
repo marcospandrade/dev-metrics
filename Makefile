@@ -25,7 +25,7 @@ dk-build-client:
 	docker buildx build --platform linux/amd64 -t devmetrics:client-latest ./client --load
 
 dk-tag-client:
-	docker tag devmetrics:latest 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:client-latest
+	docker tag devmetrics:client-latest 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:client-latest
 
 dk-push-client:
 	docker push 335995680086.dkr.ecr.us-east-1.amazonaws.com/devmetrics:client-latest

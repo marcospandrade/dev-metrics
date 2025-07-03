@@ -10,13 +10,12 @@ RUN npm ci
 
 # Copy all files and build
 COPY . .
+# Set environment to production
+ENV NODE_ENV=production
 RUN npm run build
 
 # Step 2: Serve the app using Next.js's built-in server
 FROM node:18-alpine AS runner
-
-# Set environment to production
-ENV NODE_ENV=production
 
 # Create app directory
 WORKDIR /app
